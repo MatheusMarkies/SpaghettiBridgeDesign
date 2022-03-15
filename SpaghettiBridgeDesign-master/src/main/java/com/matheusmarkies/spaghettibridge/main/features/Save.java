@@ -5,6 +5,10 @@
  */
 package com.matheusmarkies.spaghettibridge.main.features;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,24 +24,48 @@ import java.io.ObjectOutputStream;
 public class Save {
 
     public static void saveBridge(Bridge bridge) throws FileNotFoundException, IOException {
-        FileOutputStream fileOutput = new FileOutputStream(new File("D:\\Matheus Markies\\Downloads\\inserts.brd"));
-        ObjectOutputStream objectStream = new ObjectOutputStream(fileOutput);
 
-        objectStream.writeObject(bridge);
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        int returnValue = jfc.showOpenDialog(null);
 
-        objectStream.close();
-        fileOutput.close();
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+
+            String extension = "";
+
+            boolean changeFileExtension = true;
+            for (int i =0;i< selectedFile.toString().split("\\.").length;i++)
+                if(i > 0)
+                    if(selectedFile.toString().split("\\.")[i].equals("bridge"))
+                        changeFileExtension = false;
+
+            if(changeFileExtension)
+                extension = ".bridge";
+
+            File bridgeFile = new File(selectedFile.getAbsolutePath() + extension);
+
+            FileOutputStream fileOutput = new FileOutputStream(bridgeFile);
+            ObjectOutputStream objectStream = new ObjectOutputStream(fileOutput);
+
+            objectStream.writeObject(bridge);
+
+            objectStream.close();
+            fileOutput.close();
+        }
     }
 
-    public static Bridge openBridge() throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fileInput = new FileInputStream(new File("D:\\Matheus Markies\\Downloads\\inserts.brd"));
-        ObjectInputStream objectStream = new ObjectInputStream(fileInput);
+    public static Bridge openBridge(File selectedFile) throws FileNotFoundException, IOException, ClassNotFoundException {
+        Bridge bridge = null;
 
-        Bridge bridge = (Bridge) objectStream.readObject();
+            FileInputStream fileInput = new FileInputStream(selectedFile);
 
-        objectStream.close();
-        fileInput.close();
-        
+            ObjectInputStream objectStream = new ObjectInputStream(fileInput);
+
+            bridge = (Bridge) objectStream.readObject();
+
+            objectStream.close();
+            fileInput.close();
+
         return bridge;
     }
 }

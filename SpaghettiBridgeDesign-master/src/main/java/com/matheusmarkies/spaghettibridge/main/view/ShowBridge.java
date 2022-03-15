@@ -79,12 +79,12 @@ public class ShowBridge {
             Circle circleP = new Circle();
             Circle circleN = new Circle();
 
-            circleP.setCenterX(canvas_plane.getPrefWidth() / 2 - i * pointsOffset);
-            circleP.setCenterY(canvas_plane.getPrefHeight() / 2);
+            circleP.setCenterX(canvas_plane.getWidth() / 2 - i * pointsOffset);
+            circleP.setCenterY(canvas_plane.getHeight() / 2);
 
             if (i > 0) {
-                circleN.setCenterX(canvas_plane.getPrefWidth() / 2 + i * pointsOffset);
-                circleN.setCenterY(canvas_plane.getPrefHeight() / 2);
+                circleN.setCenterX(canvas_plane.getWidth() / 2 + i * pointsOffset);
+                circleN.setCenterY(canvas_plane.getHeight() / 2);
 
                 circleN.setRadius(1.0f);
                 cartesianPointsInPlane.add(circleN);
@@ -93,8 +93,8 @@ public class ShowBridge {
 
                 cartesianLabel.setText((i * pointsOffset)
                         + "");
-                cartesianLabel.setX(canvas_plane.getPrefWidth() / 2 + i * pointsOffset);
-                cartesianLabel.setY(canvas_plane.getPrefHeight() / 2 + labelOffset);
+                cartesianLabel.setX(canvas_plane.getWidth() / 2 + i * pointsOffset);
+                cartesianLabel.setY(canvas_plane.getHeight() / 2 + labelOffset);
 
                 cartesianLabel.setStyle("-fx-font: 8 System;");
 
@@ -109,8 +109,8 @@ public class ShowBridge {
 
                 cartesianLabel.setText((i * -pointsOffset)
                         + "");
-                cartesianLabel.setX(canvas_plane.getPrefWidth() / 2 - i * pointsOffset);
-                cartesianLabel.setY(canvas_plane.getPrefHeight() / 2 + labelOffset);
+                cartesianLabel.setX(canvas_plane.getWidth() / 2 - i * pointsOffset);
+                cartesianLabel.setY(canvas_plane.getHeight() / 2 + labelOffset);
 
                 cartesianLabel.setStyle("-fx-font: 8 System;");
                 canvas_plane.getChildren().add(cartesianLabel);
@@ -129,11 +129,11 @@ public class ShowBridge {
             Circle circleP = new Circle();
             Circle circleN = new Circle();
 
-            circleP.setCenterX(canvas_plane.getPrefWidth() / 2);
-            circleP.setCenterY(canvas_plane.getPrefHeight() / 2 - i * pointsOffset);
+            circleP.setCenterX(canvas_plane.getWidth() / 2);
+            circleP.setCenterY(canvas_plane.getHeight() / 2 - i * pointsOffset);
             if (i > 0) {
-                circleN.setCenterX(canvas_plane.getPrefWidth() / 2);
-                circleN.setCenterY(canvas_plane.getPrefHeight() / 2 + i * pointsOffset);
+                circleN.setCenterX(canvas_plane.getWidth() / 2);
+                circleN.setCenterY(canvas_plane.getHeight() / 2 + i * pointsOffset);
                 circleN.setRadius(1.0f);
                 cartesianPointsInPlane.add(circleN);
 
@@ -141,8 +141,8 @@ public class ShowBridge {
 
                 cartesianLabel.setText((i * -pointsOffset)
                         + "");
-                cartesianLabel.setX(canvas_plane.getPrefWidth() / 2 + labelOffset);
-                cartesianLabel.setY(canvas_plane.getPrefHeight() / 2 + i * pointsOffset);
+                cartesianLabel.setX(canvas_plane.getWidth() / 2 + labelOffset);
+                cartesianLabel.setY(canvas_plane.getHeight() / 2 + i * pointsOffset);
 
                 cartesianLabel.setStyle("-fx-font: 8 System;");
 
@@ -156,8 +156,8 @@ public class ShowBridge {
 
             cartesianLabel.setText((i * pointsOffset)
                     + "");
-            cartesianLabel.setX(canvas_plane.getPrefWidth() / 2 + labelOffset);
-            cartesianLabel.setY(canvas_plane.getPrefHeight() / 2 - i * pointsOffset);
+            cartesianLabel.setX(canvas_plane.getWidth() / 2 + labelOffset);
+            cartesianLabel.setY(canvas_plane.getHeight() / 2 - i * pointsOffset);
 
             cartesianLabel.setStyle("-fx-font: 8 System;");
 
@@ -177,14 +177,14 @@ public class ShowBridge {
         for (Node entry : bridgeMain.bridgeManager.getNodes()) {
             Circle circle = new Circle();
 
-            circle.setCenterX(entry.getPosition().x() + canvas_plane.getPrefWidth() / 2);
-            circle.setCenterY(-entry.getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            circle.setCenterX(entry.getPosition().x() + canvas_plane.getWidth() / 2);
+            circle.setCenterY(-entry.getPosition().y() + canvas_plane.getHeight() / 2);
 
             Text nodeLabel = new Text();
 
             nodeLabel.setText(entry.getNodeName());
-            nodeLabel.setX(entry.getPosition().x() + canvas_plane.getPrefWidth() / 2);
-            nodeLabel.setY((-entry.getPosition().y() + canvas_plane.getPrefHeight() / 2) - 1f);
+            nodeLabel.setX(entry.getPosition().x() + canvas_plane.getWidth() / 2);
+            nodeLabel.setY((-entry.getPosition().y() + canvas_plane.getHeight() / 2) - 1f);
 
             circle.setRadius(4.0f);
 
@@ -212,7 +212,7 @@ public class ShowBridge {
         boolean change = false;
 
         Vector2D cursorPosition = new Vector2D(
-                n.getTranslateX() + event.getX() - mainFrameController.getCanvasPlane().getPrefWidth() / 2, -(n.getTranslateY() + event.getY() - mainFrameController.getCanvasPlane().getPrefHeight() / 2)
+                n.getTranslateX() + event.getX() - mainFrameController.getCanvasPlane().getWidth() / 2, -(n.getTranslateY() + event.getY() - mainFrameController.getCanvasPlane().getHeight() / 2)
         );
 
         if (bridgeMain.bridgeManager.getNodes().size() > 0) {
@@ -262,13 +262,13 @@ public class ShowBridge {
 //        javafx.scene.Node n = (javafx.scene.Node) event.getSource();
 //
 //        Vector2D cursorPosition = new Vector2D(
-//                event.getX() - mainFrameController.getCanvasPlane().getPrefWidth() / 2,
-//                event.getY() - mainFrameController.getCanvasPlane().getPrefHeight() / 2
+//                event.getX() - mainFrameController.getCanvasPlane().getWidth() / 2,
+//                event.getY() - mainFrameController.getCanvasPlane().getHeight() / 2
 //        );
 //        
 //        Vector2D position = new Vector2D(
-//                n.getTranslateX() + event.getX() - mainFrameController.getCanvasPlane().getPrefWidth() / 2,
-//                n.getTranslateY() + event.getY() - mainFrameController.getCanvasPlane().getPrefHeight() / 2
+//                n.getTranslateX() + event.getX() - mainFrameController.getCanvasPlane().getWidth() / 2,
+//                n.getTranslateY() + event.getY() - mainFrameController.getCanvasPlane().getHeight() / 2
 //        );
 //        
 //        Node nodeSelected = bridgeMain.bridgeManager.getNodes().get(0);
@@ -324,11 +324,11 @@ public class ShowBridge {
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
 
-            Vector2D nodeStartPosition = new Vector2D(entry.getNodeStart().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                    -entry.getNodeStart().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            Vector2D nodeStartPosition = new Vector2D(entry.getNodeStart().getPosition().x() + canvas_plane.getWidth() / 2,
+                    -entry.getNodeStart().getPosition().y() + canvas_plane.getHeight() / 2);
 
-            Vector2D nodeEndPosition = new Vector2D(entry.getNodeEnd().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                    -entry.getNodeEnd().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            Vector2D nodeEndPosition = new Vector2D(entry.getNodeEnd().getPosition().x() + canvas_plane.getWidth() / 2,
+                    -entry.getNodeEnd().getPosition().y() + canvas_plane.getHeight() / 2);
 
             line.setStartX(nodeStartPosition.x());
             line.setStartY(nodeStartPosition.y());
@@ -341,14 +341,14 @@ public class ShowBridge {
 
             barLabel.setText(entry.getBarName());
 
-            double widthPosition = (Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).x() + canvas_plane.getPrefWidth() / 2);
+            double widthPosition = (Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).x() + canvas_plane.getWidth() / 2);
 
             if ((entry.getNodeEnd().getPosition().x() - entry.getNodeStart().getPosition().x()) < 0) {
                 barLabel.setX(widthPosition - 10f);
-                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getPrefHeight() / 2) + 0.5f);
+                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getHeight() / 2) + 0.5f);
             } else {
                 barLabel.setX(widthPosition + 10f);
-                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getPrefHeight() / 2) - 0.5f);
+                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getHeight() / 2) - 0.5f);
             }
 
             barsLabelsInPlane.add(barLabel);
@@ -366,11 +366,11 @@ public class ShowBridge {
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
 
-            Vector2D nodeStartPosition = new Vector2D(entry.getNodeStart().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                    -entry.getNodeStart().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            Vector2D nodeStartPosition = new Vector2D(entry.getNodeStart().getPosition().x() + canvas_plane.getWidth() / 2,
+                    -entry.getNodeStart().getPosition().y() + canvas_plane.getHeight() / 2);
 
-            Vector2D nodeEndPosition = new Vector2D(entry.getNodeEnd().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                    -entry.getNodeEnd().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            Vector2D nodeEndPosition = new Vector2D(entry.getNodeEnd().getPosition().x() + canvas_plane.getWidth() / 2,
+                    -entry.getNodeEnd().getPosition().y() + canvas_plane.getHeight() / 2);
 
             line.setStartX(nodeStartPosition.x());
             line.setStartY(nodeStartPosition.y());
@@ -383,14 +383,14 @@ public class ShowBridge {
 
             barLabel.setText(entry.getBarName() + " " + (int) entry.getBarForce() + "N");
 
-            double widthPosition = (Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).x() + canvas_plane.getPrefWidth() / 2);
+            double widthPosition = (Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).x() + canvas_plane.getWidth() / 2);
 
             if ((entry.getNodeEnd().getPosition().x() - entry.getNodeStart().getPosition().x()) < 0) {
                 barLabel.setX(widthPosition - 10f);
-                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getPrefHeight() / 2) + 0.5f);
+                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getHeight() / 2) + 0.5f);
             } else {
                 barLabel.setX(widthPosition + 10f);
-                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getPrefHeight() / 2) - 0.5f);
+                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getHeight() / 2) - 0.5f);
             }
 
             barsLabelsInPlane.add(barLabel);
@@ -407,11 +407,11 @@ public class ShowBridge {
     public void vectorsBarsView() {
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
 
-            Vector2D nodeStartPosition = new Vector2D(entry.getNodeStart().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                    -entry.getNodeStart().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            Vector2D nodeStartPosition = new Vector2D(entry.getNodeStart().getPosition().x() + canvas_plane.getWidth() / 2,
+                    -entry.getNodeStart().getPosition().y() + canvas_plane.getHeight() / 2);
 
-            Vector2D nodeEndPosition = new Vector2D(entry.getNodeEnd().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                    -entry.getNodeEnd().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            Vector2D nodeEndPosition = new Vector2D(entry.getNodeEnd().getPosition().x() + canvas_plane.getWidth() / 2,
+                    -entry.getNodeEnd().getPosition().y() + canvas_plane.getHeight() / 2);
 
             Arrow arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.CORAL, true);
             Arrow arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.CORAL, true);
@@ -431,14 +431,14 @@ public class ShowBridge {
 
             barLabel.setText((int) entry.getBarForce() + "N");
 
-            double widthPosition = (Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).x() + canvas_plane.getPrefWidth() / 2);
+            double widthPosition = (Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).x() + canvas_plane.getWidth() / 2);
 
             if ((entry.getNodeEnd().getPosition().x() - entry.getNodeStart().getPosition().x()) < 0) {
                 barLabel.setX(widthPosition - 10f);
-                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getPrefHeight() / 2) + 0.5f);
+                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getHeight() / 2) + 0.5f);
             } else {
                 barLabel.setX(widthPosition + 10f);
-                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getPrefHeight() / 2) - 0.5f);
+                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getHeight() / 2) - 0.5f);
             }
 
             arrowInPlane.add(arrowA);
@@ -449,15 +449,15 @@ public class ShowBridge {
             //showArcs();
         }
 
-        Vector2D nodeStartPosition = new Vector2D(bridgeMain.bridgeManager.getMiddleNode().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                -bridgeMain.bridgeManager.getMiddleNode().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+        Vector2D nodeStartPosition = new Vector2D(bridgeMain.bridgeManager.getMiddleNode().getPosition().x() + canvas_plane.getWidth() / 2,
+                -bridgeMain.bridgeManager.getMiddleNode().getPosition().y() + canvas_plane.getHeight() / 2);
 
         Text barLabel = new Text();
 
         barLabel.setText("100" + "N");
 
-        barLabel.setX(Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).x() + 10f + canvas_plane.getPrefWidth() / 2);
-        barLabel.setY((-Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).y() + canvas_plane.getPrefHeight() / 2) - 0.5f);
+        barLabel.setX(Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).x() + 10f + canvas_plane.getWidth() / 2);
+        barLabel.setY((-Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).y() + canvas_plane.getHeight() / 2) - 0.5f);
 
         Arrow arrowP = new Arrow(nodeStartPosition,
                 Vector2D.add(nodeStartPosition, new Vector2D(0, 40)),
@@ -473,11 +473,11 @@ public class ShowBridge {
     public void freeBodyDiagramBarsView() {
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
 
-            Vector2D nodeStartPosition = new Vector2D(entry.getNodeStart().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                    -entry.getNodeStart().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            Vector2D nodeStartPosition = new Vector2D(entry.getNodeStart().getPosition().x() + canvas_plane.getWidth() / 2,
+                    -entry.getNodeStart().getPosition().y() + canvas_plane.getHeight() / 2);
 
-            Vector2D nodeEndPosition = new Vector2D(entry.getNodeEnd().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                    -entry.getNodeEnd().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+            Vector2D nodeEndPosition = new Vector2D(entry.getNodeEnd().getPosition().x() + canvas_plane.getWidth() / 2,
+                    -entry.getNodeEnd().getPosition().y() + canvas_plane.getHeight() / 2);
 
             Arrow arrowA = new Arrow(new Vector2D(0, 0), new Vector2D(0, 0), 0, Color.CORAL, false);
             Arrow arrowB = new Arrow(new Vector2D(0, 0), new Vector2D(0, 0), 0, Color.CORAL, false);
@@ -508,14 +508,14 @@ public class ShowBridge {
 //
 //            barLabel.setText((int) entry.getBarForce() + "N");
 //
-//            double widthPosition = (Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).x() + canvas_plane.getPrefWidth() / 2);
+//            double widthPosition = (Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).x() + canvas_plane.getWidth() / 2);
 //
 //            if ((entry.getNodeEnd().getPosition().x() - entry.getNodeStart().getPosition().x()) < 0) {
 //                barLabel.setX(widthPosition - 10f);
-//                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getPrefHeight() / 2) + 0.5f);
+//                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getHeight() / 2) + 0.5f);
 //            } else {
 //                barLabel.setX(widthPosition + 10f);
-//                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getPrefHeight() / 2) - 0.5f);
+//                barLabel.setY((-Vector2D.getCenter(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition()).y() + canvas_plane.getHeight() / 2) - 0.5f);
 //            }
             arrowInPlane.add(arrowA);
             arrowInPlane.add(arrowB);
@@ -525,15 +525,15 @@ public class ShowBridge {
             //showArcs();
         }
 
-        Vector2D nodeStartPosition = new Vector2D(bridgeMain.bridgeManager.getMiddleNode().getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                -bridgeMain.bridgeManager.getMiddleNode().getPosition().y() + canvas_plane.getPrefHeight() / 2);
+        Vector2D nodeStartPosition = new Vector2D(bridgeMain.bridgeManager.getMiddleNode().getPosition().x() + canvas_plane.getWidth() / 2,
+                -bridgeMain.bridgeManager.getMiddleNode().getPosition().y() + canvas_plane.getHeight() / 2);
 
         Text barLabel = new Text();
 
         barLabel.setText("100" + "N");
 
-        barLabel.setX(Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).x() + 10f + canvas_plane.getPrefWidth() / 2);
-        barLabel.setY((-Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).y() + canvas_plane.getPrefHeight() / 2) - 0.5f);
+        barLabel.setX(Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).x() + 10f + canvas_plane.getWidth() / 2);
+        barLabel.setY((-Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).y() + canvas_plane.getHeight() / 2) - 0.5f);
 
         Arrow arrowP = new Arrow(nodeStartPosition,
                 Vector2D.add(nodeStartPosition, new Vector2D(0, 40)),
@@ -555,11 +555,11 @@ public class ShowBridge {
                 for (ReactionForces reation : entry.getExternalForces()) {
                     Line line = new Line();
 
-                    Vector2D nodeStartPosition = new Vector2D(entry.getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                            -entry.getPosition().y() + canvas_plane.getPrefHeight() / 2);
+                    Vector2D nodeStartPosition = new Vector2D(entry.getPosition().x() + canvas_plane.getWidth() / 2,
+                            -entry.getPosition().y() + canvas_plane.getHeight() / 2);
 
-                    Vector2D nodeEndPosition = new Vector2D(entry.getPosition().x() + canvas_plane.getPrefWidth() / 2 + 30 * reation.getForceDirection().x(),
-                            -entry.getPosition().y() + canvas_plane.getPrefHeight() / 2 - 30 * reation.getForceDirection().y());
+                    Vector2D nodeEndPosition = new Vector2D(entry.getPosition().x() + canvas_plane.getWidth() / 2 + 30 * reation.getForceDirection().x(),
+                            -entry.getPosition().y() + canvas_plane.getHeight() / 2 - 30 * reation.getForceDirection().y());
 
                     line.setStartX(nodeStartPosition.x());
                     line.setStartY(nodeStartPosition.y());
@@ -607,8 +607,8 @@ public class ShowBridge {
     void setTrussArc(Node center, Node TargetA, Node TargetB) {
         Arc arc = new Arc();
 
-        Vector2D nodeStartPosition = new Vector2D(center.getPosition().x() + canvas_plane.getPrefWidth() / 2,
-                -center.getPosition().y() + canvas_plane.getPrefHeight() / 2);
+        Vector2D nodeStartPosition = new Vector2D(center.getPosition().x() + canvas_plane.getWidth() / 2,
+                -center.getPosition().y() + canvas_plane.getHeight() / 2);
 
         Vector2D dirA = Vector2D.subtract(TargetA.getPosition(), center.getPosition());
         Vector2D dirB = Vector2D.subtract(TargetB.getPosition(), center.getPosition());

@@ -9,7 +9,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -19,9 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <VBox prefHeight="700.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matheusmarkies.spaghettibridge.main.MainFrameController">
    <children>
@@ -29,7 +26,6 @@
          <menus>
             <Menu mnemonicParsing="false" text="Arquivo">
                <items>
-                  <MenuItem mnemonicParsing="false" text="New" />
                   <MenuItem mnemonicParsing="false" onAction="#menuOpitionOpenAction" text="Open…" />
                   <Menu mnemonicParsing="false" text="Open Recent" />
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -69,11 +65,22 @@
             </Menu>
          </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.16369710467706014, 0.8997772828507795" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.032991202346041054, 0.8636363636363636" focusTraversable="true" prefHeight="662.0" prefWidth="1271.0" VBox.vgrow="ALWAYS">
          <items>
-            <AnchorPane fx:id="master_plane" prefHeight="660.0" prefWidth="132.0">
+            <AnchorPane prefHeight="660.0" prefWidth="54.0">
                <children>
-                  <Label fx:id="master_plane_toplabel" alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Principal" textAlignment="CENTER" wrapText="false">
+                  <Button fx:id="create_node_button" layoutX="2.0" layoutY="28.0" mnemonicParsing="false" onAction="#createNodeButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0" />
+                  <Button fx:id="create_bar_button" layoutX="2.0" layoutY="73.0" mnemonicParsing="false" onAction="#createBarButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="45.0" />
+                  <Button fx:id="assembler_equations" layoutX="3.0" layoutY="116.0" mnemonicParsing="false" onAction="#assembleEquationsButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="80.0" />
+                  <Button fx:id="calculate_wires" layoutX="13.0" layoutY="126.0" mnemonicParsing="false" onAction="#wireCalculatorButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="115.0" />
+                  <Button fx:id="set_measure" layoutX="23.0" layoutY="136.0" mnemonicParsing="false" onAction="#setMeasureButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="150.0" />
+                  <Button layoutX="23.0" layoutY="136.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="595.0" />
+                  <Button layoutX="33.0" layoutY="146.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="630.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="canvas_plane">
+               <children>
+                  <Label fx:id="details_toplabel" alignment="CENTER" style="&#10;" text="Visualização" textAlignment="CENTER" wrapText="false">
                      <font>
                         <Font size="18.0" fx:id="x1" />
                      </font>
@@ -81,44 +88,8 @@
                         <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                      </textFill>
                   </Label>
-                  <Button fx:id="create_node_button" layoutX="47.0" layoutY="60.0" mnemonicParsing="false" onAction="#createNodeButtonAction" prefHeight="25.0" prefWidth="32.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="116.0" />
-                  <Button fx:id="create_bar_button" layoutX="85.0" layoutY="60.0" mnemonicParsing="false" onAction="#createBarButtonAction" prefHeight="25.0" prefWidth="32.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="78.0" />
-                  <Button fx:id="assembler_equations" layoutX="48.0" layoutY="92.0" mnemonicParsing="false" onAction="#assembleEquationsButtonAction" prefHeight="25.0" prefWidth="42.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="116.0" />
-                  <Button fx:id="calculate_wires" layoutX="85.0" layoutY="92.0" mnemonicParsing="false" onAction="#wireCalculatorButtonAction" prefHeight="25.0" prefWidth="32.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="78.0" />
-                  <Button fx:id="set_measure" layoutX="48.0" layoutY="123.0" mnemonicParsing="false" onAction="#setMeasureButtonAction" prefHeight="25.0" prefWidth="32.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="115.0" />
-                  <Button fx:id="deformation_button" layoutX="10.0" layoutY="213.0" mnemonicParsing="false" onAction="#deformationButtonAction" text="Deformação" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="53.0" />
-                  <Slider fx:id="force_slider" layoutX="4.0" layoutY="269.0" max="1.0" value="1.0" visible="false" />
-                  <Label fx:id="force_slider_label" layoutX="14.0" layoutY="252.0" text="Force:" visible="false" />
                </children>
             </AnchorPane>
-            <ScrollPane fx:id="canvas_scroll_plane" prefHeight="-1.0" prefWidth="-1.0">
-               <content>
-                  <AnchorPane id="Content" fx:id="canvas_plane" minHeight="-1.0" minWidth="-1.0" prefHeight="722.0" prefWidth="955.0">
-                     <children>
-                        <Label fx:id="canvas_plane_toplabel" alignment="CENTER" layoutX="14.0" layoutY="13.0" style="&#10;" text="Visualização" textAlignment="CENTER" wrapText="false">
-                           <font>
-                              <Font size="18.0" fx:id="x5" />
-                           </font>
-                           <textFill>
-                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x6" />
-                           </textFill>
-                        </Label>
-                        <Line fx:id="cartesian_system_X" accessibleRole="PARENT" endX="310.0" layoutX="403.0" layoutY="360.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.55" startX="-691.5" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Line fx:id="cartesian_system_Y" accessibleRole="PARENT" endY="355.0" layoutX="502.0" layoutY="360.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.55" startY="-360.0" visible="false" AnchorPane.bottomAnchor="0.5" AnchorPane.leftAnchor="501.5" AnchorPane.rightAnchor="499.5" AnchorPane.topAnchor="-0.5" />
-                        <Text layoutX="314.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y" visible="false">
-                           <font>
-                              <Font size="22.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="604.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" visible="false">
-                           <font>
-                              <Font size="22.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
             <AnchorPane fx:id="log_plane">
                <children>
                   <TabPane prefHeight="660.0" prefWidth="183.0" tabClosingPolicy="UNAVAILABLE">
@@ -127,9 +98,16 @@
                            <content>
                               <ScrollPane fx:id="log_scroll_plane" prefHeight="680.0" prefWidth="200.0">
                                 <content>
-                                  <AnchorPane fx:id="log_console_plane" minHeight="0.0" minWidth="0.0" prefHeight="821.0" prefWidth="485.0">
+                                  <AnchorPane fx:id="log_console_plane" minHeight="0.0" minWidth="0.0" prefHeight="821.0" prefWidth="327.0">
                                        <children>
-                                          <Label fx:id="details_toplabel" alignment="CENTER" font="$x1" layoutX="15.0" layoutY="-1.0" style="&#10;" text="Saida" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                                          <Label fx:id="details_toplabel1" alignment="CENTER" layoutX="5.0" layoutY="3.0" style="&#10;" text="Saida" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="3.0">
+                                             <font>
+                                                <Font size="18.0" fx:id="x11" />
+                                             </font>
+                                             <textFill>
+                                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                                             </textFill>
+                                          </Label>
                                        </children>
                                     </AnchorPane>
                                 </content>

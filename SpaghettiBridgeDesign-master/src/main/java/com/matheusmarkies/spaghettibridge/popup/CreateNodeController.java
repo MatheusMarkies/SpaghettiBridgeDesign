@@ -88,8 +88,8 @@ public class CreateNodeController implements Initializable {
             } catch (Exception e) {
             }
 
-            point.setCenterX(X + mainFrameController.getCanvasPlane().getPrefWidth() / 2);
-            point.setCenterY(-Y + mainFrameController.getCanvasPlane().getPrefHeight() / 2);
+            point.setCenterX(X + mainFrameController.getCanvasPlane().getWidth() / 2);
+            point.setCenterY(-Y + mainFrameController.getCanvasPlane().getHeight() / 2);
             point.setRadius(5);
 
             mainFrameController.addObjectToCanvas(point);
@@ -101,8 +101,8 @@ public class CreateNodeController implements Initializable {
         Node n = (Node) event.getSource();
 
         Vector2D position = new Vector2D(
-                n.getTranslateX() + event.getX() - mainFrameController.getCanvasPlane().getPrefWidth() / 2,
-                n.getTranslateY() + event.getY() - mainFrameController.getCanvasPlane().getPrefHeight() / 2
+                n.getTranslateX() + event.getX() - mainFrameController.getCanvasPlane().getWidth() / 2,
+                n.getTranslateY() + event.getY() - mainFrameController.getCanvasPlane().getHeight() / 2
         );
 
         n.setTranslateX(mainFrameController.getGrid().clampMouse(position).x());

@@ -5,12 +5,13 @@
  */
 package com.matheusmarkies.spaghettibridge.main;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
+import com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -48,6 +51,10 @@ import com.matheusmarkies.spaghettibridge.popup.ConfigMaterialController;
 import com.matheusmarkies.spaghettibridge.popup.CreateMeasureController;
 import com.matheusmarkies.spaghettibridge.popup.CreateNodeController;
 import com.matheusmarkies.spaghettibridge.popup.SetTestLoadController;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * FXML Controller class
@@ -355,14 +362,14 @@ public class MainFrameController implements Initializable {
         consoleManager = new ConsoleManager(log_console_plane);
         grid = new Grid(this);
 
-        force_slider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                bridgeMain.bridgeManager.setTestLoadInAction(bridgeMain.bridgeManager.getTestLoadForce() * (double) newValue);
-                force_slider_label.setVisible(true);
-                force_slider_label.setText("Carga de teste: " + Math.round(bridgeMain.bridgeManager.getTestLoadInAction() * 100) / 100 + "N");
-                calculateBarForces();
-            }
-        });
+       // force_slider.valueProperty().addListener(new ChangeListener<Number>() {
+            //public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            //    bridgeMain.bridgeManager.setTestLoadInAction(bridgeMain.bridgeManager.getTestLoadForce() * (double) newValue);
+            //    force_slider_label.setVisible(true);
+            //    force_slider_label.setText("Carga de teste: " + Math.round(bridgeMain.bridgeManager.getTestLoadInAction() * 100) / 100 + "N");
+           //     calculateBarForces();
+          //  }
+        //});
 
         bridge_table_view_bar.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
@@ -386,35 +393,35 @@ public class MainFrameController implements Initializable {
             return row;
         });
 
-        //URL resource = com.matheusmarkies.spaghettibridge.resources.Resources.class
-                //.getResource("bridge-nodes.png");
-        //changeButtonImage(create_node_button, resource);
+        URL resource = MainFrameController.class
+                .getResource("/com/matheusmarkies/spaghettibridge/resources/bridge-nodes.png");
+        changeButtonImage(create_node_button, resource);
 
-        //resource = com.matheusmarkies.spaghettibridge.resources.Resources.class
-                //.getResource("bridge-bars.png");
-        //changeButtonImage(create_bar_button, resource);
+        resource = MainFrameController.class
+                .getResource("/com/matheusmarkies/spaghettibridge/resources/bridge-bars.png");
+        changeButtonImage(create_bar_button, resource);
 
-        //resource = com.matheusmarkies.spaghettibridge.resources.Resources.class
-                //.getResource("calculate-wires.png");
-        //changeButtonImage(calculate_wires, resource);
+        resource = MainFrameController.class
+                .getResource("/com/matheusmarkies/spaghettibridge/resources/calculate-wires.png");
+        changeButtonImage(calculate_wires, resource);
 
-        //resource = com.matheusmarkies.spaghettibridge.resources.Resources.class
-                //.getResource("assembler-equations.png");
-        //changeButtonImage(assembler_equations, resource);
+        resource = MainFrameController.class
+                .getResource("/com/matheusmarkies/spaghettibridge/resources/assembler-equations.png");
+        changeButtonImage(assembler_equations, resource);
 
-        //resource = com.matheusmarkies.spaghettibridge.resources.Resources.class
-                //.getResource("set-measure.png");
-        //changeButtonImage(set_measure, resource);
+        resource = MainFrameController.class
+                .getResource("/com/matheusmarkies/spaghettibridge/resources/set-measure.png");
+        changeButtonImage(set_measure, resource);
     }
 
-    //void changeButtonImage(Button button, URL resource) {
-        //Image buttonImage = new Image(
-                //resource.toString()
-        //);
+    void changeButtonImage(Button button, URL resource) {
+        Image buttonImage = new Image(
+                resource.toString()
+        );
 
-        //ImageView toggleImage = new ImageView(buttonImage);
-        //button.setGraphic(toggleImage);
-    //}
+        ImageView toggleImage = new ImageView(buttonImage);
+        button.setGraphic(toggleImage);
+    }
 
     @FXML
     void setMeasureButtonAction(ActionEvent event) {
@@ -496,32 +503,43 @@ public class MainFrameController implements Initializable {
     void menuOpitionOpenAction(ActionEvent event) {
         bridgeMain.bridgeManager.reset();
 
-        try {
-            Bridge bridge = Save.openBridge();
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        FileFilter bridgeFilter = new FileTypeFilter(".bridge", "Spaghetti Bridge Design Documents");
 
-            for (BarSerializable bar : bridge.getBars()) {
-                bridgeMain.bridgeManager.addBar(Bar.barSerializableToBar(bar));
-            }
-            for (NodeSerializable node : bridge.getNodes()) {
-                bridgeMain.bridgeManager.addNode(node.nodeSerializableToNode(bridgeMain.bridgeManager.getBars()));
-            }
+        jfc.setFileFilter(bridgeFilter);
+        int returnValue = jfc.showOpenDialog(null);
 
-            for (Bar bar : bridgeMain.bridgeManager.getBars())
-                for (com.matheusmarkies.spaghettibridge.objects.node.Node node : bridgeMain.bridgeManager.getNodes()) {
-                    if (bar.getNodeStart().getNodeName().equals(node.getNodeName()))
-                        bar.setNodeStart(node);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getCurrentDirectory();
 
-                    if (bar.getNodeEnd().getNodeName().equals(node.getNodeName()))
-                        bar.setNodeEnd(node);
+            try {
+                Bridge bridge = Save.openBridge(selectedFile);
+
+                for (BarSerializable bar : bridge.getBars()) {
+                    bridgeMain.bridgeManager.addBar(Bar.barSerializableToBar(bar));
+                }
+                for (NodeSerializable node : bridge.getNodes()) {
+                    bridgeMain.bridgeManager.addNode(node.nodeSerializableToNode(bridgeMain.bridgeManager.getBars()));
                 }
 
-            showBridge.showNodes();
-            showBridge.showBars();
-            showBridge.showReactions();
-        } catch (IOException ex) {
+                for (Bar bar : bridgeMain.bridgeManager.getBars())
+                    for (com.matheusmarkies.spaghettibridge.objects.node.Node node : bridgeMain.bridgeManager.getNodes()) {
+                        if (bar.getNodeStart().getNodeName().equals(node.getNodeName()))
+                            bar.setNodeStart(node);
 
-        } catch (ClassNotFoundException ex) {
+                        if (bar.getNodeEnd().getNodeName().equals(node.getNodeName()))
+                            bar.setNodeEnd(node);
+                    }
 
+                showBridge.showNodes();
+                showBridge.showBars();
+                showBridge.showReactions();
+
+            } catch (IOException ex) {
+                System.err.println(ex);
+            } catch (ClassNotFoundException ex) {
+                System.err.println(ex);
+            }
         }
     }
 

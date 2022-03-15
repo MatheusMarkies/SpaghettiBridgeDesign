@@ -37,7 +37,7 @@ public class ConsoleManager {
         logLabel.setText(log);
         
         logLabel.setLayoutX(6);
-        logLabel.setLayoutY(6 + (logs.size()) * 14);
+        logLabel.setLayoutY(22 + (logs.size()) * 14);
         logs.add(logLabel);
     
         consolePlane.getChildren().add(logLabel);

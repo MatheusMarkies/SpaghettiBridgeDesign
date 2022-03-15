@@ -52,11 +52,11 @@ public class CreateMeasureController implements Initializable {
                     else if (node.getNodeName().equals(measure_end_node.getValue()))
                         nodeEnd = node;
 
-                Vector2D nodeStartPosition = new Vector2D(nodeStart.getPosition().x() + mainFrameController.getCanvasPlane().getPrefWidth() / 2,
-                        -nodeStart.getPosition().y() + mainFrameController.getCanvasPlane().getPrefHeight() / 2);
+                Vector2D nodeStartPosition = new Vector2D(nodeStart.getPosition().x() + mainFrameController.getCanvasPlane().getWidth() / 2,
+                        -nodeStart.getPosition().y() + mainFrameController.getCanvasPlane().getHeight() / 2);
 
-                Vector2D nodeEndPosition = new Vector2D(nodeEnd.getPosition().x() + mainFrameController.getCanvasPlane().getPrefWidth() / 2,
-                        -nodeEnd.getPosition().y() + mainFrameController.getCanvasPlane().getPrefHeight() / 2);
+                Vector2D nodeEndPosition = new Vector2D(nodeEnd.getPosition().x() + mainFrameController.getCanvasPlane().getWidth() / 2,
+                        -nodeEnd.getPosition().y() + mainFrameController.getCanvasPlane().getHeight() / 2);
 
                 com.matheusmarkies.spaghettibridge.objects.fx.Measure measure = new Measure(nodeStartPosition,
                         nodeEndPosition,
@@ -118,11 +118,11 @@ public class CreateMeasureController implements Initializable {
                     else if (node.getNodeName().equals(measure_end_node.getValue()))
                         nodeEnd = node;
 
-                Vector2D nodeStartPosition = new Vector2D(nodeStart.getPosition().x() + mainFrameController.getCanvasPlane().getPrefWidth() / 2,
-                        -nodeStart.getPosition().y() + mainFrameController.getCanvasPlane().getPrefHeight() / 2);
+                Vector2D nodeStartPosition = new Vector2D(nodeStart.getPosition().x() + mainFrameController.getCanvasPlane().getWidth() / 2,
+                        -nodeStart.getPosition().y() + mainFrameController.getCanvasPlane().getHeight() / 2);
 
-                Vector2D nodeEndPosition = new Vector2D(nodeEnd.getPosition().x() + mainFrameController.getCanvasPlane().getPrefWidth() / 2,
-                        -nodeEnd.getPosition().y() + mainFrameController.getCanvasPlane().getPrefHeight() / 2);
+                Vector2D nodeEndPosition = new Vector2D(nodeEnd.getPosition().x() + mainFrameController.getCanvasPlane().getWidth() / 2,
+                        -nodeEnd.getPosition().y() + mainFrameController.getCanvasPlane().getHeight() / 2);
 
                 com.matheusmarkies.spaghettibridge.objects.fx.Measure measure = new Measure(nodeStartPosition,
                         nodeEndPosition,
