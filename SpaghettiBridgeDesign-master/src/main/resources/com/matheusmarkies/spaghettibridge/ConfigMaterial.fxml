@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="232.0" prefWidth="219.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.matheusmarkies.spaghettibridge.popup.ConfigMaterialController">
+    <stylesheets>
+        <URL value="@configmaterial.css" />
+    </stylesheets>
+   <children>
+      <TextField fx:id="tensilestrengthmaximumload_inputfield" layoutX="35.0" layoutY="32.0" promptText="Carga limite de resistência à tração..." />
+      <Label layoutX="14.0" layoutY="7.0" prefHeight="25.0" prefWidth="192.0" text="Carga limite de resistência à tração:" />
+      <TextField fx:id="elasticitymodulus_inputfield" layoutX="35.0" layoutY="76.0" promptText="Módulo de elasticidade..." />
+      <Label layoutX="46.0" layoutY="54.0" prefHeight="25.0" prefWidth="132.0" text="Módulo de elasticidade:" textAlignment="CENTER" />
+      <TextField fx:id="diameter_inputfield" layoutX="36.0" layoutY="123.0" promptText="Diâmetro do fio..." />
+      <Label layoutX="67.0" layoutY="100.0" prefHeight="25.0" prefWidth="91.0" text="Diâmetro do fio:" />
+      <TextField fx:id="safetycoefficient_inputfield" layoutX="37.0" layoutY="170.0" promptText="Coeficiente de segurança..." />
+      <Label layoutX="43.0" layoutY="148.0" prefHeight="25.0" prefWidth="140.0" text="Coeficiente de segurança:" />
+      <Button fx:id="save_button" layoutX="85.0" layoutY="201.0" mnemonicParsing="false" onAction="#saveButtonAction" text="Salvar" />
+   </children>
+</AnchorPane>

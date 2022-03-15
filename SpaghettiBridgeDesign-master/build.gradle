@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+   // id 'org.beryx.jlink' version '2.12.0'
+}
+
+group 'com.matheusmarkies'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+//application{
+ //   mainClassName("com.matheusmarkies.spaghettibridge.main.Main")
+ //  mainModule.set("com.matheusmarkies.spaghettibridge")
+//}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+javafx{
+    modules = ['javafx.swing',
+               'javafx.graphics',
+               'javafx.fxml',
+               'javafx.media',
+               'javafx.controls']
+    version = '11.0.2'
+}
+
+mainClassName = 'com.matheusmarkies.spaghettibridge.main.Main'
+
+//jlink {
+//targetPlatform("mac") {
+//    jdkHome = "/usr/java/jdk-mac/Contents/Home"
+//}
+//targetPlatform("linux-x64") {
+//    jdkHome = "/usr/java/jdk"
+//}
+//targetPlatform("windows-x64") {
+//    jdkHome = "/usr/java/jdk-win"
+//}
+//options = ['--compress', '2', '--no-header-files', '--no-man-pages']
+ //   launcher {
+ //       name = 'com.matheusmarkies.spaghettibridge.main'
+ //   }
+//}
+
+//sourceSets {
+  //  main {
+  //      java {
+  //          srcDirs = ['src/main/java']
+  //      }
+ //       resources {
+ //           srcDirs = ['src/main/resources']
+ //       }
+ //   }
+//}
+
+jar {
+    manifest {
+        attributes 'Main-Class': "$mainClassName"
+}
+   from {
+       configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}
