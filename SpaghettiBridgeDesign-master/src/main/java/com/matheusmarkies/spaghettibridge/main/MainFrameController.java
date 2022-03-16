@@ -510,12 +510,13 @@ public class MainFrameController implements Initializable {
         int returnValue = jfc.showOpenDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = jfc.getCurrentDirectory();
+            File selectedFile = jfc.getSelectedFile();
 
+            Bridge bridge = null;
             try {
-                Bridge bridge = Save.openBridge(selectedFile);
+                bridge = Save.openBridge(selectedFile);
 
-                for (BarSerializable bar : bridge.getBars()) {
+            for (BarSerializable bar : bridge.getBars()) {
                     bridgeMain.bridgeManager.addBar(Bar.barSerializableToBar(bar));
                 }
                 for (NodeSerializable node : bridge.getNodes()) {
@@ -534,11 +535,10 @@ public class MainFrameController implements Initializable {
                 showBridge.showNodes();
                 showBridge.showBars();
                 showBridge.showReactions();
-
-            } catch (IOException ex) {
-                System.err.println(ex);
-            } catch (ClassNotFoundException ex) {
-                System.err.println(ex);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }

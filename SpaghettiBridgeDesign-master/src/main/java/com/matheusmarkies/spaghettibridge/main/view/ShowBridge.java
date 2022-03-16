@@ -416,14 +416,15 @@ public class ShowBridge {
             Arrow arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.CORAL, true);
             Arrow arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.CORAL, true);
 
-//            if (entry.getBarForce() < 0) {
-//                arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.CORAL, true);
-//                arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.CORAL, true);
-//            } else if (entry.getBarForce() > 0) {
-//                arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.DARKBLUE, false);
-//                arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.DARKBLUE, false);
-//            } else
-//                arrowA = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.BLACK, false);
+            if (entry.getBarForce() < 0) {
+                arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.CORAL, true);
+                arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.CORAL, true);
+            } else if (entry.getBarForce() > 0) {
+                arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.DARKBLUE, false);
+                arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.DARKBLUE, false);
+            } else
+                arrowA = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.BLACK, false);
+
             arrowA.setArrowInPlane(canvas_plane);
             arrowB.setArrowInPlane(canvas_plane);
 
