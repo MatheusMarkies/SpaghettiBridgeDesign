@@ -22,8 +22,10 @@ public class Measure {
         
         orthogonalVector = Vector2D.normalize(orthogonalVector);
         
-        this.startPosition = Vector2D.add(startPosition, Vector2D.multiply(orthogonalVector, new Vector2D(offset, offset)));
-        this.endPosition = Vector2D.add(endPosition, Vector2D.multiply(orthogonalVector, new Vector2D(offset, offset)));
+        this.startPosition = Vector2D.add(startPosition,
+                Vector2D.multiply(orthogonalVector, new Vector2D(offset, offset)));
+        this.endPosition = Vector2D.add(endPosition,
+                Vector2D.multiply(orthogonalVector, new Vector2D(offset, offset)));
     }
 
     public Vector2D getStartPosition() {

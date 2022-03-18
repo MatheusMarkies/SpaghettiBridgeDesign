@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter;
 import com.matheusmarkies.spaghettibridge.material.Material;
+import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -377,6 +379,20 @@ public class MainFrameController implements Initializable {
     void onMouseScrollEvent(ScrollEvent event) {
         bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient()+event.getDeltaY()/100);
         down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+
+        updateBridge();
+    }
+
+    @FXML
+    void onMouseDragEvent(MouseEvent event) {
+        Vector2D panVector = new Vector2D(event.getX(),event.getY());
+        panVector = Vector2D.add(panVector,new Vector2D(
+                -canvas_plane.getWidth()/2, -canvas_plane.getHeight()/2
+        ));
+        down_status.setText("Pan: x: "+panVector.x()+" y: "+panVector.y());
+
+        bridgeMain.bridgeManager.setTranslateVector(panVector);
+
         updateBridge();
     }
 
@@ -389,6 +405,7 @@ public class MainFrameController implements Initializable {
         showBridge.showNodes();
         showBridge.showReactions();
         showBridge.showBars();
+        showBridge.showMeasure();
     }
 
     @Override

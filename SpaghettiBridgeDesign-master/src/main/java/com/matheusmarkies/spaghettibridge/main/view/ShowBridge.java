@@ -189,8 +189,8 @@ public class ShowBridge{
             Text nodeLabel = new Text();
 
             nodeLabel.setText(entry.getNodeName());
-            nodeLabel.setX(circleCenter.x() + canvas_plane.getWidth() / 2);
-            nodeLabel.setY((-circleCenter.y() + canvas_plane.getHeight() / 2) - 1f);
+            nodeLabel.setX(circleCenter.x());
+            nodeLabel.setY(circleCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
 
             circle.setRadius(4.0f);
 
@@ -344,19 +344,10 @@ public class ShowBridge{
 
             barLabel.setText(entry.getBarName());
 
-            double widthPosition = (Vector2D.getCenter(Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                    Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).x() + canvas_plane.getWidth() / 2);
+            Vector2D barCenter = Vector2D.getCenter(nodeStartPositionCanvas,nodeEndPositionCanvas);
 
-            if ((entry.getNodeEnd().getPosition().x() - entry.getNodeStart().getPosition().x()) < 0) {
-                barLabel.setX(widthPosition - 10f);
-                barLabel.setY((-Vector2D.getCenter(
-                        Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                        Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).y() + canvas_plane.getHeight() / 2) + 0.5f);
-            } else {
-                barLabel.setX(widthPosition + 10f);
-                barLabel.setY((-Vector2D.getCenter(Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                        Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).y() + canvas_plane.getHeight() / 2) - 0.5f);
-            }
+            barLabel.setX(barCenter.x());
+            barLabel.setY(barCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
 
             barsLabelsInPlane.add(barLabel);
             barsInPlane.add(line);
@@ -387,19 +378,10 @@ public class ShowBridge{
 
             barLabel.setText(entry.getBarName() + " " + (int) entry.getBarForce() + "N");
 
-            double widthPosition = (Vector2D.getCenter(Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                    Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).x() + canvas_plane.getWidth() / 2);
+            Vector2D barCenter = Vector2D.getCenter(nodeStartPositionCanvas,nodeEndPositionCanvas);
 
-            if ((entry.getNodeEnd().getPosition().x() - entry.getNodeStart().getPosition().x()) < 0) {
-                barLabel.setX(widthPosition - 10f);
-                barLabel.setY((-Vector2D.getCenter(
-                        Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                        Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).y() + canvas_plane.getHeight() / 2) + 0.5f);
-            } else {
-                barLabel.setX(widthPosition + 10f);
-                barLabel.setY((-Vector2D.getCenter(Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                        Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).y() + canvas_plane.getHeight() / 2) - 0.5f);
-            }
+            barLabel.setX(barCenter.x());
+            barLabel.setY(barCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
 
             barsLabelsInPlane.add(barLabel);
             barsInPlane.add(line);
@@ -437,19 +419,10 @@ public class ShowBridge{
 
             barLabel.setText((int) entry.getBarForce() + "N");
 
-            double widthPosition = (Vector2D.getCenter(Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                    Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).x() + canvas_plane.getWidth() / 2);
+            Vector2D barCenter = Vector2D.getCenter(nodeStartPosition,nodeEndPosition);
 
-            if ((entry.getNodeEnd().getPosition().x() - entry.getNodeStart().getPosition().x()) < 0) {
-                barLabel.setX(widthPosition - 10f);
-                barLabel.setY((-Vector2D.getCenter(
-                        Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                        Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).y() + canvas_plane.getHeight() / 2) + 0.5f);
-            } else {
-                barLabel.setX(widthPosition + 10f);
-                barLabel.setY((-Vector2D.getCenter(Vector2D.multiply(entry.getNodeStart().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient()),
-                        Vector2D.multiply(entry.getNodeEnd().getPosition(),bridgeMain.bridgeManager.getZoomCoefficient())).y() + canvas_plane.getHeight() / 2) - 0.5f);
-            }
+            barLabel.setX(barCenter.x());
+            barLabel.setY(barCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
 
             arrowInPlane.add(arrowA);
             arrowInPlane.add(arrowB);
@@ -560,7 +533,8 @@ public class ShowBridge{
                     reationLabel.setText(reation.getReactionName());
 
                     reationLabel.setX((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).x()));
-                    reationLabel.setY((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).y()) + 0.5f);
+                    reationLabel.setY((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).y()) +
+                            0.5f * bridgeMain.bridgeManager.getZoomCoefficient());
 
                     line.setStroke(Color.CRIMSON);
 
@@ -629,17 +603,25 @@ public class ShowBridge{
         for (Measure measure : bridgeMain.bridgeManager.getMeasures()) {
             Line line = new Line();
 
-            line.setStartX(measure.getStartPosition().x() * bridgeMain.bridgeManager.getZoomCoefficient());
-            line.setStartY(measure.getStartPosition().y() * bridgeMain.bridgeManager.getZoomCoefficient());
-            line.setEndX(measure.getEndPosition().x() * bridgeMain.bridgeManager.getZoomCoefficient());
-            line.setEndY(measure.getEndPosition().y() * bridgeMain.bridgeManager.getZoomCoefficient());
+            Vector2D canvasMeasureStartPosition = canvasTranslate(measure.getStartPosition());
+            Vector2D canvasMeasureEndPosition = canvasTranslate(measure.getEndPosition());
+
+            line.setStartX(canvasMeasureStartPosition.x());
+            line.setStartY(canvasMeasureStartPosition.y());
+            line.setEndX(canvasMeasureEndPosition.x());
+            line.setEndY(canvasMeasureEndPosition.y());
 
             Text measureValue = new Text();
 
             measureValue.setText((Math.round(Vector2D.distance(measure.getStartPosition(), measure.getEndPosition()) * 1000) / 1000) + "cm");
 
-            measureValue.setX((Vector2D.getCenter(measure.getStartPosition(), measure.getEndPosition()).x()));
-            measureValue.setY((Vector2D.getCenter(measure.getStartPosition(), measure.getEndPosition()).y()) + 0.5f);
+            measureValue.setX((Vector2D.getCenter(
+                            canvasMeasureStartPosition,
+                            canvasMeasureEndPosition).x()));
+            measureValue.setY((Vector2D.getCenter(
+                            canvasMeasureStartPosition,
+                            canvasMeasureEndPosition).y()) +
+                            0.5f * bridgeMain.bridgeManager.getZoomCoefficient());
 
             canvas_plane.getChildren().add(measureValue);
             canvas_plane.getChildren().add(line);

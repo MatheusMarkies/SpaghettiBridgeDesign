@@ -78,7 +78,7 @@
                   <Button fx:id="zoom_decrease_button" layoutX="33.0" layoutY="146.0" mnemonicParsing="false" onAction="#onClickedZoomDecreaseButton" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="630.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="canvas_plane" maxHeight="660.0" maxWidth="1127.0" minWidth="1127.0" onScroll="#onMouseScrollEvent" SplitPane.resizableWithParent="false">
+            <AnchorPane fx:id="canvas_plane" maxHeight="660.0" maxWidth="1127.0" minWidth="1127.0" onMouseDragged="#onMouseDragEvent" onScroll="#onMouseScrollEvent" SplitPane.resizableWithParent="false">
                <children>
                   <Label fx:id="details_toplabel" alignment="CENTER" layoutX="5.0" layoutY="4.0" style="&#10;" text="Visualização" textAlignment="CENTER" wrapText="false">
                      <font>
