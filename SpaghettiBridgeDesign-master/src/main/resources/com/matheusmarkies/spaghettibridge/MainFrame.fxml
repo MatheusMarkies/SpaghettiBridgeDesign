@@ -74,13 +74,13 @@
                   <Button fx:id="assembler_equations" layoutX="3.0" layoutY="116.0" mnemonicParsing="false" onAction="#assembleEquationsButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="80.0" />
                   <Button fx:id="calculate_wires" layoutX="13.0" layoutY="126.0" mnemonicParsing="false" onAction="#wireCalculatorButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="115.0" />
                   <Button fx:id="set_measure" layoutX="23.0" layoutY="136.0" mnemonicParsing="false" onAction="#setMeasureButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="150.0" />
-                  <Button layoutX="23.0" layoutY="136.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="595.0" />
-                  <Button layoutX="33.0" layoutY="146.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="630.0" />
+                  <Button fx:id="zoom_add_button" layoutX="23.0" layoutY="136.0" mnemonicParsing="false" onAction="#onClickedZoomAddButton" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="595.0" />
+                  <Button fx:id="zoom_decrease_button" layoutX="33.0" layoutY="146.0" mnemonicParsing="false" onAction="#onClickedZoomDecreaseButton" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="630.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="canvas_plane">
+            <AnchorPane fx:id="canvas_plane" maxHeight="660.0" maxWidth="1127.0" minWidth="1127.0" onScroll="#onMouseScrollEvent" SplitPane.resizableWithParent="false">
                <children>
-                  <Label fx:id="details_toplabel" alignment="CENTER" style="&#10;" text="Visualização" textAlignment="CENTER" wrapText="false">
+                  <Label fx:id="details_toplabel" alignment="CENTER" layoutX="5.0" layoutY="4.0" style="&#10;" text="Visualização" textAlignment="CENTER" wrapText="false">
                      <font>
                         <Font size="18.0" fx:id="x1" />
                      </font>

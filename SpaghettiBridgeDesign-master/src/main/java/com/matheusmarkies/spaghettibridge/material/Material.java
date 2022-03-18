@@ -5,16 +5,18 @@
  */
 package com.matheusmarkies.spaghettibridge.material;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Matheus Markies
  */
-public class Material {
+public class Material implements Serializable {
 
     //Barrila 7
-    double tensileStrengthMaximumLoad = 42.5d;
-    double ElasticityModulus = (3600);
-    double Diameter = 0.018;
+    double tensileStrengthMaximumLoad = 42.5d;//N
+    double ElasticityModulus = (3600);//MPa
+    double Diameter = 1.8;//mm
     double SafetyCoefficient = 4;
 
     public Material(double tensileStrengthMaximumLoad, long ElasticityModulus, double Diameter, double SafetyCoefficient) {

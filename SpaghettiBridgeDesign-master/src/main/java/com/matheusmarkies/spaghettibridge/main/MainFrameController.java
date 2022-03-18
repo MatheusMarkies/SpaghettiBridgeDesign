@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter;
+import com.matheusmarkies.spaghettibridge.material.Material;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -182,6 +184,12 @@ public class MainFrameController implements Initializable {
 
     @FXML
     private Color x4;
+
+    @FXML
+    private Button zoom_add_button;
+
+    @FXML
+    private Button zoom_decrease_button;
 
     @FXML
     void wireCalculatorButtonAction(ActionEvent event) {
@@ -351,9 +359,37 @@ public class MainFrameController implements Initializable {
         }
     }
 
+    @FXML
+    void onClickedZoomAddButton(ActionEvent event) {
+        bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient() + 0.2d);
+        down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+        updateBridge();
+    }
+
+    @FXML
+    void onClickedZoomDecreaseButton(ActionEvent event) {
+        bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient()-0.2d);
+        down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+        updateBridge();
+    }
+
+    @FXML
+    void onMouseScrollEvent(ScrollEvent event) {
+        bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient()+event.getDeltaY()/100);
+        down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+        updateBridge();
+    }
+
     com.matheusmarkies.spaghettibridge.main.manager.ConsoleManager consoleManager;
     com.matheusmarkies.spaghettibridge.main.view.ShowBridge showBridge;
+
     Grid grid;
+
+    void updateBridge(){
+        showBridge.showNodes();
+        showBridge.showReactions();
+        showBridge.showBars();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -532,6 +568,9 @@ public class MainFrameController implements Initializable {
                             bar.setNodeEnd(node);
                     }
 
+                Material material = Save.openMaterial(selectedFile);
+                bridgeMain.bridgeManager.setMaterial(material);
+
                 showBridge.showNodes();
                 showBridge.showBars();
                 showBridge.showReactions();
@@ -556,7 +595,10 @@ public class MainFrameController implements Initializable {
             nodeSerializables.add(nodeSerializable);
         }
         try {
-            Save.saveBridge(new Bridge(barSerializables, nodeSerializables));
+            Save.saveBridge(
+                    new Bridge(barSerializables, nodeSerializables),
+                    bridgeMain.bridgeManager.getMaterial()
+            );
         } catch (IOException ex) {
 
         }

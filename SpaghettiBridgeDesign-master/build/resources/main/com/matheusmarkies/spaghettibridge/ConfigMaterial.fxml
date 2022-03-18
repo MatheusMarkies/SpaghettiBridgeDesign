@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="232.0" prefWidth="219.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.matheusmarkies.spaghettibridge.popup.ConfigMaterialController">
+<AnchorPane id="AnchorPane" prefHeight="232.0" prefWidth="219.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.matheusmarkies.spaghettibridge.popup.ConfigMaterialController">
     <stylesheets>
         <URL value="@configmaterial.css" />
     </stylesheets>
@@ -20,5 +20,8 @@
       <TextField fx:id="safetycoefficient_inputfield" layoutX="37.0" layoutY="170.0" promptText="Coeficiente de segurança..." />
       <Label layoutX="43.0" layoutY="148.0" prefHeight="25.0" prefWidth="140.0" text="Coeficiente de segurança:" />
       <Button fx:id="save_button" layoutX="85.0" layoutY="201.0" mnemonicParsing="false" onAction="#saveButtonAction" text="Salvar" />
+      <Label layoutX="185.0" layoutY="36.0" text="[N]" />
+      <Label layoutX="185.0" layoutY="80.0" text="[MPa]" />
+      <Label layoutX="185.0" layoutY="127.0" text="[mm]" />
    </children>
 </AnchorPane>

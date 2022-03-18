@@ -52,6 +52,16 @@ public class Vector2D implements Serializable{
         return c;
     }
 
+    public static Vector2D multiply(Vector2D a, double m) {
+        Vector2D c = new Vector2D(a.x() * m, a.y() * m);
+        return c;
+    }
+
+    public static Vector2D multiply(Vector2D a, float m) {
+        Vector2D c = new Vector2D(a.x() * m, a.y() * m);
+        return c;
+    }
+
     public static Vector2D divide(Vector2D a, Vector2D b) {
         Vector2D c = new Vector2D(a.x() / b.x(), a.y() / b.y());
         return c;

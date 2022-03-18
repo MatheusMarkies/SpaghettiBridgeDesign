@@ -166,7 +166,7 @@ public class WireCalculator {
         //Barilla n7
         double Tr = material.getTensileStrengthMaximumLoad();
         long Me = (long)(material.getElasticityModulus() * 1000000);
-        double l = material.getDiameter();
+        double d = material.getDiameter()/1000;
         double Cs = material.getSafetyCoefficient();
         //Barilla n7
         
@@ -174,8 +174,13 @@ public class WireCalculator {
         {
             WiresPerBar = (int) Math.round((bar.getBarForce() * Cs) / Tr);
         } else {//flambagem
-            double barSize = Vector2D.distance(bar.getNodeStart().getPosition(), bar.getNodeEnd().getPosition());
-            WiresPerBar = (int) Math.round((8 * Math.sqrt(Math.abs(bar.getBarForce()) * Cs * barSize * barSize)) / ((Math.PI * Math.PI * Math.PI) * Me * l * l * l * l));
+            double barSize = Vector2D.distance(bar.getNodeStart().getPosition(),
+                    bar.getNodeEnd().getPosition())/100;
+
+            WiresPerBar = (int)Math.round(
+                    Math.sqrt((64*Math.abs(bar.getBarForce()*Cs)*barSize*barSize)/
+                            (Math.pow(Math.PI,3)*Me*Math.pow(d,4)))
+            );
         }
         if (WiresPerBar == 0) {
             WiresPerBar = 3;

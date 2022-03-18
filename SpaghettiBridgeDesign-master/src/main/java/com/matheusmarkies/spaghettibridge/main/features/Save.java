@@ -5,6 +5,8 @@
  */
 package com.matheusmarkies.spaghettibridge.main.features;
 
+import com.matheusmarkies.spaghettibridge.material.Material;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -23,7 +25,7 @@ import java.io.ObjectOutputStream;
  */
 public class Save {
 
-    public static void saveBridge(Bridge bridge) throws FileNotFoundException, IOException {
+    public static void saveBridge(Bridge bridge, Material material) throws FileNotFoundException, IOException {
 
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         int returnValue = jfc.showOpenDialog(null);
@@ -48,6 +50,7 @@ public class Save {
             ObjectOutputStream objectStream = new ObjectOutputStream(fileOutput);
 
             objectStream.writeObject(bridge);
+            objectStream.writeObject(material);
 
             objectStream.close();
             fileOutput.close();
@@ -67,5 +70,22 @@ public class Save {
             fileInput.close();
 
         return bridge;
+    }
+    public static Material openMaterial(File selectedFile) throws FileNotFoundException, IOException, ClassNotFoundException {
+        Material material = null;
+
+        FileInputStream fileInput = new FileInputStream(selectedFile);
+
+        try (ObjectInputStream input = new ObjectInputStream(fileInput)) {
+            Object obj = input.readObject();
+            if (obj != null)
+                System.out.println(obj.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fileInput.close();
+
+        return material;
     }
 }

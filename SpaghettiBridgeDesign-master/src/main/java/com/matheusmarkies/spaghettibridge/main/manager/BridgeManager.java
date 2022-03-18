@@ -34,7 +34,10 @@ public class BridgeManager {
     Material material = new Material();
     double testLoadForce = 100;
     double testLoadInAction = 100;
-    
+
+    double zoomCoefficient = 1;
+    Vector2D translateVector = new Vector2D(0,0);
+
     public void reset(){
         nodes = new ArrayList<Node>();
         bars = new ArrayList<Bar>();
@@ -258,4 +261,19 @@ public class BridgeManager {
         this.testLoadInAction = testLoadInAction;
     }
 
+    public double getZoomCoefficient() {
+        return zoomCoefficient;
+    }
+
+    public void setZoomCoefficient(double zoomCoefficient) {
+        this.zoomCoefficient = Math.max(0.25d, Math.min(10, zoomCoefficient));
+    }
+
+    public Vector2D getTranslateVector() {
+        return translateVector;
+    }
+
+    public void setTranslateVector(Vector2D translateVector) {
+        this.translateVector = translateVector;
+    }
 }
