@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter;
+import com.matheusmarkies.spaghettibridge.main.manager.BridgeManager;
 import com.matheusmarkies.spaghettibridge.material.Material;
 import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
 import javafx.event.ActionEvent;
@@ -274,6 +275,9 @@ public class MainFrameController implements Initializable {
                     "/com/matheusmarkies/spaghettibridge/CreateNode.fxml"));
             Parent root = (Parent) fxmlLoader.load();
 
+            bridgeMain.bridgeManager.setTranslateVector(new Vector2D(0,0));
+            updateBridge();
+
             CreateNodeController createNodeController = fxmlLoader.getController();
 
             createNodeController.setMainFrameController(this);
@@ -415,14 +419,16 @@ public class MainFrameController implements Initializable {
         consoleManager = new ConsoleManager(log_console_plane);
         grid = new Grid(this);
 
-       // force_slider.valueProperty().addListener(new ChangeListener<Number>() {
-            //public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            //    bridgeMain.bridgeManager.setTestLoadInAction(bridgeMain.bridgeManager.getTestLoadForce() * (double) newValue);
-            //    force_slider_label.setVisible(true);
-            //    force_slider_label.setText("Carga de teste: " + Math.round(bridgeMain.bridgeManager.getTestLoadInAction() * 100) / 100 + "N");
-           //     calculateBarForces();
-          //  }
-        //});
+        File materialFolder = new File(BridgeManager.getMaterialDataFolder());
+        if(materialFolder.exists()) {
+            try {
+                bridgeMain.bridgeManager.setMaterial(Save.openMaterial(materialFolder));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 
         bridge_table_view_bar.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
@@ -585,7 +591,7 @@ public class MainFrameController implements Initializable {
                             bar.setNodeEnd(node);
                     }
 
-                Material material = Save.openMaterial(selectedFile);
+                Material material = Save.openMaterial(new File(BridgeManager.getMaterialDataFolder()));
                 bridgeMain.bridgeManager.setMaterial(material);
 
                 showBridge.showNodes();
@@ -613,8 +619,7 @@ public class MainFrameController implements Initializable {
         }
         try {
             Save.saveBridge(
-                    new Bridge(barSerializables, nodeSerializables),
-                    bridgeMain.bridgeManager.getMaterial()
+                    new Bridge(barSerializables, nodeSerializables)
             );
         } catch (IOException ex) {
 

@@ -5,8 +5,12 @@
  */
 package com.matheusmarkies.spaghettibridge.popup;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.matheusmarkies.spaghettibridge.main.features.Save;
+import com.matheusmarkies.spaghettibridge.main.manager.BridgeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,6 +47,13 @@ public class ConfigMaterialController implements Initializable {
         bridgeMain.bridgeManager.getMaterial().setElasticityModulus(Double.parseDouble(elasticitymodulus_inputfield.getText()));
         bridgeMain.bridgeManager.getMaterial().setDiameter(Double.parseDouble(diameter_inputfield.getText()));
         bridgeMain.bridgeManager.getMaterial().setSafetyCoefficient(Double.parseDouble(safetycoefficient_inputfield.getText()));
+
+        try {
+            System.out.println(BridgeManager.getMaterialDataFolder());
+            Save.saveMaterial(bridgeMain.bridgeManager.getMaterial());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     com.matheusmarkies.spaghettibridge.main.SpaghettiBridgeMain bridgeMain;

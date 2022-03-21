@@ -38,6 +38,9 @@ public class BridgeManager {
     double zoomCoefficient = 1;
     Vector2D translateVector = new Vector2D(0,0);
 
+    static String materialDataFolder = System.getenv("APPDATA")+"\\Spaghetti Bridge Design\\Material.spm";
+    static String appdataDir = System.getenv("APPDATA")+"\\Spaghetti Bridge Design";
+
     public void reset(){
         nodes = new ArrayList<Node>();
         bars = new ArrayList<Bar>();
@@ -266,7 +269,7 @@ public class BridgeManager {
     }
 
     public void setZoomCoefficient(double zoomCoefficient) {
-        this.zoomCoefficient = Math.max(0.25d, Math.min(10, zoomCoefficient));
+        this.zoomCoefficient = Math.max(0.125d, Math.min(20d, zoomCoefficient));
     }
 
     public Vector2D getTranslateVector() {
@@ -275,5 +278,13 @@ public class BridgeManager {
 
     public void setTranslateVector(Vector2D translateVector) {
         this.translateVector = translateVector;
+    }
+
+    public static String getMaterialDataFolder() {
+        return materialDataFolder;
+    }
+
+    public static String getAppdataDir() {
+        return appdataDir;
     }
 }

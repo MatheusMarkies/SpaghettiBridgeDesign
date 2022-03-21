@@ -5,6 +5,7 @@
  */
 package com.matheusmarkies.spaghettibridge.main.features;
 
+import com.matheusmarkies.spaghettibridge.main.manager.BridgeManager;
 import com.matheusmarkies.spaghettibridge.material.Material;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ import java.io.ObjectOutputStream;
  */
 public class Save {
 
-    public static void saveBridge(Bridge bridge, Material material) throws FileNotFoundException, IOException {
+    public static void saveBridge(Bridge bridge) throws FileNotFoundException, IOException {
 
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         int returnValue = jfc.showOpenDialog(null);
@@ -50,11 +51,29 @@ public class Save {
             ObjectOutputStream objectStream = new ObjectOutputStream(fileOutput);
 
             objectStream.writeObject(bridge);
-            objectStream.writeObject(material);
 
             objectStream.close();
             fileOutput.close();
         }
+    }
+
+    public static void saveMaterial(Material material) throws FileNotFoundException, IOException {
+        File materialFile = new File(BridgeManager.getMaterialDataFolder());
+
+        File appdata = new File(BridgeManager.getAppdataDir());
+        if(!appdata.exists())
+            appdata.mkdirs();
+        if(materialFile.createNewFile()) {
+
+        }
+
+        FileOutputStream fileOutput = new FileOutputStream(materialFile);
+        ObjectOutputStream objectStream = new ObjectOutputStream(fileOutput);
+
+        objectStream.writeObject(material);
+
+        objectStream.close();
+        fileOutput.close();
     }
 
     public static Bridge openBridge(File selectedFile) throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -76,14 +95,11 @@ public class Save {
 
         FileInputStream fileInput = new FileInputStream(selectedFile);
 
-        try (ObjectInputStream input = new ObjectInputStream(fileInput)) {
-            Object obj = input.readObject();
-            if (obj != null)
-                System.out.println(obj.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ObjectInputStream objectStream = new ObjectInputStream(fileInput);
 
+        material = (Material) objectStream.readObject();
+
+        objectStream.close();
         fileInput.close();
 
         return material;
