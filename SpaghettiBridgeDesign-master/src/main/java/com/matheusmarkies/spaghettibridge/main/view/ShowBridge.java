@@ -209,8 +209,6 @@ public class ShowBridge{
             canvas_plane.getChildren().add(circle);
             canvas_plane.getChildren().add(nodeLabel);
         }
-        removeReations();
-        showReactions();
     }
 
     public void onMouseClickInNode(MouseEvent event) {
@@ -329,6 +327,8 @@ public class ShowBridge{
     }
     
     public void standardBarsView() {
+        removeReations();
+        showReactions();
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
 
@@ -363,6 +363,8 @@ public class ShowBridge{
     }
 
     public void forcesBarsView() {
+        removeReations();
+        showReactions();
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
 
@@ -397,6 +399,8 @@ public class ShowBridge{
     ArrayList<Arrow> arrowInPlane = new ArrayList<>();
 
     public void vectorsBarsView() {
+        removeReations();
+        showReactions();
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
 
             Vector2D nodeStartPosition = canvasTranslate(entry.getNodeStart().getPosition());
@@ -456,6 +460,8 @@ public class ShowBridge{
     }
 
     public void freeBodyDiagramBarsView() {
+        removeReations();
+        showReactionsVectors();
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
 
             Vector2D nodeStartPosition = canvasTranslate(entry.getNodeStart().getPosition());
@@ -512,6 +518,8 @@ public class ShowBridge{
     }
 
     public void explodedViewBarsView() {
+        removeReations();
+        showReactionsVectors();
         removeArcs();
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
@@ -607,6 +615,50 @@ public class ShowBridge{
 
         arrowInPlane.add(arrowA);
         arrowInPlane.add(arrowB);
+    }
+
+    public void showReactionsVectors() {
+        removeReations();
+float arraowSize = 20f
+        * (float)bridgeMain.bridgeManager.getZoomCoefficient();
+        for (Node entry : bridgeMain.bridgeManager.getNodes()) {
+
+            if (entry.getExternalForces().size() > 0) {
+                for (ReactionForces reation : entry.getExternalForces()) {
+                    Vector2D nodeStartPosition = canvasTranslate(entry.getPosition());
+                    Vector2D nodeEndPosition = canvasTranslate(entry.getPosition());
+
+                    if (reation.getForceDirection().y() != 0) {
+                        nodeEndPosition = Vector2D.add(nodeEndPosition, Vector2D.multiply(reation.getForceDirection(), new Vector2D(arraowSize, -arraowSize)));
+
+                        Arrow arrowA = new Arrow(nodeStartPosition,
+                                nodeEndPosition, 20, Color.CRIMSON, false);
+
+                        Text reationLabel = new Text();
+
+                        reationLabel.setText(reation.getReactionName());
+
+                        reationLabel.setX((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).x()));
+                        reationLabel.setY((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).y()) +
+                                0.5f * bridgeMain.bridgeManager.getZoomCoefficient());
+
+                        arrowA.setArrowInPlane(canvas_plane);
+                        arrowInPlane.add(arrowA);
+                        reationsLabelInPlane.add(reationLabel);
+
+                        canvas_plane.getChildren().add(reationLabel);
+                    }
+                }
+            }
+            if (entry.isCargoReciver()) {
+                Vector2D nodeStartPosition = canvasTranslate(entry.getPosition());
+                Vector2D nodeEndPosition = canvasTranslate(entry.getPosition());
+                Arrow arrowA = new Arrow(nodeStartPosition,
+                        Vector2D.add(nodeStartPosition, new Vector2D(0, arraowSize)), 20, Color.CRIMSON, false);
+                arrowA.setArrowInPlane(canvas_plane);
+                arrowInPlane.add(arrowA);
+            }
+        }
     }
 
     public void showReactions() {

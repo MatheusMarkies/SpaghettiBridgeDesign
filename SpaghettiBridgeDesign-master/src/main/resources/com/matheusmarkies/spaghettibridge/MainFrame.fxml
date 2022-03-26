@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -44,6 +43,7 @@
                <items>
                   <MenuItem fx:id="menu_setmaterial" mnemonicParsing="false" onAction="#setMaterialButtonAction" text="Material" />
                   <MenuItem fx:id="menu_testload" mnemonicParsing="false" onAction="#setTestLoadButtonAction" text="Carga de Teste" />
+                  <MenuItem fx:id="menu_testloadnode" mnemonicParsing="false" onAction="#setTestLoadNodeButtonAction" text="Selecionar no de carga" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Tela">
@@ -55,12 +55,6 @@
                         <MenuItem fx:id="menu_display_vectorbarsview" mnemonicParsing="false" onAction="#vectorBarsViewButtonAction" text="Vetores em Barras" />
                         <MenuItem fx:id="menu_display_freebodyview" mnemonicParsing="false" onAction="#freeBodyViewButtonAction" text="Corpo Livre" />
                      </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Sistema Cartesiano">
-                    <items>
-                        <CheckMenuItem fx:id="menu_display_coordenateSystem" mnemonicParsing="false" onAction="#coordenateSystemMenuButtonAction" selected="true" text="Coordenadas" />
-                        <CheckMenuItem fx:id="menu_display_coordenateSystemLines" mnemonicParsing="false" onAction="#coordenateSystemLinesMenuButtonAction" selected="true" text="Linhas" />
-                    </items>
                   </Menu>
                </items>
             </Menu>

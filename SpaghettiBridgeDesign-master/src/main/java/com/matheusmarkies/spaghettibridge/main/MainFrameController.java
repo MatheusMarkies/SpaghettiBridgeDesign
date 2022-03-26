@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter;
 import com.matheusmarkies.spaghettibridge.main.manager.BridgeManager;
 import com.matheusmarkies.spaghettibridge.material.Material;
+import com.matheusmarkies.spaghettibridge.popup.*;
 import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -54,10 +55,6 @@ import com.matheusmarkies.spaghettibridge.main.view.ShowBridge;
 import com.matheusmarkies.spaghettibridge.objects.bar.Bar;
 import com.matheusmarkies.spaghettibridge.objects.bar.BarSerializable;
 import com.matheusmarkies.spaghettibridge.objects.node.NodeSerializable;
-import com.matheusmarkies.spaghettibridge.popup.ConfigMaterialController;
-import com.matheusmarkies.spaghettibridge.popup.CreateMeasureController;
-import com.matheusmarkies.spaghettibridge.popup.CreateNodeController;
-import com.matheusmarkies.spaghettibridge.popup.SetTestLoadController;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -71,100 +68,7 @@ import javax.swing.filechooser.FileSystemView;
 public class MainFrameController implements Initializable {
 
     @FXML
-    private MenuBar menu_bar;
-
-    @FXML
-    private MenuItem menu_setmaterial;
-
-    @FXML
-    private MenuItem menu_testload;
-
-    @FXML
-    private MenuItem menu_display_standardbarsview;
-
-    @FXML
-    private MenuItem menu_display_forcesbarsview;
-
-    @FXML
-    private MenuItem menu_display_vectorbarsview;
-
-    @FXML
-    private MenuItem menu_display_freebodyview;
-
-    @FXML
-    private CheckMenuItem menu_display_coordenateSystem;
-
-    @FXML
-    private CheckMenuItem menu_display_coordenateSystemLines;
-
-    @FXML
-    private AnchorPane master_plane;
-
-    @FXML
-    private Label master_plane_toplabel;
-
-    @FXML
-    private Font x1;
-
-    @FXML
-    private Color x2;
-
-    @FXML
-    private Button create_node_button;
-
-    @FXML
-    private Button create_bar_button;
-
-    @FXML
     private Button assembler_equations;
-
-    @FXML
-    private Button calculate_wires;
-
-    @FXML
-    private Button set_measure;
-
-    @FXML
-    private Button deformation_button;
-
-    @FXML
-    private Slider force_slider;
-
-    @FXML
-    private Label force_slider_label;
-
-    @FXML
-    private ScrollPane canvas_scroll_plane;
-
-    @FXML
-    private AnchorPane canvas_plane;
-
-    @FXML
-    private Label canvas_plane_toplabel;
-
-    @FXML
-    private Font x5;
-
-    @FXML
-    private Color x6;
-
-    @FXML
-    private Line cartesian_system_X;
-
-    @FXML
-    private Line cartesian_system_Y;
-
-    @FXML
-    private AnchorPane log_plane;
-
-    @FXML
-    private ScrollPane log_scroll_plane;
-
-    @FXML
-    private AnchorPane log_console_plane;
-
-    @FXML
-    private Label details_toplabel;
 
     @FXML
     private TableView<BarTable> bridge_table_view;
@@ -182,7 +86,79 @@ public class MainFrameController implements Initializable {
     private TableColumn<BarTable, Integer> bridge_table_view_wires;
 
     @FXML
+    private Button calculate_wires;
+
+    @FXML
+    private AnchorPane canvas_plane;
+
+    @FXML
+    private Button create_bar_button;
+
+    @FXML
+    private Button create_node_button;
+
+    @FXML
+    private Label details_toplabel;
+
+    @FXML
+    private Label details_toplabel1;
+
+    @FXML
     private Label down_status;
+
+    @FXML
+    private AnchorPane log_console_plane;
+
+    @FXML
+    private AnchorPane log_plane;
+
+    @FXML
+    private ScrollPane log_scroll_plane;
+
+    @FXML
+    private MenuBar menu_bar;
+
+    @FXML
+    private MenuItem menu_display_forcesbarsview;
+
+    @FXML
+    private MenuItem menu_display_freebodyview;
+
+    @FXML
+    private MenuItem menu_display_standardbarsview;
+
+    @FXML
+    private MenuItem menu_display_vectorbarsview;
+
+    @FXML
+    private MenuItem menu_setmaterial;
+
+    @FXML
+    private MenuItem menu_testload;
+
+    @FXML
+    private MenuItem menu_testloadnode;
+
+    @FXML
+    private Label menu_zoom_label;
+
+    @FXML
+    private Slider menu_zoom_slider;
+
+    @FXML
+    private Button set_measure;
+
+    @FXML
+    private Font x1;
+
+    @FXML
+    private Font x11;
+
+    @FXML
+    private Color x2;
+
+    @FXML
+    private Color x21;
 
     @FXML
     private Font x3;
@@ -197,12 +173,6 @@ public class MainFrameController implements Initializable {
     private Button zoom_decrease_button;
 
     @FXML
-    private Label menu_zoom_label;
-
-    @FXML
-    private Slider menu_zoom_slider;
-
-    @FXML
     void wireCalculatorButtonAction(ActionEvent event) {
         calculateBarForces();
         consoleManager.printLog("");
@@ -214,7 +184,6 @@ public class MainFrameController implements Initializable {
         for (Bar bar : bridgeMain.bridgeManager.getBars()) {
             consoleManager.printLog(bar.getBarName() + ": " + bar.getNumberOfWires() + " Fios");
         }
-        force_slider.setVisible(true);
     }
 
     void calculateBarForces() {
@@ -354,24 +323,13 @@ public class MainFrameController implements Initializable {
         showBridge.setBarView(ShowBridge.BarView.Vectors);
     }
 
-    @FXML
-    void coordenateSystemMenuButtonAction(ActionEvent event) {
+    //@FXML
+    //void coordenateSystemMenuButtonAction(ActionEvent event) {
         //if (menu_display_coordenateSystem.isSelected())
-            //showBridge.showCartesianSystem(30.0f, 0.5f, cartesian_system_X, cartesian_system_Y);
+        //showBridge.showCartesianSystem(30.0f, 0.5f, cartesian_system_X, cartesian_system_Y);
         //else
-          //  showBridge.removeCartesianSystem();
-    }
-
-    @FXML
-    void coordenateSystemLinesMenuButtonAction(ActionEvent event) {
-        if (menu_display_coordenateSystemLines.isSelected()) {
-            cartesian_system_X.setVisible(true);
-            cartesian_system_Y.setVisible(true);
-        } else {
-            cartesian_system_X.setVisible(false);
-            cartesian_system_Y.setVisible(false);
-        }
-    }
+        //  showBridge.removeCartesianSystem();
+    //}
 
     @FXML
     void onClickedZoomAddButton(ActionEvent event) {
@@ -432,6 +390,33 @@ public class MainFrameController implements Initializable {
         menu_zoom_label.setText(
                 Math.floor(bridgeMain.bridgeManager.getZoomCoefficient() * showZoomDimension) / showZoomDimension
                         + "x");
+    }
+
+    @FXML
+    void setTestLoadNodeButtonAction(ActionEvent event) {
+        if(bridgeMain.bridgeManager.getNodes().size() > 0) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                        "/com/matheusmarkies/spaghettibridge/SetLoadNode.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+
+                bridgeMain.bridgeManager.setTranslateVector(new Vector2D(0, 0));
+                updateBridge();
+
+                SetLoadNodeController setLoadNodeController = fxmlLoader.getController();
+
+                setLoadNodeController.setMainFrameController(this);
+                setLoadNodeController.setBridgeMain(bridgeMain);
+
+                Stage stage = new Stage();
+                stage.setTitle("Selecionar um no de carga");
+                stage.setScene(new Scene(root));
+
+                stage.show();
+            } catch (IOException ex) {
+
+            }
+        }
     }
 
     @Override
@@ -620,7 +605,7 @@ public class MainFrameController implements Initializable {
             try {
                 bridge = Save.openBridge(selectedFile);
 
-            for (BarSerializable bar : bridge.getBars()) {
+                for (BarSerializable bar : bridge.getBars()) {
                     bridgeMain.bridgeManager.addBar(Bar.barSerializableToBar(bar));
                 }
                 for (NodeSerializable node : bridge.getNodes()) {

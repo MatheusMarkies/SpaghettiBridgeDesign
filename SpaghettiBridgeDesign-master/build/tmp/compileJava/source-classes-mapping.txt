@@ -8,8 +8,8 @@ com/matheusmarkies/spaghettibridge/objects/node/NodeSerializable.java
  com.matheusmarkies.spaghettibridge.objects.node.NodeSerializable
 com/matheusmarkies/spaghettibridge/main/Main.java
  com.matheusmarkies.spaghettibridge.main.Main
-com/matheusmarkies/spaghettibridge/main/SpaghettiBridgeMain.java
- com.matheusmarkies.spaghettibridge.main.SpaghettiBridgeMain
+com/matheusmarkies/spaghettibridge/objects/fx/Arrow.java
+ com.matheusmarkies.spaghettibridge.objects.fx.Arrow
 com/matheusmarkies/spaghettibridge/main/features/FileTypeFilter.java
  com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter
 com/matheusmarkies/spaghettibridge/objects/fx/Measure.java
@@ -47,8 +47,8 @@ com/matheusmarkies/spaghettibridge/main/calculator/Deformation.java
  com.matheusmarkies.spaghettibridge.main.calculator.Deformation
 com/matheusmarkies/spaghettibridge/objects/node/Node.java
  com.matheusmarkies.spaghettibridge.objects.node.Node
-com/matheusmarkies/spaghettibridge/objects/fx/Arrow.java
- com.matheusmarkies.spaghettibridge.objects.fx.Arrow
+com/matheusmarkies/spaghettibridge/main/SpaghettiBridgeMain.java
+ com.matheusmarkies.spaghettibridge.main.SpaghettiBridgeMain
 com/matheusmarkies/spaghettibridge/main/grid/Grid.java
  com.matheusmarkies.spaghettibridge.main.grid.Grid
 com/matheusmarkies/spaghettibridge/main/view/ShowBridge.java
@@ -63,6 +63,8 @@ com/matheusmarkies/spaghettibridge/popup/SetTestLoadController.java
  com.matheusmarkies.spaghettibridge.popup.SetTestLoadController
 com/matheusmarkies/spaghettibridge/popup/CreateMeasureController.java
  com.matheusmarkies.spaghettibridge.popup.CreateMeasureController
+com/matheusmarkies/spaghettibridge/popup/SetLoadNodeController.java
+ com.matheusmarkies.spaghettibridge.popup.SetLoadNodeController
 com/matheusmarkies/spaghettibridge/popup/ConfigMaterialController.java
  com.matheusmarkies.spaghettibridge.popup.ConfigMaterialController
 com/matheusmarkies/spaghettibridge/main/MainFrameController.java
