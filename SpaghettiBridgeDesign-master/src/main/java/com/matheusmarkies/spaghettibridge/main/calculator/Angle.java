@@ -52,7 +52,7 @@ public class Angle {
 
         if ((dirA.x() < 0 && dirA.y() != 0) || (dirB.x() < 0 && dirB.y() != 0)) {
             double arc = Math.toDegrees(Math.acos(getTrussAngles(nodeFix,nodeAngleTargetA,nodeAngleTargetB)));
-            angle = 360 - (angle);
+            angle = 270 + 45 - (angle);
         }
 
         return angle;

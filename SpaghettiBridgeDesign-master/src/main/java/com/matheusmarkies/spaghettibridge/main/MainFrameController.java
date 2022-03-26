@@ -15,6 +15,8 @@ import com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter;
 import com.matheusmarkies.spaghettibridge.main.manager.BridgeManager;
 import com.matheusmarkies.spaghettibridge.material.Material;
 import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -195,6 +197,12 @@ public class MainFrameController implements Initializable {
     private Button zoom_decrease_button;
 
     @FXML
+    private Label menu_zoom_label;
+
+    @FXML
+    private Slider menu_zoom_slider;
+
+    @FXML
     void wireCalculatorButtonAction(ActionEvent event) {
         calculateBarForces();
         consoleManager.printLog("");
@@ -369,6 +377,7 @@ public class MainFrameController implements Initializable {
     void onClickedZoomAddButton(ActionEvent event) {
         bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient() + 0.2d);
         down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+
         updateBridge();
     }
 
@@ -376,13 +385,18 @@ public class MainFrameController implements Initializable {
     void onClickedZoomDecreaseButton(ActionEvent event) {
         bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient()-0.2d);
         down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+
         updateBridge();
     }
 
+    boolean notChangeValue = false;
     @FXML
     void onMouseScrollEvent(ScrollEvent event) {
         bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient()+event.getDeltaY()/100);
         down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+
+        notChangeValue = true;
+        menu_zoom_slider.setValue((100) * bridgeMain.bridgeManager.getZoomCoefficient() / 20);
 
         updateBridge();
     }
@@ -405,11 +419,19 @@ public class MainFrameController implements Initializable {
 
     Grid grid;
 
-    void updateBridge(){
+    void updateBridge() {
         showBridge.showNodes();
         showBridge.showReactions();
         showBridge.showBars();
         showBridge.showMeasure();
+
+        int showZoomDimension = 10;
+        if (bridgeMain.bridgeManager.getZoomCoefficient() < 1f)
+            showZoomDimension = 100;
+
+        menu_zoom_label.setText(
+                Math.floor(bridgeMain.bridgeManager.getZoomCoefficient() * showZoomDimension) / showZoomDimension
+                        + "x");
     }
 
     @Override
@@ -420,7 +442,7 @@ public class MainFrameController implements Initializable {
         grid = new Grid(this);
 
         File materialFolder = new File(BridgeManager.getMaterialDataFolder());
-        if(materialFolder.exists()) {
+        if (materialFolder.exists()) {
             try {
                 bridgeMain.bridgeManager.setMaterial(Save.openMaterial(materialFolder));
             } catch (IOException e) {
@@ -444,12 +466,35 @@ public class MainFrameController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty()) {
                     BarTable rowData = row.getItem();
-                    getDown_status().setText(rowData.getName()+ " ( " + Math.round(rowData.getSize()*100)/100 + "cm )"
-                            + " | Forca: " + Math.round(rowData.getForce()*100)/100
+                    getDown_status().setText(rowData.getName() + " ( " + Math.round(rowData.getSize() * 100) / 100 + "cm )"
+                            + " | Forca: " + Math.round(rowData.getForce() * 100) / 100
                             + "N | Numero de fios: " + rowData.getWires());
                 }
             });
             return row;
+        });
+
+        menu_zoom_slider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(
+                    ObservableValue<? extends Number> observableValue,
+                    Number oldValue,
+                    Number newValue) {
+
+                if(!notChangeValue) {
+                    if (newValue.floatValue() <= 50) {
+                        bridgeMain.bridgeManager.setZoomCoefficient(
+                                0.125f + ((1 - 0.125f) * (newValue.floatValue() / 50))
+                        );
+                    } else {
+                        bridgeMain.bridgeManager.setZoomCoefficient(
+                                1f + ((20f - 1f) * ((newValue.floatValue() - 50) / 50))
+                        );
+                    }
+                }
+                notChangeValue = false;
+                updateBridge();
+            }
         });
 
         URL resource = MainFrameController.class

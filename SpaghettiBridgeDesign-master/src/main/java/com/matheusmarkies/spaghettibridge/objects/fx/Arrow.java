@@ -131,6 +131,16 @@ public class Arrow {
         pane.getChildren().add(arrowHeadB);
     }
 
+    public void setArrowInPlane(AnchorPane pane, float stroke) {
+        arrowGuide.setStrokeWidth(stroke);
+        arrowHeadA.setStrokeWidth(stroke);
+        arrowHeadB.setStrokeWidth(stroke);
+
+        pane.getChildren().add(arrowGuide);
+        pane.getChildren().add(arrowHeadA);
+        pane.getChildren().add(arrowHeadB);
+    }
+
     public void removeArrow(AnchorPane pane) {
         pane.getChildren().remove(arrowGuide);
         pane.getChildren().remove(arrowHeadA);

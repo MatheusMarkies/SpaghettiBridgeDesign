@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -65,17 +66,19 @@
             </Menu>
          </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.033, 0.8636" focusTraversable="true" prefHeight="662.0" prefWidth="1271.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.032991202346041054, 0.8636363636363636" focusTraversable="true" prefHeight="662.0" prefWidth="1271.0" VBox.vgrow="ALWAYS">
          <items>
-            <AnchorPane prefHeight="660.0" prefWidth="54.0">
+            <AnchorPane prefHeight="660.0" prefWidth="21.0">
                <children>
                   <Button fx:id="create_node_button" layoutX="2.0" layoutY="28.0" mnemonicParsing="false" onAction="#createNodeButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0" />
                   <Button fx:id="create_bar_button" layoutX="2.0" layoutY="73.0" mnemonicParsing="false" onAction="#createBarButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="45.0" />
                   <Button fx:id="assembler_equations" layoutX="3.0" layoutY="116.0" mnemonicParsing="false" onAction="#assembleEquationsButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="80.0" />
                   <Button fx:id="calculate_wires" layoutX="13.0" layoutY="126.0" mnemonicParsing="false" onAction="#wireCalculatorButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="115.0" />
                   <Button fx:id="set_measure" layoutX="23.0" layoutY="136.0" mnemonicParsing="false" onAction="#setMeasureButtonAction" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="150.0" />
-                  <Button fx:id="zoom_add_button" layoutX="23.0" layoutY="136.0" mnemonicParsing="false" onAction="#onClickedZoomAddButton" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="595.0" />
-                  <Button fx:id="zoom_decrease_button" layoutX="33.0" layoutY="146.0" mnemonicParsing="false" onAction="#onClickedZoomDecreaseButton" prefHeight="25.0" prefWidth="27.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="630.0" />
+                  <Button fx:id="zoom_add_button" disable="true" layoutX="23.0" layoutY="136.0" mnemonicParsing="false" onAction="#onClickedZoomAddButton" prefHeight="25.0" prefWidth="27.0" visible="false" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="595.0" />
+                  <Button fx:id="zoom_decrease_button" disable="true" layoutX="33.0" layoutY="146.0" mnemonicParsing="false" onAction="#onClickedZoomDecreaseButton" prefHeight="25.0" prefWidth="27.0" visible="false" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="630.0" />
+                  <Slider fx:id="menu_zoom_slider" layoutX="14.0" layoutY="506.0" orientation="VERTICAL" value="50.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="506.0" />
+                  <Label fx:id="menu_zoom_label" alignment="CENTER" layoutX="7.0" layoutY="489.0" prefHeight="17.0" prefWidth="30.0" text="1x" textAlignment="CENTER" AnchorPane.bottomAnchor="154.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="489.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="canvas_plane" maxHeight="660.0" maxWidth="1127.0" minWidth="1127.0" onMouseDragged="#onMouseDragEvent" onScroll="#onMouseScrollEvent" SplitPane.resizableWithParent="false">
