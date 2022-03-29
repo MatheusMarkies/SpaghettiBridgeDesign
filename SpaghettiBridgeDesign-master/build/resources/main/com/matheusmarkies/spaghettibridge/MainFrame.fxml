@@ -29,13 +29,13 @@
                   <MenuItem mnemonicParsing="false" onAction="#menuOpitionOpenAction" text="Open…" />
                   <Menu mnemonicParsing="false" text="Open Recent" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#closeBridgeButtonAction" text="Close" />
                   <MenuItem mnemonicParsing="false" onAction="#menuOpitionSaveAction" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Save As…" />
-                  <MenuItem mnemonicParsing="false" text="Revert" />
+                  <MenuItem mnemonicParsing="false" text="Save As…" visible="false" />
+                  <MenuItem mnemonicParsing="false" text="Revert" visible="false" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Preferences…" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Preferences…" visible="false" />
+                  <SeparatorMenuItem mnemonicParsing="false" visible="false" />
                   <MenuItem mnemonicParsing="false" text="Quit" />
                </items>
             </Menu>

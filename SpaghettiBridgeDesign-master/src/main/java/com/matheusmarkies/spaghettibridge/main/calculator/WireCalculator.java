@@ -172,19 +172,19 @@ public class WireCalculator {
         
         if (bar.getBarForce() > 0)//tração
         {
-            WiresPerBar = (int) Math.round((bar.getBarForce() * Cs) / Tr);
+            WiresPerBar = (int) Math.ceil((bar.getBarForce() * Cs) / Tr);
         } else {//flambagem
             double barSize = Vector2D.distance(bar.getNodeStart().getPosition(),
                     bar.getNodeEnd().getPosition())/100;
 
-            WiresPerBar = (int)Math.round(
+            WiresPerBar = (int)Math.ceil(
                     Math.sqrt((64*Math.abs(bar.getBarForce()*Cs)*barSize*barSize)/
                             (Math.pow(Math.PI,3)*Me*Math.pow(d,4)))
             );
         }
-        if (WiresPerBar == 0) {
+
+        if (WiresPerBar == 0)
             WiresPerBar = 3;
-        }
 
         return WiresPerBar;
     }

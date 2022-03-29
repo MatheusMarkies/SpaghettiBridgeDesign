@@ -376,6 +376,12 @@ public class MainFrameController implements Initializable {
     }
 
     @FXML
+    void closeBridgeButtonAction(ActionEvent event) {
+        bridgeMain.bridgeManager.reset();
+        updateBridge();
+    }
+
+    @FXML
     void onMouseDragEvent(MouseEvent event) {
         Vector2D panVector = new Vector2D(event.getX(),event.getY());
         panVector = Vector2D.add(panVector,new Vector2D(

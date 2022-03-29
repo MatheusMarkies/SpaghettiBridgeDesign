@@ -88,8 +88,10 @@ public class CreateNodeController implements Initializable {
             } catch (Exception e) {
             }
 
-            point.setCenterX(X + mainFrameController.getCanvasPlane().getWidth() / 2);
-            point.setCenterY(-Y + mainFrameController.getCanvasPlane().getHeight() / 2);
+            Vector2D nodeStartPosition = mainFrameController.getShowBridge().canvasTranslate(new Vector2D(X,Y));
+
+            point.setCenterX(nodeStartPosition.x());
+            point.setCenterY(nodeStartPosition.y());
             point.setRadius(5);
 
             mainFrameController.addObjectToCanvas(point);

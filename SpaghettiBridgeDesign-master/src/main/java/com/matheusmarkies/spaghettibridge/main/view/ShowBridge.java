@@ -587,8 +587,8 @@ public class ShowBridge{
 
     public void showReactionsVectors() {
         removeReations();
-float arraowSize = 20f
-        * (float)bridgeMain.bridgeManager.getZoomCoefficient();
+float arraowSize = Math.min(20f
+        * (float)bridgeMain.bridgeManager.getZoomCoefficient(),100f);
         for (Node entry : bridgeMain.bridgeManager.getNodes()) {
 
             if (entry.getExternalForces().size() > 0) {
