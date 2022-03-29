@@ -11,6 +11,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import com.matheusmarkies.spaghettibridge.main.tables.AngleTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.MouseEvent;
@@ -63,7 +64,7 @@ public class ShowBridge{
     MainFrameController mainFrameController;
 
     public enum BarView {
-        Standard, Forces, Vectors, FreeBody
+        Standard, Forces, Vectors, FreeBody, ExplodedView
     }
 
     BarView barView = BarView.Standard;
@@ -178,6 +179,7 @@ public class ShowBridge{
 
     public void showNodes() {
         removeNodes();
+        updateAngleTable();
 
         for (Node entry : bridgeMain.bridgeManager.getNodes()) {
             Circle circle = new Circle();
@@ -303,11 +305,14 @@ public class ShowBridge{
                 vectorsBarsView();
                 break;
             case FreeBody:
+                freeBodyDiagramBarsView();
+                break;
+            case ExplodedView:
                 explodedViewBarsView();
-                //freeBodyDiagramBarsView();
                 break;
         }
 
+        updateAngleTable();
         mainFrameController.getBarTableView().setItems(getBarTableValues());
     }
 
@@ -325,7 +330,7 @@ public class ShowBridge{
             }
         return obsList;
     }
-    
+
     public void standardBarsView() {
         removeReations();
         showReactions();
@@ -364,6 +369,7 @@ public class ShowBridge{
 
     public void forcesBarsView() {
         removeReations();
+        removeArcs();
         showReactions();
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
@@ -392,7 +398,7 @@ public class ShowBridge{
 
             canvas_plane.getChildren().add(line);
             canvas_plane.getChildren().add(barLabel);
-            showArcs();
+            //showArcs();
         }
     }
 
@@ -400,6 +406,7 @@ public class ShowBridge{
 
     public void vectorsBarsView() {
         removeReations();
+        removeArcs();
         showReactions();
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
 
@@ -425,7 +432,7 @@ public class ShowBridge{
 
             barLabel.setText((int) entry.getBarForce() + "N");
 
-            Vector2D barCenter = Vector2D.getCenter(nodeStartPosition,nodeEndPosition);
+            Vector2D barCenter = Vector2D.getCenter(nodeStartPosition, nodeEndPosition);
 
             barLabel.setX(barCenter.x());
             barLabel.setY(barCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
@@ -437,30 +444,11 @@ public class ShowBridge{
             canvas_plane.getChildren().add(barLabel);
             //showArcs();
         }
-
-        Vector2D nodeStartPosition = new Vector2D(bridgeMain.bridgeManager.getMiddleNode().getPosition().x() + canvas_plane.getWidth() / 2,
-                -bridgeMain.bridgeManager.getMiddleNode().getPosition().y() + canvas_plane.getHeight() / 2);
-
-        Text barLabel = new Text();
-
-        barLabel.setText("100" + "N");
-
-        barLabel.setX(Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).x() + 10f + canvas_plane.getWidth() / 2);
-        barLabel.setY((-Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).y() + canvas_plane.getHeight() / 2) - 0.5f);
-
-        Arrow arrowP = new Arrow(nodeStartPosition,
-                Vector2D.add(nodeStartPosition, new Vector2D(0, 40)),
-                20, Color.CRIMSON, false);
-
-        arrowP.setArrowInPlane(canvas_plane);
-
-        arrowInPlane.add(arrowP);
-        barsLabelsInPlane.add(barLabel);
-        canvas_plane.getChildren().add(barLabel);
     }
 
     public void freeBodyDiagramBarsView() {
         removeReations();
+        removeArcs();
         showReactionsVectors();
         for (Bar entry : bridgeMain.bridgeManager.getBars()) {
 
@@ -495,26 +483,6 @@ public class ShowBridge{
 
             //showArcs();
         }
-
-        Vector2D nodeStartPosition = new Vector2D(bridgeMain.bridgeManager.getMiddleNode().getPosition().x() + canvas_plane.getWidth() / 2,
-                -bridgeMain.bridgeManager.getMiddleNode().getPosition().y() + canvas_plane.getHeight() / 2);
-
-        Text barLabel = new Text();
-
-        barLabel.setText("100" + "N");
-
-        barLabel.setX(Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).x() + 10f + canvas_plane.getWidth() / 2);
-        barLabel.setY((-Vector2D.getCenter(nodeStartPosition, Vector2D.add(nodeStartPosition, new Vector2D(0, 40))).y() + canvas_plane.getHeight() / 2) - 0.5f);
-
-        Arrow arrowP = new Arrow(nodeStartPosition,
-                Vector2D.add(nodeStartPosition, new Vector2D(0, 40)),
-                20, Color.CRIMSON, false);
-
-        arrowP.setArrowInPlane(canvas_plane);
-
-        arrowInPlane.add(arrowP);
-        barsLabelsInPlane.add(barLabel);
-        canvas_plane.getChildren().add(barLabel);
     }
 
     public void explodedViewBarsView() {
@@ -700,7 +668,7 @@ float arraowSize = 20f
 
         }
     }
-
+    ObservableList<AngleTable> obsList = FXCollections.observableArrayList();
     public void showArcs() {
         removeArcs();
 
@@ -713,10 +681,38 @@ float arraowSize = 20f
         }
 
         for (Truss truss : nodeTruss) {
-            setTrussArc(truss.getNodeA(), truss.getNodeB(), truss.getNodeC());
-            setTrussArc(truss.getNodeB(), truss.getNodeA(), truss.getNodeC());
-            setTrussArc(truss.getNodeC(), truss.getNodeA(), truss.getNodeB());
+            //setTrussArc(truss.getNodeA(), truss.getNodeB(), truss.getNodeC());
+            //setTrussArc(truss.getNodeB(), truss.getNodeA(), truss.getNodeC());
+            //setTrussArc(truss.getNodeC(), truss.getNodeA(), truss.getNodeB());
         }
+    }
+
+    void updateAngleTable(){
+        ArrayList<Truss> nodeTruss = new ArrayList<>();
+
+        for (Node node : bridgeMain.bridgeManager.getNodes()) {
+            ArrayList<Truss> nodeTrussFinder = Trussing.TrussFinder(node);
+            for (Truss truss : nodeTrussFinder)
+                Truss.addTrussInList(nodeTruss, truss);
+        }
+        obsList = FXCollections.observableArrayList();
+        for (Truss truss : nodeTruss) {
+            double angleLengthA = Angle.getTrussAngles(truss.getNodeA(), truss.getNodeB(), truss.getNodeC());
+            double angleLengthB = Angle.getTrussAngles(truss.getNodeB(), truss.getNodeA(), truss.getNodeC());
+            double angleLengthC = Angle.getTrussAngles(truss.getNodeC(), truss.getNodeA(), truss.getNodeB());
+
+            AngleTable angleTableA = new AngleTable(truss.getNodeA().getNodeName() + truss.getNodeB().getNodeName() +
+                    truss.getNodeC().getNodeName(),Math.floor(angleLengthA*100)/100);
+            AngleTable angleTableB = new AngleTable(truss.getNodeB().getNodeName() + truss.getNodeA().getNodeName() +
+                    truss.getNodeC().getNodeName(),Math.floor(angleLengthB*100)/100);
+            AngleTable angleTableC = new AngleTable(truss.getNodeC().getNodeName() + truss.getNodeA().getNodeName() +
+                    truss.getNodeB().getNodeName(),Math.floor(angleLengthC*100)/100);
+
+            obsList.add(angleTableA);
+            obsList.add(angleTableB);
+            obsList.add(angleTableC);
+        }
+        mainFrameController.getBridgeTableAngleView().setItems(obsList);
     }
 
     void setTrussArc(Node center, Node TargetA, Node TargetB) {
@@ -730,6 +726,7 @@ float arraowSize = 20f
         Vector2D dirB = Vector2D.subtract(TargetB.getPosition(), center.getPosition());
 
         double angleLength = Angle.getTrussAngles(center, TargetA, TargetB);
+
         double angle = Angle.getTrussStartAngle(center, TargetA, TargetB);
 
         arc.setCenterX(nodeStartPosition.x());
@@ -744,6 +741,7 @@ float arraowSize = 20f
         arc.setRadiusY(radius);
 
         arc.setStartAngle(angle);
+        //arc.setStartAngle(0);
 
         arc.setType(ArcType.ROUND);
         arc.setLength(angleLength);

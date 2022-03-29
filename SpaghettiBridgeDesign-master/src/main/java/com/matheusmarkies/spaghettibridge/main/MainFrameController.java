@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter;
 import com.matheusmarkies.spaghettibridge.main.manager.BridgeManager;
+import com.matheusmarkies.spaghettibridge.main.tables.AngleTable;
 import com.matheusmarkies.spaghettibridge.material.Material;
 import com.matheusmarkies.spaghettibridge.popup.*;
 import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
@@ -71,6 +72,15 @@ public class MainFrameController implements Initializable {
     private Button assembler_equations;
 
     @FXML
+    private TableColumn<AngleTable, Double> bridge_angle_table_angle;
+
+    @FXML
+    private TableColumn<AngleTable, String> bridge_angle_table_bars;
+
+    @FXML
+    private TableView<AngleTable> bridge_table_angle_view;
+
+    @FXML
     private TableView<BarTable> bridge_table_view;
 
     @FXML
@@ -123,6 +133,9 @@ public class MainFrameController implements Initializable {
 
     @FXML
     private MenuItem menu_display_freebodyview;
+
+    @FXML
+    private MenuItem menu_display_explodedview;
 
     @FXML
     private MenuItem menu_display_standardbarsview;
@@ -319,6 +332,9 @@ public class MainFrameController implements Initializable {
     }
 
     @FXML
+    void explodedViewViewButtonAction(ActionEvent event) {showBridge.setBarView(ShowBridge.BarView.ExplodedView);}
+
+    @FXML
     void vectorBarsViewButtonAction(ActionEvent event) {
         showBridge.setBarView(ShowBridge.BarView.Vectors);
     }
@@ -445,6 +461,11 @@ public class MainFrameController implements Initializable {
                 new PropertyValueFactory<>("force"));
         bridge_table_view_wires.setCellValueFactory(
                 new PropertyValueFactory<>("wires"));
+
+        bridge_angle_table_bars.setCellValueFactory(
+                new PropertyValueFactory<>("nodes"));
+        bridge_angle_table_angle.setCellValueFactory(
+                new PropertyValueFactory<>("arc"));
 
         bridge_table_view.setRowFactory(tv -> {
             TableRow<BarTable> row = new TableRow<>();
@@ -705,4 +726,7 @@ public class MainFrameController implements Initializable {
         return bridge_table_view;
     }
 
+    public TableView<AngleTable> getBridgeTableAngleView() {
+        return bridge_table_angle_view;
+    }
 }

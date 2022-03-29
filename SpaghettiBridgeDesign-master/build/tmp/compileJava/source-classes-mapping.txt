@@ -1,5 +1,5 @@
-com/matheusmarkies/spaghettibridge/objects/bar/BarSerializable.java
- com.matheusmarkies.spaghettibridge.objects.bar.BarSerializable
+com/matheusmarkies/spaghettibridge/objects/fx/Arrow.java
+ com.matheusmarkies.spaghettibridge.objects.fx.Arrow
 com/matheusmarkies/spaghettibridge/main/features/Bridge.java
  com.matheusmarkies.spaghettibridge.main.features.Bridge
 com/matheusmarkies/spaghettibridge/material/Material.java
@@ -8,8 +8,8 @@ com/matheusmarkies/spaghettibridge/objects/node/NodeSerializable.java
  com.matheusmarkies.spaghettibridge.objects.node.NodeSerializable
 com/matheusmarkies/spaghettibridge/main/Main.java
  com.matheusmarkies.spaghettibridge.main.Main
-com/matheusmarkies/spaghettibridge/objects/fx/Arrow.java
- com.matheusmarkies.spaghettibridge.objects.fx.Arrow
+com/matheusmarkies/spaghettibridge/main/tables/AngleTable.java
+ com.matheusmarkies.spaghettibridge.main.tables.AngleTable
 com/matheusmarkies/spaghettibridge/main/features/FileTypeFilter.java
  com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter
 com/matheusmarkies/spaghettibridge/objects/fx/Measure.java
@@ -41,14 +41,16 @@ com/matheusmarkies/spaghettibridge/utilities/Line.java
  com.matheusmarkies.spaghettibridge.utilities.Line
 com/matheusmarkies/spaghettibridge/main/calculator/EquationAssembler.java
  com.matheusmarkies.spaghettibridge.main.calculator.EquationAssembler
-com/matheusmarkies/spaghettibridge/main/calculator/Angle.java
- com.matheusmarkies.spaghettibridge.main.calculator.Angle
-com/matheusmarkies/spaghettibridge/main/calculator/Deformation.java
- com.matheusmarkies.spaghettibridge.main.calculator.Deformation
 com/matheusmarkies/spaghettibridge/objects/node/Node.java
  com.matheusmarkies.spaghettibridge.objects.node.Node
+com/matheusmarkies/spaghettibridge/main/calculator/Deformation.java
+ com.matheusmarkies.spaghettibridge.main.calculator.Deformation
+com/matheusmarkies/spaghettibridge/objects/bar/BarSerializable.java
+ com.matheusmarkies.spaghettibridge.objects.bar.BarSerializable
 com/matheusmarkies/spaghettibridge/main/SpaghettiBridgeMain.java
  com.matheusmarkies.spaghettibridge.main.SpaghettiBridgeMain
+com/matheusmarkies/spaghettibridge/main/calculator/Angle.java
+ com.matheusmarkies.spaghettibridge.main.calculator.Angle
 com/matheusmarkies/spaghettibridge/main/grid/Grid.java
  com.matheusmarkies.spaghettibridge.main.grid.Grid
 com/matheusmarkies/spaghettibridge/main/view/ShowBridge.java

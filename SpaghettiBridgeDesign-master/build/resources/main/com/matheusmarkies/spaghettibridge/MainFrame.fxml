@@ -54,6 +54,7 @@
                      <items>
                         <MenuItem fx:id="menu_display_vectorbarsview" mnemonicParsing="false" onAction="#vectorBarsViewButtonAction" text="Vetores em Barras" />
                         <MenuItem fx:id="menu_display_freebodyview" mnemonicParsing="false" onAction="#freeBodyViewButtonAction" text="Corpo Livre" />
+                        <MenuItem fx:id="menu_display_explodedview" mnemonicParsing="false" onAction="#explodedViewViewButtonAction" text="Vista Explodida" />
                      </items>
                   </Menu>
                </items>
@@ -130,6 +131,24 @@
                                 </content>
                               </ScrollPane>
                            </content></Tab>
+                        <Tab text="Angulos">
+                           <content>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="204.0">
+                                       <children>
+                                          <TableView fx:id="bridge_table_angle_view" prefHeight="620.0" prefWidth="201.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                             <columns>
+                                                <TableColumn fx:id="bridge_angle_table_bars" minWidth="-1.0" prefWidth="50.0" text="Nós" />
+                                                <TableColumn fx:id="bridge_angle_table_angle" minWidth="-1.0" prefWidth="50.0" text="Angulo" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </ScrollPane>
+                           </content>
+                        </Tab>
                     </tabs>
                   </TabPane>
                </children>

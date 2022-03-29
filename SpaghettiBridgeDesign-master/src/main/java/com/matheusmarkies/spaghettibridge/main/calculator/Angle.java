@@ -45,14 +45,36 @@ public class Angle {
         Vector2D dirA = Vector2D.subtract(nodeAngleTargetA.getPosition(), nodeFix.getPosition());
         Vector2D dirB = Vector2D.subtract(nodeAngleTargetB.getPosition(), nodeFix.getPosition());
 
-        double angleA = Math.toDegrees(Math.acos(Vector2D.dot(dirA, new Vector2D(1, 0))));
-        double angleB = Math.toDegrees(Math.acos(Vector2D.dot(dirB, new Vector2D(1, 0))));
-        
-        angle = Math.min(angleA, angleB);
+        double angleA = Math.toDegrees(Math.acos(Vector2D.dot(dirA,new Vector2D(1,0))));
+        double angleB = Math.toDegrees(Math.acos(Vector2D.dot(dirB,new Vector2D(1,0))));
 
-        if ((dirA.x() < 0 && dirA.y() != 0) || (dirB.x() < 0 && dirB.y() != 0)) {
-            double arc = Math.toDegrees(Math.acos(getTrussAngles(nodeFix,nodeAngleTargetA,nodeAngleTargetB)));
-            angle = 270 + 45 - (angle);
+        double startAngle = Math.min(angleA,angleB);
+
+        Vector2D C = Vector2D.add(Vector2D.normalize(nodeAngleTargetA.getPosition()),Vector2D.normalize(nodeAngleTargetB.getPosition()));
+
+        System.out.println();
+        System.out.println(C.toString());
+        if(C.x() < 0 && -C.y() > 0)
+        {
+            //Terceiro Quadrante
+            System.out.println("Terceiro Quadrante");
+            angle=180;
+        }
+        if(C.x() < 0 && -C.y() < 0)
+        {
+            //Segundo Quadrante
+            System.out.println("Segundo Quadrante");
+            angle=180;
+        }
+        if(C.x() > 0 && -C.y() > 0)
+        {
+            //Quarto Quadrante
+            System.out.println("Quarto Quadrante");
+        }
+        if(C.x() > 0 && -C.y() < 0)
+        {
+            //Primeiro Quadrante
+            System.out.println("Primeiro Quadrante");
         }
 
         return angle;
