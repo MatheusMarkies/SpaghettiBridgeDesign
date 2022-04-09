@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import com.matheusmarkies.spaghettibridge.main.tables.AngleTable;
+import com.matheusmarkies.spaghettibridge.utilities.BarColorController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.MouseEvent;
@@ -293,7 +294,7 @@ public class ShowBridge{
 
     public void showBars() {
         removeBars();
-
+        setBarColor();
         switch (barView) {
             case Standard:
                 standardBarsView();
@@ -345,22 +346,14 @@ public class ShowBridge{
             line.setEndX(nodeEndPositionCanvas.x());
             line.setEndY(nodeEndPositionCanvas.y());
 
-            line.setStroke(Color.DARKSLATEBLUE);
+            line.setStroke(entry.getBarColor());
 
-            Text barLabel = new Text();
+            barsLabelsInPlane.add(setTextOrthogonal(nodeStartPositionCanvas,
+                    nodeEndPositionCanvas,
+                    entry.getBarName()));
 
-            barLabel.setText(entry.getBarName());
-
-            Vector2D barCenter = Vector2D.getCenter(nodeStartPositionCanvas,nodeEndPositionCanvas);
-
-            barLabel.setX(barCenter.x());
-            barLabel.setY(barCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
-
-            barsLabelsInPlane.add(barLabel);
             barsInPlane.add(line);
-
             canvas_plane.getChildren().add(line);
-            canvas_plane.getChildren().add(barLabel);
             //showArcs();
         }
 
@@ -384,20 +377,13 @@ public class ShowBridge{
 
             line.setStroke(entry.getBarColor());
 
-            Text barLabel = new Text();
+            barsLabelsInPlane.add(setTextOrthogonal(nodeStartPositionCanvas,
+                    nodeEndPositionCanvas,
+                    entry.getBarName() + " " + (int) entry.getBarForce() + "N"));
 
-            barLabel.setText(entry.getBarName() + " " + (int) entry.getBarForce() + "N");
-
-            Vector2D barCenter = Vector2D.getCenter(nodeStartPositionCanvas,nodeEndPositionCanvas);
-
-            barLabel.setX(barCenter.x());
-            barLabel.setY(barCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
-
-            barsLabelsInPlane.add(barLabel);
             barsInPlane.add(line);
 
             canvas_plane.getChildren().add(line);
-            canvas_plane.getChildren().add(barLabel);
             //showArcs();
         }
     }
@@ -413,35 +399,27 @@ public class ShowBridge{
             Vector2D nodeStartPosition = canvasTranslate(entry.getNodeStart().getPosition());
             Vector2D nodeEndPosition = canvasTranslate(entry.getNodeEnd().getPosition());
 
-            Arrow arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.CORAL, true);
-            Arrow arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.CORAL, true);
+            Arrow arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, entry.getBarColor(), true);
+            Arrow arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, entry.getBarColor(), true);
 
             if (entry.getBarForce() < 0) {
-                arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.CORAL, true);
-                arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.CORAL, true);
+                arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, entry.getBarColor(), true);
+                arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, entry.getBarColor(), true);
             } else if (entry.getBarForce() > 0) {
-                arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, Color.DARKBLUE, false);
-                arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.DARKBLUE, false);
+                arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20,entry.getBarColor(), false);
+                arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, entry.getBarColor(), false);
             } else
-                arrowA = new Arrow(nodeEndPosition, nodeStartPosition, 20, Color.BLACK, false);
+                arrowA = new Arrow(nodeEndPosition, nodeStartPosition, 20, entry.getBarColor(), false);
 
             arrowA.setArrowInPlane(canvas_plane);
             arrowB.setArrowInPlane(canvas_plane);
 
-            Text barLabel = new Text();
-
-            barLabel.setText((int) entry.getBarForce() + "N");
-
-            Vector2D barCenter = Vector2D.getCenter(nodeStartPosition, nodeEndPosition);
-
-            barLabel.setX(barCenter.x());
-            barLabel.setY(barCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
+            barsLabelsInPlane.add(setTextOrthogonal(nodeStartPosition,
+                    nodeEndPosition,
+                    (int) entry.getBarForce() + "N"));
 
             arrowInPlane.add(arrowA);
             arrowInPlane.add(arrowB);
-
-            barsLabelsInPlane.add(barLabel);
-            canvas_plane.getChildren().add(barLabel);
             //showArcs();
         }
     }
@@ -465,12 +443,12 @@ public class ShowBridge{
             
             if (entry.getBarForce() < 0) {
                 Color color = Color.color(Math.random(), Math.random(), Math.random());
-                arrowA = new Arrow(Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition), nodeEndPosition, 20, color, false);
-                arrowB = new Arrow(Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition), nodeStartPosition, 20, color, false);
+                arrowA = new Arrow(Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition), nodeEndPosition, 20, entry.getBarColor(), false);
+                arrowB = new Arrow(Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition), nodeStartPosition, 20, entry.getBarColor(), false);
             } else {
                 Color color = Color.color(Math.random(), Math.random(), Math.random());
-                arrowA = new Arrow(nodeEndPosition, Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition), 20, color, false);
-                arrowB = new Arrow(nodeStartPosition, Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition), 20, color, false);
+                arrowA = new Arrow(nodeEndPosition, Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition), 20, entry.getBarColor(), false);
+                arrowB = new Arrow(nodeStartPosition, Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition), 20, entry.getBarColor(), false);
             }
 
             float mag = 0.5f;
@@ -522,21 +500,18 @@ public class ShowBridge{
                             Vector2D.multiply(lineVector, -lineSize * 0.35f
                             )), entry , true);
 
-            Text barLabel = new Text();
-
             if(entry.getBarForce() > 0)
-            barLabel.setText(entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Tension");
+            barsLabelsInPlane.add(setTextOrthogonal(nodeStartPositionCanvas,
+                    nodeEndPositionCanvas,
+                    entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Tension"));
             else
-            barLabel.setText(entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Compression");
+                barsLabelsInPlane.add(setTextOrthogonal(nodeStartPositionCanvas,
+                    nodeEndPositionCanvas,
+                    entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Compression"));
 
-            barLabel.setX(barCenter.x());
-            barLabel.setY(barCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
-
-            barsLabelsInPlane.add(barLabel);
             barsInPlane.add(line);
 
             canvas_plane.getChildren().add(line);
-            canvas_plane.getChildren().add(barLabel);
             //showArcs();
         }
     }
@@ -552,27 +527,23 @@ public class ShowBridge{
 
         if(!invert)
         if (entry.getBarForce() < 0) {
-            Color color = Color.BLACK;
             arrowA = new Arrow(Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition),
-                    nodeEndPosition, 20, color, false);
+                    nodeEndPosition, 20, entry.getBarColor(), false);
             arrowB = new Arrow(Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition),
-                    nodeStartPosition, 20, color, false);
+                    nodeStartPosition, 20, entry.getBarColor(), false);
         } else {
-            Color color = Color.BLACK;
-            arrowA = new Arrow(nodeEndPosition, Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition), 20, color, false);
-            arrowB = new Arrow(nodeStartPosition, Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition), 20, color, false);
+            arrowA = new Arrow(nodeEndPosition, Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition), 20, entry.getBarColor(), false);
+            arrowB = new Arrow(nodeStartPosition, Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition), 20, entry.getBarColor(), false);
         }
         else {
             if (entry.getBarForce() > 0) {
-                Color color = Color.BLACK;
                 arrowA = new Arrow(Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition),
-                        nodeEndPosition, 20, color, false);
+                        nodeEndPosition, 20, entry.getBarColor(), false);
                 arrowB = new Arrow(Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition),
-                        nodeStartPosition, 20, color, false);
+                        nodeStartPosition, 20, entry.getBarColor(), false);
             } else {
-                Color color = Color.BLACK;
-                arrowA = new Arrow(nodeEndPosition, Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition), 20, color, false);
-                arrowB = new Arrow(nodeStartPosition, Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition), 20, color, false);
+                arrowA = new Arrow(nodeEndPosition, Vector2D.add(Vector2D.multiply(new Vector2D(-size, -size), dir), nodeEndPosition), 20, entry.getBarColor(), false);
+                arrowB = new Arrow(nodeStartPosition, Vector2D.add(Vector2D.multiply(new Vector2D(size, size), dir), nodeStartPosition), 20, entry.getBarColor(), false);
             }
         }
 
@@ -602,19 +573,12 @@ float arraowSize = Math.min(20f
                         Arrow arrowA = new Arrow(nodeStartPosition,
                                 nodeEndPosition, 20, Color.CRIMSON, false);
 
-                        Text reationLabel = new Text();
-
-                        reationLabel.setText(reation.getReactionName());
-
-                        reationLabel.setX((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).x()));
-                        reationLabel.setY((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).y()) +
-                                0.5f * bridgeMain.bridgeManager.getZoomCoefficient());
+                        reationsLabelInPlane.add(setTextOrthogonal(nodeStartPosition,
+                                nodeEndPosition,
+                                reation.getReactionName()));
 
                         arrowA.setArrowInPlane(canvas_plane);
                         arrowInPlane.add(arrowA);
-                        reationsLabelInPlane.add(reationLabel);
-
-                        canvas_plane.getChildren().add(reationLabel);
                     }
                 }
             }
@@ -648,21 +612,15 @@ float arraowSize = Math.min(20f
                     line.setEndX(nodeEndPosition.x());
                     line.setEndY(nodeEndPosition.y());
 
-                    Text reationLabel = new Text();
-
-                    reationLabel.setText(reation.getReactionName());
-
-                    reationLabel.setX((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).x()));
-                    reationLabel.setY((Vector2D.getCenter(nodeStartPosition, nodeEndPosition).y()) +
-                            0.5f * bridgeMain.bridgeManager.getZoomCoefficient());
+                    reationsLabelInPlane.add(setTextOrthogonal(nodeStartPosition,
+                            nodeEndPosition,
+                            reation.getReactionName()));
 
                     line.setStroke(Color.CRIMSON);
 
                     reationsInPlane.add(line);
-                    reationsLabelInPlane.add(reationLabel);
 
                     canvas_plane.getChildren().add(line);
-                    canvas_plane.getChildren().add(reationLabel);
                 }
             }
 
@@ -697,22 +655,43 @@ float arraowSize = Math.min(20f
         }
         obsList = FXCollections.observableArrayList();
         for (Truss truss : nodeTruss) {
+            ArrayList<Bar> bars = new ArrayList<Bar>();
+
             double angleLengthA = Angle.getTrussAngles(truss.getNodeA(), truss.getNodeB(), truss.getNodeC());
             double angleLengthB = Angle.getTrussAngles(truss.getNodeB(), truss.getNodeA(), truss.getNodeC());
             double angleLengthC = Angle.getTrussAngles(truss.getNodeC(), truss.getNodeA(), truss.getNodeB());
 
-            AngleTable angleTableA = new AngleTable(truss.getNodeA().getNodeName() + truss.getNodeB().getNodeName() +
-                    truss.getNodeC().getNodeName(),Math.floor(angleLengthA*100)/100);
-            AngleTable angleTableB = new AngleTable(truss.getNodeB().getNodeName() + truss.getNodeA().getNodeName() +
-                    truss.getNodeC().getNodeName(),Math.floor(angleLengthB*100)/100);
-            AngleTable angleTableC = new AngleTable(truss.getNodeC().getNodeName() + truss.getNodeA().getNodeName() +
-                    truss.getNodeB().getNodeName(),Math.floor(angleLengthC*100)/100);
+            AngleTable angleTableA = new AngleTable(getBarByNodes(truss.getNodeA().getNodeName(), truss.getNodeB().getNodeName()),
+                    getBarByNodes(truss.getNodeA().getNodeName(), truss.getNodeC().getNodeName()),
+                    Math.floor(angleLengthA*100)/100);
+
+            AngleTable angleTableB = new AngleTable(getBarByNodes(truss.getNodeA().getNodeName(), truss.getNodeB().getNodeName()),
+                    getBarByNodes(truss.getNodeB().getNodeName(), truss.getNodeC().getNodeName()),
+                    Math.floor(angleLengthB*100)/100);
+
+            AngleTable angleTableC = new AngleTable(getBarByNodes(truss.getNodeA().getNodeName(), truss.getNodeC().getNodeName()),
+                    getBarByNodes(truss.getNodeB().getNodeName(), truss.getNodeC().getNodeName()),
+                    Math.floor(angleLengthC*100)/100);
 
             obsList.add(angleTableA);
             obsList.add(angleTableB);
             obsList.add(angleTableC);
         }
         mainFrameController.getBridgeTableAngleView().setItems(obsList);
+    }
+
+    String getBarByNodes(String nodeA, String nodeB){
+        String name = "";
+        for (Bar bar: bridgeMain.bridgeManager.getBars()
+             ) {
+            if(bar.getNodeStart().getNodeName().equals(nodeA) || bar.getNodeEnd().getNodeName().equals(nodeA))
+                if(bar.getNodeStart().getNodeName().equals(nodeB) || bar.getNodeEnd().getNodeName().equals(nodeB))
+                {
+                    name = bar.getBarName();
+                    break;
+                }
+        }
+        return name;
     }
 
     void setTrussArc(Node center, Node TargetA, Node TargetB) {
@@ -767,22 +746,15 @@ float arraowSize = Math.min(20f
             line.setEndX(canvasMeasureEndPosition.x());
             line.setEndY(canvasMeasureEndPosition.y());
 
-            Text measureValue = new Text();
+            measuresValueLabelsInPlane.add(setTextOrthogonal(canvasMeasureStartPosition,
+                    canvasMeasureEndPosition,
+                    (Math.round(
+                            Vector2D.distance(measure.getStartPosition(),
+                                    measure.getEndPosition())
+                                    * 1000) / 1000) + "cm"));
 
-            measureValue.setText((Math.round(Vector2D.distance(measure.getStartPosition(), measure.getEndPosition()) * 1000) / 1000) + "cm");
-
-            measureValue.setX((Vector2D.getCenter(
-                            canvasMeasureStartPosition,
-                            canvasMeasureEndPosition).x()));
-            measureValue.setY((Vector2D.getCenter(
-                            canvasMeasureStartPosition,
-                            canvasMeasureEndPosition).y()) +
-                            0.5f * bridgeMain.bridgeManager.getZoomCoefficient());
-
-            canvas_plane.getChildren().add(measureValue);
             canvas_plane.getChildren().add(line);
             measuresInPlane.add(line);
-            measuresValueLabelsInPlane.add(measureValue);
         }
     }
 
@@ -853,6 +825,25 @@ float arraowSize = Math.min(20f
         showBars();
     }
 
+    public void setBarColor(){
+        for (Bar bar: bridgeMain.bridgeManager.getBars()) {
+            boolean selected = false;
+            for (Bar selectedBar: bridgeMain.bridgeManager.getSelectedBar())
+                if(bar.equals(selectedBar))
+                    selected = true;
+
+            if(!selected){
+                if (bar.getBarForce() < 0)
+                    bar.setBarColor(BarColorController.getCompressionColor(barView));
+                else if (bar.getBarForce() > 0)
+                    bar.setBarColor(BarColorController.getTensionColor(barView));
+                else
+                    bar.setBarColor(BarColorController.getNeutralColor(barView));
+                }else
+                    bar.setBarColor(BarColorController.SELECTED);
+        }
+    }
+
     public Vector2D canvasTranslate(Vector2D a){
         return Vector2D.add(
                 Vector2D.multiply(
@@ -865,6 +856,34 @@ float arraowSize = Math.min(20f
                         canvas_plane.getWidth() / 2 + bridgeMain.bridgeManager.getTranslateVector().x(),
                         canvas_plane.getHeight() / 2 + bridgeMain.bridgeManager.getTranslateVector().y())
         );
+    }
+
+    Text setTextOrthogonal(Vector2D start, Vector2D end, String text){
+        Vector2D vector = Vector2D.subtract(end, start);
+        Vector2D orthogonalVector = new Vector2D(vector.y(), -vector.x());
+
+        orthogonalVector = Vector2D.normalize(orthogonalVector);
+
+        double angle = Math.toDegrees(Math.acos(Vector2D.dot(start, end)));
+
+        if(start.y() > end.y())
+            angle = Math.max(Math.toDegrees(Math.acos(Vector2D.dot(start, end))),
+                    Math.toDegrees(Math.acos(Vector2D.dot(end, start))));
+
+        Text label = new Text();
+
+        label.setText(text);
+
+        Vector2D center = Vector2D.getCenter(start, end);
+
+        label.setRotate(-angle);
+
+        Vector2D position = center;
+        label.setX(position.x());
+        label.setY(position.y());
+
+        canvas_plane.getChildren().add(label);
+        return label;
     }
 
 }

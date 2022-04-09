@@ -7,11 +7,14 @@ package com.matheusmarkies.spaghettibridge.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter;
+import com.matheusmarkies.spaghettibridge.main.features.StringFeatures;
 import com.matheusmarkies.spaghettibridge.main.manager.BridgeManager;
 import com.matheusmarkies.spaghettibridge.main.tables.AngleTable;
 import com.matheusmarkies.spaghettibridge.material.Material;
@@ -76,6 +79,9 @@ public class MainFrameController implements Initializable {
 
     @FXML
     private TableColumn<AngleTable, String> bridge_angle_table_bars;
+
+    @FXML
+    private TableColumn<AngleTable, String> bridge_angle_table_secondsbars;
 
     @FXML
     private TableView<AngleTable> bridge_table_angle_view;
@@ -188,9 +194,13 @@ public class MainFrameController implements Initializable {
     @FXML
     void wireCalculatorButtonAction(ActionEvent event) {
         calculateBarForces();
+
+        DecimalFormat df = new DecimalFormat("#.#");
+        df.setRoundingMode(RoundingMode.CEILING);
+
         consoleManager.printLog("");
         for (ComponentTemplate componentTemplate : bridgeMain.bridgeManager.getCalculationComponents().getComponentTemplates()) {
-            consoleManager.printLog(componentTemplate.getComponentName() + ": " + bridgeMain.bridgeManager.getCalculationComponents().getMatrixs().get(2)[componentTemplate.getIndex()][0] + "N");
+            consoleManager.printLog(componentTemplate.getComponentName() + ": " + df.format(bridgeMain.bridgeManager.getCalculationComponents().getMatrixs().get(2)[componentTemplate.getIndex()][0]) + "N");
         }
 
         consoleManager.printLog("");
@@ -244,13 +254,6 @@ public class MainFrameController implements Initializable {
                 stage.setTitle("Criar Barra");
                 stage.setScene(new Scene(root));
 
-                //URL resource = com.matheusmarkies.spaghettibridge.resources.Resources.class
-                //        .getResource("bridge-bars.png");
-                //Image stageImage = new Image(
-                //        resource.toString()
-                //);
-                //stage.getIcons().add(stageImage);
-
                 stage.show();
             } catch (IOException ex) {
 
@@ -276,13 +279,6 @@ public class MainFrameController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Criar No");
             stage.setScene(new Scene(root));
-
-            //URL resource = com.matheusmarkies.spaghettibridge.resources.Resources.class
-            //        .getResource("bridge-nodes.png");
-            //Image stageImage = new Image(
-            //        resource.toString()
-            //);
-            //stage.getIcons().add(stageImage);
 
             stage.setOnCloseRequest(ev -> {
                 if (nodePointer != null) {
@@ -339,14 +335,6 @@ public class MainFrameController implements Initializable {
         showBridge.setBarView(ShowBridge.BarView.Vectors);
     }
 
-    //@FXML
-    //void coordenateSystemMenuButtonAction(ActionEvent event) {
-        //if (menu_display_coordenateSystem.isSelected())
-        //showBridge.showCartesianSystem(30.0f, 0.5f, cartesian_system_X, cartesian_system_Y);
-        //else
-        //  showBridge.removeCartesianSystem();
-    //}
-
     @FXML
     void onClickedZoomAddButton(ActionEvent event) {
         bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient() + 0.2d);
@@ -390,6 +378,9 @@ public class MainFrameController implements Initializable {
         down_status.setText("Pan: x: "+panVector.x()+" y: "+panVector.y());
 
         bridgeMain.bridgeManager.setTranslateVector(panVector);
+
+        ArrayList<Bar> selectedBars = new ArrayList<>();
+        bridgeMain.bridgeManager.setSelectedBar(selectedBars);
 
         updateBridge();
     }
@@ -441,10 +432,14 @@ public class MainFrameController implements Initializable {
         }
     }
 
+    Color selectedAngleFirstBarColor;
+    Color selectedAngleSecondBarColor;
+    int selectedIndex = 0;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         showBridge = new ShowBridge(canvas_plane, bridgeMain, this);
-        //showBridge.showCartesianSystem(30.0f, 0.5f, cartesian_system_X, cartesian_system_Y);
+
         consoleManager = new ConsoleManager(log_console_plane);
         grid = new Grid(this);
 
@@ -469,7 +464,9 @@ public class MainFrameController implements Initializable {
                 new PropertyValueFactory<>("wires"));
 
         bridge_angle_table_bars.setCellValueFactory(
-                new PropertyValueFactory<>("nodes"));
+                new PropertyValueFactory<>("firstBar"));
+        bridge_angle_table_secondsbars.setCellValueFactory(
+                new PropertyValueFactory<>("secondBar"));
         bridge_angle_table_angle.setCellValueFactory(
                 new PropertyValueFactory<>("arc"));
 
@@ -481,7 +478,46 @@ public class MainFrameController implements Initializable {
                     getDown_status().setText(rowData.getName() + " ( " + Math.round(rowData.getSize() * 100) / 100 + "cm )"
                             + " | Forca: " + Math.round(rowData.getForce() * 100) / 100
                             + "N | Numero de fios: " + rowData.getWires());
+
+                    ArrayList<Bar> selectedBars = new ArrayList<>();
+
+                    for (Bar bar : bridgeMain.bridgeManager.getBars())
+                        if (bar.getBarName().equals(row.getItem().getName()))
+                            selectedBars.add(bar);
+
+                    bridgeMain.bridgeManager.setSelectedBar(selectedBars);
+                    updateBridge();
                 }
+            });
+            return row;
+        });
+
+        bridge_table_angle_view.setRowFactory(tv -> {
+            TableRow<AngleTable> row = new TableRow<>();
+
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty()) {
+                    AngleTable rowData = row.getItem();
+                    Bar firstBar = new Bar();
+                    Bar secondBar = new Bar();
+
+                        for (Bar bar : bridgeMain.bridgeManager.getBars()
+                        ) {
+                            if (bar.getBarName().equals(row.getItem().getFirstBar()) || bar.getBarName().equals(StringFeatures.invert(row.getItem().getFirstBar())))
+                                firstBar = bar;
+                            if (bar.getBarName().equals(row.getItem().getSecondBar()) || bar.getBarName().equals(StringFeatures.invert(row.getItem().getSecondBar())))
+                                secondBar = bar;
+                        }
+
+                    ArrayList<Bar> selectedBars = new ArrayList<>();
+
+                    selectedBars.add(firstBar);
+                    selectedBars.add(secondBar);
+
+                    bridgeMain.bridgeManager.setSelectedBar(selectedBars);
+
+                    showBridge.showBars();
+                    }
             });
             return row;
         });
@@ -537,6 +573,13 @@ public class MainFrameController implements Initializable {
 
         ImageView toggleImage = new ImageView(buttonImage);
         button.setGraphic(toggleImage);
+    }
+
+    @FXML
+    void onMouseClickedEvent(MouseEvent event) {
+        ArrayList<Bar> selectedBars = new ArrayList<>();
+        bridgeMain.bridgeManager.setSelectedBar(selectedBars);
+        updateBridge();
     }
 
     @FXML

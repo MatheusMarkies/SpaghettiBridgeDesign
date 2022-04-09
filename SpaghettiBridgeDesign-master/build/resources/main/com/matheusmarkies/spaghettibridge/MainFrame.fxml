@@ -76,7 +76,7 @@
                   <Label fx:id="menu_zoom_label" alignment="CENTER" layoutX="7.0" layoutY="489.0" prefHeight="17.0" prefWidth="30.0" text="1x" textAlignment="CENTER" AnchorPane.bottomAnchor="154.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="489.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="canvas_plane" maxHeight="660.0" maxWidth="1127.0" minWidth="1127.0" onMouseDragged="#onMouseDragEvent" onScroll="#onMouseScrollEvent" SplitPane.resizableWithParent="false">
+            <AnchorPane fx:id="canvas_plane" maxHeight="660.0" maxWidth="1127.0" minWidth="1127.0" onMouseClicked="#onMouseClickedEvent" onMouseDragged="#onMouseDragEvent" onScroll="#onMouseScrollEvent" SplitPane.resizableWithParent="false">
                <children>
                   <Label fx:id="details_toplabel" alignment="CENTER" layoutX="5.0" layoutY="4.0" style="&#10;" text="Visualização" textAlignment="CENTER" wrapText="false">
                      <font>
@@ -137,9 +137,10 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="204.0">
                                        <children>
-                                          <TableView fx:id="bridge_table_angle_view" prefHeight="620.0" prefWidth="201.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                          <TableView fx:id="bridge_table_angle_view" layoutX="6.0" prefHeight="620.0" prefWidth="177.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="21.0">
                                              <columns>
-                                                <TableColumn fx:id="bridge_angle_table_bars" minWidth="-1.0" prefWidth="50.0" text="Nós" />
+                                                <TableColumn fx:id="bridge_angle_table_bars" minWidth="-1.0" prefWidth="50.0" text="Barra 1" />
+                                                <TableColumn fx:id="bridge_angle_table_secondsbars" minWidth="-1.0" prefWidth="50.0" text="Barra 2" />
                                                 <TableColumn fx:id="bridge_angle_table_angle" minWidth="-1.0" prefWidth="50.0" text="Angulo" />
                                              </columns>
                                           </TableView>

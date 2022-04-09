@@ -105,7 +105,9 @@ public class CreateMeasureController implements Initializable {
             measure_end_node.getItems().add(node.getNodeName());
 
         measure_offset_inputfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            createPreview();
+            try {
+                createPreview();
+            }catch (Exception e){}
         });
     }
 

@@ -31,6 +31,8 @@ public class BridgeManager {
     
     CalculationComponents calculationComponents;
 
+    ArrayList<Bar> selectedBar = new ArrayList<Bar>();
+
     Material material = new Material();
     double testLoadForce = 100;
     double testLoadInAction = 100;
@@ -271,6 +273,10 @@ public class BridgeManager {
     public void setZoomCoefficient(double zoomCoefficient) {
         this.zoomCoefficient = Math.max(0.125d, Math.min(20d, zoomCoefficient));
     }
+
+    public ArrayList<Bar> getSelectedBar() { return selectedBar; }
+
+    public void setSelectedBar(ArrayList<Bar> selectedBar) { this.selectedBar = selectedBar; }
 
     public Vector2D getTranslateVector() {
         return translateVector;
