@@ -503,11 +503,11 @@ public class ShowBridge{
             if(entry.getBarForce() > 0)
             barsLabelsInPlane.add(setTextOrthogonal(nodeStartPositionCanvas,
                     nodeEndPositionCanvas,
-                    entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Tension"));
+                    entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Tensao"));
             else
                 barsLabelsInPlane.add(setTextOrthogonal(nodeStartPositionCanvas,
                     nodeEndPositionCanvas,
-                    entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Compression"));
+                    entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Compressao"));
 
             barsInPlane.add(line);
 
@@ -876,7 +876,7 @@ float arraowSize = Math.min(20f
 
         Vector2D center = Vector2D.getCenter(start, end);
 
-        label.setRotate(-angle);
+        //label.setRotate(-angle);
 
         Vector2D position = center;
         label.setX(position.x());
