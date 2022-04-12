@@ -43,14 +43,14 @@ public class ConfigMaterialController implements Initializable {
     
     @FXML
     void saveButtonAction(ActionEvent event) {
-        bridgeMain.bridgeManager.getMaterial().setTensileStrengthMaximumLoad(Double.parseDouble(tensilestrengthmaximumload_inputfield.getText()));
-        bridgeMain.bridgeManager.getMaterial().setElasticityModulus(Double.parseDouble(elasticitymodulus_inputfield.getText()));
-        bridgeMain.bridgeManager.getMaterial().setDiameter(Double.parseDouble(diameter_inputfield.getText()));
-        bridgeMain.bridgeManager.getMaterial().setSafetyCoefficient(Double.parseDouble(safetycoefficient_inputfield.getText()));
+        SpaghettiBridgeMain.bridgeManager.getMaterial().setTensileStrengthMaximumLoad(Double.parseDouble(tensilestrengthmaximumload_inputfield.getText()));
+        SpaghettiBridgeMain.bridgeManager.getMaterial().setElasticityModulus(Double.parseDouble(elasticitymodulus_inputfield.getText()));
+        SpaghettiBridgeMain.bridgeManager.getMaterial().setDiameter(Double.parseDouble(diameter_inputfield.getText()));
+        SpaghettiBridgeMain.bridgeManager.getMaterial().setSafetyCoefficient(Double.parseDouble(safetycoefficient_inputfield.getText()));
 
         try {
             System.out.println(BridgeManager.getMaterialDataFolder());
-            Save.saveMaterial(bridgeMain.bridgeManager.getMaterial());
+            Save.saveMaterial(SpaghettiBridgeMain.bridgeManager.getMaterial());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,10 +64,10 @@ public class ConfigMaterialController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tensilestrengthmaximumload_inputfield.setText(bridgeMain.bridgeManager.getMaterial().getTensileStrengthMaximumLoad() + "");
-        elasticitymodulus_inputfield.setText(bridgeMain.bridgeManager.getMaterial().getElasticityModulus() + "");
-        diameter_inputfield.setText(bridgeMain.bridgeManager.getMaterial().getDiameter() + "");
-        safetycoefficient_inputfield.setText(bridgeMain.bridgeManager.getMaterial().getSafetyCoefficient() + "");
+        tensilestrengthmaximumload_inputfield.setText(SpaghettiBridgeMain.bridgeManager.getMaterial().getTensileStrengthMaximumLoad() + "");
+        elasticitymodulus_inputfield.setText(SpaghettiBridgeMain.bridgeManager.getMaterial().getElasticityModulus() + "");
+        diameter_inputfield.setText(SpaghettiBridgeMain.bridgeManager.getMaterial().getDiameter() + "");
+        safetycoefficient_inputfield.setText(SpaghettiBridgeMain.bridgeManager.getMaterial().getSafetyCoefficient() + "");
     }    
     
     public SpaghettiBridgeMain getBridgeMain() {

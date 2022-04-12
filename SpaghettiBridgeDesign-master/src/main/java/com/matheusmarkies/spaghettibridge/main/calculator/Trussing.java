@@ -53,24 +53,16 @@ public class Trussing {
         }
 
         @Override
-        public int hashCode() {
-            int hash = 7;
-            hash = 89 * hash + Objects.hashCode(this.NodeA);
-            hash = 89 * hash + Objects.hashCode(this.NodeB);
-            hash = 89 * hash + Objects.hashCode(this.NodeC);
-            return hash;
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Truss)) return false;
+            Truss truss = (Truss) o;
+            return getNodeA().equals(truss.getNodeA()) && getNodeB().equals(truss.getNodeB()) && getNodeC().equals(truss.getNodeC());
         }
 
         @Override
-        public boolean equals(Object obj) {
-            final Truss other = (Truss) obj;
-
-            if (this.checkExistenceNode(other.NodeA)
-                    && this.checkExistenceNode(other.NodeB)
-                    && this.checkExistenceNode(other.NodeC))
-                return true;
-
-            return false;
+        public int hashCode() {
+            return Objects.hash(getNodeA(), getNodeB(), getNodeC());
         }
 
         @Override
@@ -79,9 +71,7 @@ public class Trussing {
         }
 
         public boolean checkExistenceNode(Node node) {
-            if (this.NodeA.equals(node) || this.NodeB.equals(node) || this.NodeC.equals(node))
-                return true;
-            return false;
+            return this.NodeA.equals(node) || this.NodeB.equals(node) || this.NodeC.equals(node);
         }
 
         public static ArrayList<Truss> addTrussInList(ArrayList<Truss> trussList, Truss trussToAdded) {
@@ -117,7 +107,6 @@ public class Trussing {
                     Node barNodeBNodeC = barNodeB.getNodeEnd();
 
                     if (!barNodeBNodeB.equals(NodeB)) {
-                        barNodeBNodeB = barNodeB.getNodeEnd();
                         barNodeBNodeC = barNodeB.getNodeStart();
                     }
                     for (Bar barNodeC : barNodeBNodeC.getConnectedBars()) {
@@ -130,7 +119,7 @@ public class Trussing {
                                 barNodeCNodeD = barNodeC.getNodeStart();
                             }
                             if (barNodeCNodeD.equals(NodeA)) {
-                                truss = Truss.addTrussInList(truss, new Truss(NodeA, NodeB, barNodeCNodeC));
+                                Truss.addTrussInList(truss, new Truss(NodeA, NodeB, barNodeCNodeC));
                                 //break;
                             }
                         }
@@ -145,13 +134,13 @@ public class Trussing {
 
     static public ArrayList<Truss> TrussFinder(ArrayList<Node> nodes) {
         ArrayList<Truss> truss = new ArrayList<>();
-        for (int k = 0; k < nodes.size(); k++)
-            for (Bar bar : nodes.get(k).getConnectedBars()) {
+        for (Node node : nodes)
+            for (Bar bar : node.getConnectedBars()) {
 
                 Node NodeA = bar.getNodeStart();
                 Node NodeB = bar.getNodeEnd();
 
-                if (!NodeA.equals(nodes.get(k))) {
+                if (!NodeA.equals(node)) {
                     NodeA = bar.getNodeEnd();
                     NodeB = bar.getNodeStart();
                 }
@@ -162,7 +151,6 @@ public class Trussing {
                         Node barNodeBNodeC = barNodeB.getNodeEnd();
 
                         if (!barNodeBNodeB.equals(NodeB)) {
-                            barNodeBNodeB = barNodeB.getNodeEnd();
                             barNodeBNodeC = barNodeB.getNodeStart();
                         }
                         for (Bar barNodeC : barNodeBNodeC.getConnectedBars()) {
@@ -175,7 +163,7 @@ public class Trussing {
                                     barNodeCNodeD = barNodeC.getNodeStart();
                                 }
                                 if (barNodeCNodeD.equals(NodeA)) {
-                                    truss = Truss.addTrussInList(truss, new Truss(NodeA, NodeB, barNodeCNodeC));
+                                    Truss.addTrussInList(truss, new Truss(NodeA, NodeB, barNodeCNodeC));
                                     //break;
                                 }
                             }

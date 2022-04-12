@@ -39,9 +39,9 @@ public class Arrow {
            angleOfArrow = 360 -angleOfArrow;
         
         System.out.println("Y: "+angleOfYAxie);
-        System.out.println("Start: "+start.toString());
-        System.out.println("End: "+end.toString());
-        System.out.println(Vector2D.subtract(end, start).toString());
+        System.out.println("Start: "+ start);
+        System.out.println("End: "+ end);
+        System.out.println(Vector2D.subtract(end, start));
         System.out.println(Vector2D.dot(Vector2D.subtract(end, start), new Vector2D(1, 0)));
         
         Vector2D directionVector = Vector2D.subtract(end, start);
@@ -51,7 +51,7 @@ public class Arrow {
 
         double arrowLength = Math.max(5, Math.min(10, (m * 0.2f)));
 
-        Vector2D P, Q, Q2, arrowHeadAStartPosition, arrowHeadBStartPosition, arrowHeadEndPosition = new Vector2D(0, 0);
+        Vector2D P, Q, Q2, arrowHeadAStartPosition, arrowHeadBStartPosition, arrowHeadEndPosition;
 
         //if (!invert) {
             P = Vector2D.subtract(end, Vector2D.multiply(Vector2D.subtract(end, start), new Vector2D(0.2f, 0.2f)));
@@ -76,8 +76,8 @@ public class Arrow {
                     )
             );
 
-            System.out.println(Q.toString());
-            System.out.println(Q2.toString());
+            System.out.println(Q);
+            System.out.println(Q2);
             
             arrowHeadAStartPosition = Q;
             arrowHeadBStartPosition = Q2;

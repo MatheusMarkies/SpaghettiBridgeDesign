@@ -26,7 +26,7 @@ import java.io.ObjectOutputStream;
  */
 public class Save {
 
-    public static void saveBridge(Bridge bridge) throws FileNotFoundException, IOException {
+    public static void saveBridge(Bridge bridge) throws IOException {
 
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         int returnValue = jfc.showOpenDialog(null);
@@ -57,15 +57,13 @@ public class Save {
         }
     }
 
-    public static void saveMaterial(Material material) throws FileNotFoundException, IOException {
+    public static void saveMaterial(Material material) throws IOException {
         File materialFile = new File(BridgeManager.getMaterialDataFolder());
 
         File appdata = new File(BridgeManager.getAppdataDir());
         if(!appdata.exists())
             appdata.mkdirs();
-        if(materialFile.createNewFile()) {
-
-        }
+        materialFile.createNewFile();
 
         FileOutputStream fileOutput = new FileOutputStream(materialFile);
         ObjectOutputStream objectStream = new ObjectOutputStream(fileOutput);
@@ -76,8 +74,8 @@ public class Save {
         fileOutput.close();
     }
 
-    public static Bridge openBridge(File selectedFile) throws FileNotFoundException, IOException, ClassNotFoundException {
-        Bridge bridge = null;
+    public static Bridge openBridge(File selectedFile) throws IOException, ClassNotFoundException {
+        Bridge bridge;
 
             FileInputStream fileInput = new FileInputStream(selectedFile);
 
@@ -90,8 +88,8 @@ public class Save {
 
         return bridge;
     }
-    public static Material openMaterial(File selectedFile) throws FileNotFoundException, IOException, ClassNotFoundException {
-        Material material = null;
+    public static Material openMaterial(File selectedFile) throws IOException, ClassNotFoundException {
+        Material material;
 
         FileInputStream fileInput = new FileInputStream(selectedFile);
 

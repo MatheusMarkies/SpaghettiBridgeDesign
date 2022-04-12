@@ -46,17 +46,19 @@ public class CreateMeasureController implements Initializable {
             if (!measure_start_node.getValue().equals(measure_end_node.getValue())) {
                 Node nodeStart = null;
                 Node nodeEnd = null;
-                for (Node node : bridgeMain.bridgeManager.getNodes())
+                for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
                     if (node.getNodeName().equals(measure_start_node.getValue()))
                         nodeStart = node;
                     else if (node.getNodeName().equals(measure_end_node.getValue()))
                         nodeEnd = node;
 
+                assert nodeStart != null;
                 Vector2D nodeStartPosition = new Vector2D(
                         nodeStart.getPosition().x(),
                         nodeStart.getPosition().y()
                 );
 
+                assert nodeEnd != null;
                 Vector2D nodeEndPosition = new Vector2D(
                         nodeEnd.getPosition().x(),
                         nodeEnd.getPosition().y()
@@ -68,7 +70,7 @@ public class CreateMeasureController implements Initializable {
 
                 mainFrameController.removeObjectToCanvas(preview);
 
-                bridgeMain.bridgeManager.getMeasures().add(measure);
+                SpaghettiBridgeMain.bridgeManager.getMeasures().add(measure);
                 mainFrameController.getShowBridge().showMeasure();
             }
         }
@@ -99,15 +101,15 @@ public class CreateMeasureController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        for (Node node : bridgeMain.bridgeManager.getNodes())
+        for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
             measure_start_node.getItems().add(node.getNodeName());
-        for (Node node : bridgeMain.bridgeManager.getNodes())
+        for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
             measure_end_node.getItems().add(node.getNodeName());
 
         measure_offset_inputfield.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 createPreview();
-            }catch (Exception e){}
+            }catch (Exception ignored){}
         });
     }
 
@@ -119,16 +121,18 @@ public class CreateMeasureController implements Initializable {
                 Node nodeStart = null;
                 Node nodeEnd = null;
 
-                for (Node node : bridgeMain.bridgeManager.getNodes())
+                for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
                     if (node.getNodeName().equals(measure_start_node.getValue()))
                         nodeStart = node;
                     else if (node.getNodeName().equals(measure_end_node.getValue()))
                         nodeEnd = node;
 
+                assert nodeStart != null;
                 Vector2D nodeStartPosition = new Vector2D(
                         nodeStart.getPosition().x(),
                         nodeStart.getPosition().y());
 
+                assert nodeEnd != null;
                 Vector2D nodeEndPosition = new Vector2D(
                         nodeEnd.getPosition().x(),
                         nodeEnd.getPosition().y());
@@ -139,7 +143,7 @@ public class CreateMeasureController implements Initializable {
                 com.matheusmarkies.spaghettibridge.objects.fx.Measure measure = new Measure(nodeStartPosition,
                         nodeEndPosition,
                         -Double.parseDouble(measure_offset_inputfield.getText())
-                                * bridgeMain.bridgeManager.getZoomCoefficient());
+                                * SpaghettiBridgeMain.bridgeManager.getZoomCoefficient());
 
                 preview.setStartX(measure.getStartPosition().x());
                 preview.setStartY(measure.getStartPosition().y());

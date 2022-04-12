@@ -5,11 +5,7 @@
  */
 package com.matheusmarkies.spaghettibridge.main.view;
 
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.matheusmarkies.spaghettibridge.main.tables.AngleTable;
 import com.matheusmarkies.spaghettibridge.utilities.BarColorController;
@@ -74,7 +70,7 @@ public class ShowBridge{
         this.canvas_plane = canvas_plane;
         this.bridgeMain = bridgeMain;
         this.mainFrameController = mainFrameController;
-        canvas_plane.setOnMouseClicked(event -> onMouseClickInNode(event));
+        canvas_plane.setOnMouseClicked(this::onMouseClickInNode);
     }
 
     public void showCartesianSystem(float pointsOffset, float labelOffset, Line cartesian_system_X, Line cartesian_system_Y) {
@@ -182,7 +178,7 @@ public class ShowBridge{
         removeNodes();
         updateAngleTable();
 
-        for (Node entry : bridgeMain.bridgeManager.getNodes()) {
+        for (Node entry : SpaghettiBridgeMain.bridgeManager.getNodes()) {
             Circle circle = new Circle();
 
             Vector2D circleCenter = canvasTranslate(entry.getPosition());
@@ -194,7 +190,7 @@ public class ShowBridge{
 
             nodeLabel.setText(entry.getNodeName());
             nodeLabel.setX(circleCenter.x());
-            nodeLabel.setY(circleCenter.y() - 1f * bridgeMain.bridgeManager.getZoomCoefficient());
+            nodeLabel.setY(circleCenter.y() - 1f * SpaghettiBridgeMain.bridgeManager.getZoomCoefficient());
 
             circle.setRadius(4.0f);
 
@@ -203,8 +199,8 @@ public class ShowBridge{
             else
                 circle.setFill(Color.DARKBLUE);
 
-            circle.setOnMouseDragged(event -> onMouseDragNode(event));
-            circle.setOnMouseClicked(event -> onMouseClickInNode(event));
+            circle.setOnMouseDragged(this::onMouseDragNode);
+            circle.setOnMouseClicked(this::onMouseClickInNode);
 
             nodesInPlane.add(circle);
             nodesLabelsInPlane.add(nodeLabel);
@@ -223,21 +219,20 @@ public class ShowBridge{
                 n.getTranslateX() + event.getX() - mainFrameController.getCanvasPlane().getWidth() / 2, -(n.getTranslateY() + event.getY() - mainFrameController.getCanvasPlane().getHeight() / 2)
         );
 
-        if (bridgeMain.bridgeManager.getNodes().size() > 0) {
-            Node nodeSelected = bridgeMain.bridgeManager.getNodes().get(0);
-            for (Node node : bridgeMain.bridgeManager.getNodes())
+        if (SpaghettiBridgeMain.bridgeManager.getNodes().size() > 0) {
+            Node nodeSelected = SpaghettiBridgeMain.bridgeManager.getNodes().get(0);
+            for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
                 if (Vector2D.distance(nodeSelected.getPosition(), cursorPosition) > Vector2D.distance(node.getPosition(), cursorPosition))
                     nodeSelected = node;
 
             if (Vector2D.distance(nodeSelected.getPosition(), cursorPosition) < 10) {
                 mainFrameController.getDown_status().setText(nodeSelected.getNodeName() + " (" + nodeSelected.getPosition().x() + "," + nodeSelected.getPosition().y() + ")");
-                change = true;
 
-            } else if (bridgeMain.bridgeManager.getBars().size() > 0) {
+            } else if (SpaghettiBridgeMain.bridgeManager.getBars().size() > 0) {
 
-                Bar barSelected = bridgeMain.bridgeManager.getBars().get(0);
+                Bar barSelected = SpaghettiBridgeMain.bridgeManager.getBars().get(0);
 
-                for (Bar bar : bridgeMain.bridgeManager.getBars()) {
+                for (Bar bar : SpaghettiBridgeMain.bridgeManager.getBars()) {
                     com.matheusmarkies.spaghettibridge.utilities.Line lineSelected = com.matheusmarkies.spaghettibridge.utilities.Line.getLineEquation(barSelected.getNodeStart().getPosition(), barSelected.getNodeEnd().getPosition());
                     com.matheusmarkies.spaghettibridge.utilities.Line lineCompare = com.matheusmarkies.spaghettibridge.utilities.Line.getLineEquation(bar.getNodeStart().getPosition(), bar.getNodeEnd().getPosition());
 
@@ -258,7 +253,6 @@ public class ShowBridge{
                             + barSize
                             + "cm | "
                             + "Numero de fios: " + barSelected.getNumberOfWires());
-                    change = true;
                 }
             }
         }
@@ -319,7 +313,7 @@ public class ShowBridge{
 
         private ObservableList<BarTable> getBarTableValues() {
         ObservableList<BarTable> obsList = FXCollections.observableArrayList();
-            for (Bar entry : bridgeMain.bridgeManager.getBars()) {
+            for (Bar entry : SpaghettiBridgeMain.bridgeManager.getBars()) {
                 BarTable barTable = new BarTable(entry.getBarName(), 
                         Math.round(
                                 Vector2D.distance(entry.getNodeStart().getPosition(), entry.getNodeEnd().getPosition())
@@ -335,7 +329,7 @@ public class ShowBridge{
     public void standardBarsView() {
         removeReations();
         showReactions();
-        for (Bar entry : bridgeMain.bridgeManager.getBars()) {
+        for (Bar entry : SpaghettiBridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
 
             Vector2D nodeStartPositionCanvas = canvasTranslate(entry.getNodeStart().getPosition());
@@ -364,7 +358,7 @@ public class ShowBridge{
         removeReations();
         removeArcs();
         showReactions();
-        for (Bar entry : bridgeMain.bridgeManager.getBars()) {
+        for (Bar entry : SpaghettiBridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
 
             Vector2D nodeStartPositionCanvas = canvasTranslate(entry.getNodeStart().getPosition());
@@ -394,12 +388,12 @@ public class ShowBridge{
         removeReations();
         removeArcs();
         showReactions();
-        for (Bar entry : bridgeMain.bridgeManager.getBars()) {
+        for (Bar entry : SpaghettiBridgeMain.bridgeManager.getBars()) {
 
             Vector2D nodeStartPosition = canvasTranslate(entry.getNodeStart().getPosition());
             Vector2D nodeEndPosition = canvasTranslate(entry.getNodeEnd().getPosition());
 
-            Arrow arrowA = new Arrow(nodeStartPosition, nodeEndPosition, 20, entry.getBarColor(), true);
+            Arrow arrowA;
             Arrow arrowB = new Arrow(nodeEndPosition, nodeStartPosition, 20, entry.getBarColor(), true);
 
             if (entry.getBarForce() < 0) {
@@ -428,16 +422,16 @@ public class ShowBridge{
         removeReations();
         removeArcs();
         showReactionsVectors();
-        for (Bar entry : bridgeMain.bridgeManager.getBars()) {
+        for (Bar entry : SpaghettiBridgeMain.bridgeManager.getBars()) {
 
             Vector2D nodeStartPosition = canvasTranslate(entry.getNodeStart().getPosition());
             Vector2D nodeEndPosition = canvasTranslate(entry.getNodeEnd().getPosition());
 
-            Arrow arrowA = new Arrow(new Vector2D(0, 0), new Vector2D(0, 0), 0, Color.CORAL, false);
-            Arrow arrowB = new Arrow(new Vector2D(0, 0), new Vector2D(0, 0), 0, Color.CORAL, false);
+            Arrow arrowA;
+            Arrow arrowB;
 
             Vector2D dir = Vector2D.subtract(nodeEndPosition, nodeStartPosition);
-            dir.normalize(dir);
+            Vector2D.normalize(dir);
 
             float size = 0.35f;
             
@@ -467,7 +461,7 @@ public class ShowBridge{
         removeReations();
         showReactionsVectors();
         removeArcs();
-        for (Bar entry : bridgeMain.bridgeManager.getBars()) {
+        for (Bar entry : SpaghettiBridgeMain.bridgeManager.getBars()) {
             Line line = new Line();
 
             Vector2D nodeStartPositionCanvas = canvasTranslate(entry.getNodeStart().getPosition());
@@ -517,11 +511,11 @@ public class ShowBridge{
     }
 
     void showExplodedForceVectors(Vector2D nodeStartPosition, Vector2D nodeEndPosition, Bar entry, boolean invert){
-        Arrow arrowA = new Arrow(new Vector2D(0, 0), new Vector2D(0, 0), 0, Color.CORAL, false);
-        Arrow arrowB = new Arrow(new Vector2D(0, 0), new Vector2D(0, 0), 0, Color.CORAL, false);
+        Arrow arrowA;
+        Arrow arrowB;
 
         Vector2D dir = Vector2D.subtract(nodeEndPosition, nodeStartPosition);
-        dir.normalize(dir);
+        Vector2D.normalize(dir);
 
         float size = 0.1f;
 
@@ -559,8 +553,8 @@ public class ShowBridge{
     public void showReactionsVectors() {
         removeReations();
 float arraowSize = Math.min(20f
-        * (float)bridgeMain.bridgeManager.getZoomCoefficient(),100f);
-        for (Node entry : bridgeMain.bridgeManager.getNodes()) {
+        * (float) SpaghettiBridgeMain.bridgeManager.getZoomCoefficient(),100f);
+        for (Node entry : SpaghettiBridgeMain.bridgeManager.getNodes()) {
 
             if (entry.getExternalForces().size() > 0) {
                 for (ReactionForces reation : entry.getExternalForces()) {
@@ -596,7 +590,7 @@ float arraowSize = Math.min(20f
     public void showReactions() {
         removeReations();
 
-        for (Node entry : bridgeMain.bridgeManager.getNodes()) {
+        for (Node entry : SpaghettiBridgeMain.bridgeManager.getNodes()) {
 
             if (entry.getExternalForces().size() > 0) {
                 for (ReactionForces reation : entry.getExternalForces()) {
@@ -632,30 +626,25 @@ float arraowSize = Math.min(20f
 
         ArrayList<Truss> nodeTruss = new ArrayList<>();
 
-        for (Node node : bridgeMain.bridgeManager.getNodes()) {
+        for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes()) {
             ArrayList<Truss> nodeTrussFinder = Trussing.TrussFinder(node);
             for (Truss truss : nodeTrussFinder)
                 Truss.addTrussInList(nodeTruss, truss);
         }
 
-        for (Truss truss : nodeTruss) {
-            //setTrussArc(truss.getNodeA(), truss.getNodeB(), truss.getNodeC());
-            //setTrussArc(truss.getNodeB(), truss.getNodeA(), truss.getNodeC());
-            //setTrussArc(truss.getNodeC(), truss.getNodeA(), truss.getNodeB());
-        }
     }
 
     void updateAngleTable(){
         ArrayList<Truss> nodeTruss = new ArrayList<>();
 
-        for (Node node : bridgeMain.bridgeManager.getNodes()) {
+        for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes()) {
             ArrayList<Truss> nodeTrussFinder = Trussing.TrussFinder(node);
             for (Truss truss : nodeTrussFinder)
                 Truss.addTrussInList(nodeTruss, truss);
         }
         obsList = FXCollections.observableArrayList();
         for (Truss truss : nodeTruss) {
-            ArrayList<Bar> bars = new ArrayList<Bar>();
+            ArrayList<Bar> bars = new ArrayList<>();
 
             double angleLengthA = Angle.getTrussAngles(truss.getNodeA(), truss.getNodeB(), truss.getNodeC());
             double angleLengthB = Angle.getTrussAngles(truss.getNodeB(), truss.getNodeA(), truss.getNodeC());
@@ -682,7 +671,7 @@ float arraowSize = Math.min(20f
 
     String getBarByNodes(String nodeA, String nodeB){
         String name = "";
-        for (Bar bar: bridgeMain.bridgeManager.getBars()
+        for (Bar bar: SpaghettiBridgeMain.bridgeManager.getBars()
              ) {
             if(bar.getNodeStart().getNodeName().equals(nodeA) || bar.getNodeEnd().getNodeName().equals(nodeA))
                 if(bar.getNodeStart().getNodeName().equals(nodeB) || bar.getNodeEnd().getNodeName().equals(nodeB))
@@ -711,10 +700,10 @@ float arraowSize = Math.min(20f
         arc.setCenterX(nodeStartPosition.x());
         arc.setCenterY(nodeStartPosition.y());
 
-        double radius = 15d + (50 - 15) * bridgeMain.bridgeManager.getZoomCoefficient()/20;
+        double radius = 15d + (50 - 15) * SpaghettiBridgeMain.bridgeManager.getZoomCoefficient()/20;
 
-        if(bridgeMain.bridgeManager.getZoomCoefficient() < 1)
-            radius = 5d + (15 - 5) * bridgeMain.bridgeManager.getZoomCoefficient()/20;
+        if(SpaghettiBridgeMain.bridgeManager.getZoomCoefficient() < 1)
+            radius = 5d + (15 - 5) * SpaghettiBridgeMain.bridgeManager.getZoomCoefficient()/20;
 
         arc.setRadiusX(radius);
         arc.setRadiusY(radius);
@@ -735,7 +724,7 @@ float arraowSize = Math.min(20f
     public void showMeasure() {
         removeMeasures();
 
-        for (Measure measure : bridgeMain.bridgeManager.getMeasures()) {
+        for (Measure measure : SpaghettiBridgeMain.bridgeManager.getMeasures()) {
             Line line = new Line();
 
             Vector2D canvasMeasureStartPosition = canvasTranslate(measure.getStartPosition());
@@ -826,11 +815,13 @@ float arraowSize = Math.min(20f
     }
 
     public void setBarColor(){
-        for (Bar bar: bridgeMain.bridgeManager.getBars()) {
+        for (Bar bar: SpaghettiBridgeMain.bridgeManager.getBars()) {
             boolean selected = false;
-            for (Bar selectedBar: bridgeMain.bridgeManager.getSelectedBar())
-                if(bar.equals(selectedBar))
+            for (Bar selectedBar: SpaghettiBridgeMain.bridgeManager.getSelectedBar())
+                if (bar.equals(selectedBar)) {
                     selected = true;
+                    break;
+                }
 
             if(!selected){
                 if (bar.getBarForce() < 0)
@@ -848,13 +839,13 @@ float arraowSize = Math.min(20f
         return Vector2D.add(
                 Vector2D.multiply(
                         Vector2D.multiply(
-                            a, bridgeMain.bridgeManager.getZoomCoefficient()
+                            a, SpaghettiBridgeMain.bridgeManager.getZoomCoefficient()
                         ),
                         new Vector2D(1,-1)
                 ),
                 new Vector2D(
-                        canvas_plane.getWidth() / 2 + bridgeMain.bridgeManager.getTranslateVector().x(),
-                        canvas_plane.getHeight() / 2 + bridgeMain.bridgeManager.getTranslateVector().y())
+                        canvas_plane.getWidth() / 2 + SpaghettiBridgeMain.bridgeManager.getTranslateVector().x(),
+                        canvas_plane.getHeight() / 2 + SpaghettiBridgeMain.bridgeManager.getTranslateVector().y())
         );
     }
 
@@ -878,9 +869,8 @@ float arraowSize = Math.min(20f
 
         //label.setRotate(-angle);
 
-        Vector2D position = center;
-        label.setX(position.x());
-        label.setY(position.y());
+        label.setX(center.x());
+        label.setY(center.y());
 
         canvas_plane.getChildren().add(label);
         return label;

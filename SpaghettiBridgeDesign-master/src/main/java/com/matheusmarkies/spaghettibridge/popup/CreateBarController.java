@@ -39,20 +39,22 @@ public class CreateBarController implements Initializable {
         if (!chooser_node_start.getValue().equals(chooser_node_end.getValue())) {
             Node nodeStart = null;
             Node nodeEnd = null;
-            for (Node node : bridgeMain.bridgeManager.getNodes())
+            for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
                 if (node.getNodeName().equals(chooser_node_start.getValue()))
                     nodeStart = node;
                 else if (node.getNodeName().equals(chooser_node_end.getValue()))
                     nodeEnd = node;
 
+            assert nodeStart != null;
+            assert nodeEnd != null;
             Bar bar = new Bar(nodeStart, nodeEnd,nodeStart.getNodeName() + nodeEnd.getNodeName());
             
-            if(bridgeMain.bridgeManager.checkBarVality(nodeStart, nodeEnd)){
+            if(SpaghettiBridgeMain.bridgeManager.checkBarVality(nodeStart, nodeEnd)){
                 
             nodeStart.addConnectedBar(bar);
             nodeEnd.addConnectedBar(bar);
              mainFrameController.getConsoleManager().printLog("[Criar Barra] Barra "+bar.getBarName()+" foi criada");
-                bridgeMain.bridgeManager.addBar(bar);
+                SpaghettiBridgeMain.bridgeManager.addBar(bar);
                 
             }else{
                 mainFrameController.getConsoleManager().printLog("[Criar Barra] Barra invalida");
@@ -67,9 +69,9 @@ public class CreateBarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for (Node node : bridgeMain.bridgeManager.getNodes())
+        for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
             chooser_node_start.getItems().add(node.getNodeName());
-        for (Node node : bridgeMain.bridgeManager.getNodes())
+        for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
             chooser_node_end.getItems().add(node.getNodeName());
     }
 

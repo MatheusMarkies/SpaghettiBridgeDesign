@@ -52,15 +52,15 @@ public class CreateNodeController implements Initializable {
             com.matheusmarkies.spaghettibridge.objects.node.Node node = new com.matheusmarkies.spaghettibridge.objects.node.Node(
                     new Vector2D(X, Y),
                     nodeName,
-                    spaghettiBridgeMain.bridgeManager.getNodes().size());
+                    SpaghettiBridgeMain.bridgeManager.getNodes().size());
 
-            if (nodeName != "" && spaghettiBridgeMain.bridgeManager.checkNodeNameVality(nodeName)) {
-                spaghettiBridgeMain.bridgeManager.addNode(node);
+            if (!nodeName.equals("") && SpaghettiBridgeMain.bridgeManager.checkNodeNameVality(nodeName)) {
+                SpaghettiBridgeMain.bridgeManager.addNode(node);
 
                 mainFrameController.removeObjectToCanvas(point);
 
                 mainFrameController.getConsoleManager().printLog("[Criar No] No " + node.getNodeName() + " foi criado");
-            } else if (!spaghettiBridgeMain.bridgeManager.checkNodeNameVality(nodeName))
+            } else if (!SpaghettiBridgeMain.bridgeManager.checkNodeNameVality(nodeName))
                 mainFrameController.getConsoleManager().printLog("[Criar No] Nome nao valido");
 
             mainFrameController.getShowBridge().showNodes();
@@ -81,11 +81,11 @@ public class CreateNodeController implements Initializable {
 
             try {
                 X = Double.parseDouble(node_coordinate_x_inputfield.getText());
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             try {
                 Y = Double.parseDouble(node_coordinate_y_inputfield.getText());
-            } catch (Exception e) {
+            } catch (NumberFormatException ignored) {
             }
 
             Vector2D nodeStartPosition = mainFrameController.getShowBridge().canvasTranslate(new Vector2D(X,Y));
@@ -121,17 +121,13 @@ public class CreateNodeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        node_coordinate_x_inputfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            changePointPosition();
-        });
-        node_coordinate_y_inputfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            changePointPosition();
-        });
+        node_coordinate_x_inputfield.textProperty().addListener((observable, oldValue, newValue) -> changePointPosition());
+        node_coordinate_y_inputfield.textProperty().addListener((observable, oldValue, newValue) -> changePointPosition());
 
         point = new Circle();
 //        mainFrameController.setNodePointer(point);
         
-        point.setOnMouseDragged(event -> drag(event));
+        point.setOnMouseDragged(this::drag);
         point.setOnDragExited(event -> {
             isDrag = false;
             //node_coordinate_x_inputfield.setDisable(false);

@@ -68,16 +68,16 @@ public class Matrix {
         for (int i = 0; i < B[0].length; i++) { // Linha i
             for (int j = 0; j < A.length; j++) { // Coluna j
 
-                String a = "";
+                StringBuilder a = new StringBuilder();
                 for (int k = 0; k < B.length; k++) {
                     if (a.length() > 0) {
-                        a += " + " + A[j][k] + " * " + B[k][i];
+                        a.append(" + ").append(A[j][k]).append(" * ").append(B[k][i]);
                     } else {
-                        a += A[j][k] + " * " + B[k][i];
+                        a.append(A[j][k]).append(" * ").append(B[k][i]);
                     }
                 }
 
-                newMatrix[j][i] = a;
+                newMatrix[j][i] = a.toString();
             }
         }
 
@@ -85,21 +85,21 @@ public class Matrix {
     }
 
     public static String toString(double[][] A) {
-        String matrix = "";
-        for (int i = 0; i < A.length; i++) {
+        StringBuilder matrix = new StringBuilder();
+        for (double[] doubles : A) {
             for (int j = 0; j < A[0].length; j++) {
-                matrix += (A[i][j] + " ");
+                matrix.append(doubles[j]).append(" ");
             }
-            matrix += ("\n");
+            matrix.append("\n");
         }
-        return matrix;
+        return matrix.toString();
     }
 
-    public static double[][] invert(double a[][]) {
+    public static double[][] invert(double[][] a) {
         int n = a.length;
-        double x[][] = new double[n][n];
-        double b[][] = new double[n][n];
-        int index[] = new int[n];
+        double[][] x = new double[n][n];
+        double[][] b = new double[n][n];
+        int[] index = new int[n];
         for (int i = 0; i < n; ++i) {
             b[i][i] = 1;
         }
@@ -128,9 +128,9 @@ public class Matrix {
         return x;
     }
 
-    public static void gaussian(double a[][], int index[]) {
+    public static void gaussian(double[][] a, int[] index) {
         int n = index.length;
-        double c[] = new double[n];
+        double[] c = new double[n];
 
         // Initialize the index
         for (int i = 0; i < n; ++i) {

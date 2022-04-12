@@ -118,9 +118,7 @@ public class Node {
             return false;
         if (!Objects.equals(this.nodeName, other.nodeName))
             return false;
-        if (!Objects.equals(this.position, other.position))
-            return false;
-        return true;
+        return Objects.equals(this.position, other.position);
     }
 
 }

@@ -4,30 +4,36 @@ com/matheusmarkies/spaghettibridge/main/features/Bridge.java
  com.matheusmarkies.spaghettibridge.main.features.Bridge
 com/matheusmarkies/spaghettibridge/material/Material.java
  com.matheusmarkies.spaghettibridge.material.Material
-com/matheusmarkies/spaghettibridge/objects/node/NodeSerializable.java
- com.matheusmarkies.spaghettibridge.objects.node.NodeSerializable
+com/matheusmarkies/spaghettibridge/main/tables/BarTable.java
+ com.matheusmarkies.spaghettibridge.main.tables.BarTable
 com/matheusmarkies/spaghettibridge/main/Main.java
  com.matheusmarkies.spaghettibridge.main.Main
 com/matheusmarkies/spaghettibridge/main/features/StringFeatures.java
  com.matheusmarkies.spaghettibridge.main.features.StringFeatures
-com/matheusmarkies/spaghettibridge/main/SpaghettiBridgeMain.java
- com.matheusmarkies.spaghettibridge.main.SpaghettiBridgeMain
+com/matheusmarkies/spaghettibridge/main/tables/AngleTable.java
+ com.matheusmarkies.spaghettibridge.main.tables.AngleTable
+com/matheusmarkies/spaghettibridge/main/manager/ConsoleManager.java
+ com.matheusmarkies.spaghettibridge.main.manager.ConsoleManager
 com/matheusmarkies/spaghettibridge/main/features/FileTypeFilter.java
  com.matheusmarkies.spaghettibridge.main.features.FileTypeFilter
+com/matheusmarkies/spaghettibridge/main/grid/Grid.java
+ com.matheusmarkies.spaghettibridge.main.grid.Grid
+com/matheusmarkies/spaghettibridge/objects/node/NodeSerializable.java
+ com.matheusmarkies.spaghettibridge.objects.node.NodeSerializable
+com/matheusmarkies/spaghettibridge/popup/SetTestLoadController.java
+ com.matheusmarkies.spaghettibridge.popup.SetTestLoadController
+com/matheusmarkies/spaghettibridge/main/SpaghettiBridgeMain.java
+ com.matheusmarkies.spaghettibridge.main.SpaghettiBridgeMain
 com/matheusmarkies/spaghettibridge/objects/fx/Measure.java
  com.matheusmarkies.spaghettibridge.objects.fx.Measure
 com/matheusmarkies/spaghettibridge/objects/node/ReactionForces.java
  com.matheusmarkies.spaghettibridge.objects.node.ReactionForces
-com/matheusmarkies/spaghettibridge/utilities/Matrix.java
- com.matheusmarkies.spaghettibridge.utilities.Matrix
-com/matheusmarkies/spaghettibridge/main/manager/ConsoleManager.java
- com.matheusmarkies.spaghettibridge.main.manager.ConsoleManager
+com/matheusmarkies/spaghettibridge/main/MainFrameController.java
+ com.matheusmarkies.spaghettibridge.main.MainFrameController
 com/matheusmarkies/spaghettibridge/main/calculator/WireCalculator.java
  com.matheusmarkies.spaghettibridge.main.calculator.WireCalculator
  com.matheusmarkies.spaghettibridge.main.calculator.WireCalculator$CalculationComponents
  com.matheusmarkies.spaghettibridge.main.calculator.WireCalculator$ComponentTemplate
-com/matheusmarkies/spaghettibridge/main/tables/BarTable.java
- com.matheusmarkies.spaghettibridge.main.tables.BarTable
 com/matheusmarkies/spaghettibridge/main/manager/BridgeManager.java
  com.matheusmarkies.spaghettibridge.main.manager.BridgeManager
 com/matheusmarkies/spaghettibridge/objects/bar/Bar.java
@@ -45,28 +51,12 @@ com/matheusmarkies/spaghettibridge/main/calculator/EquationAssembler.java
  com.matheusmarkies.spaghettibridge.main.calculator.EquationAssembler
 com/matheusmarkies/spaghettibridge/main/calculator/Angle.java
  com.matheusmarkies.spaghettibridge.main.calculator.Angle
-com/matheusmarkies/spaghettibridge/main/calculator/Deformation.java
- com.matheusmarkies.spaghettibridge.main.calculator.Deformation
-com/matheusmarkies/spaghettibridge/main/tables/AngleTable.java
- com.matheusmarkies.spaghettibridge.main.tables.AngleTable
-com/matheusmarkies/spaghettibridge/objects/fx/Arrow.java
- com.matheusmarkies.spaghettibridge.objects.fx.Arrow
-com/matheusmarkies/spaghettibridge/objects/node/Node.java
- com.matheusmarkies.spaghettibridge.objects.node.Node
-com/matheusmarkies/spaghettibridge/main/grid/Grid.java
- com.matheusmarkies.spaghettibridge.main.grid.Grid
-com/matheusmarkies/spaghettibridge/main/view/ShowBridge.java
- com.matheusmarkies.spaghettibridge.main.view.ShowBridge
- com.matheusmarkies.spaghettibridge.main.view.ShowBridge$1
- com.matheusmarkies.spaghettibridge.main.view.ShowBridge$BarView
 com/matheusmarkies/spaghettibridge/popup/CreateNodeController.java
  com.matheusmarkies.spaghettibridge.popup.CreateNodeController
 com/matheusmarkies/spaghettibridge/popup/CreateBarController.java
  com.matheusmarkies.spaghettibridge.popup.CreateBarController
-com/matheusmarkies/spaghettibridge/popup/SetTestLoadController.java
- com.matheusmarkies.spaghettibridge.popup.SetTestLoadController
-com/matheusmarkies/spaghettibridge/popup/CreateMeasureController.java
- com.matheusmarkies.spaghettibridge.popup.CreateMeasureController
+com/matheusmarkies/spaghettibridge/objects/fx/Arrow.java
+ com.matheusmarkies.spaghettibridge.objects.fx.Arrow
 com/matheusmarkies/spaghettibridge/popup/SetLoadNodeController.java
  com.matheusmarkies.spaghettibridge.popup.SetLoadNodeController
 com/matheusmarkies/spaghettibridge/utilities/BarColorController.java
@@ -74,6 +64,15 @@ com/matheusmarkies/spaghettibridge/utilities/BarColorController.java
  com.matheusmarkies.spaghettibridge.utilities.BarColorController$1
 com/matheusmarkies/spaghettibridge/popup/ConfigMaterialController.java
  com.matheusmarkies.spaghettibridge.popup.ConfigMaterialController
-com/matheusmarkies/spaghettibridge/main/MainFrameController.java
- com.matheusmarkies.spaghettibridge.main.MainFrameController
- com.matheusmarkies.spaghettibridge.main.MainFrameController$1
+com/matheusmarkies/spaghettibridge/utilities/Matrix.java
+ com.matheusmarkies.spaghettibridge.utilities.Matrix
+com/matheusmarkies/spaghettibridge/main/view/ShowBridge.java
+ com.matheusmarkies.spaghettibridge.main.view.ShowBridge
+ com.matheusmarkies.spaghettibridge.main.view.ShowBridge$1
+ com.matheusmarkies.spaghettibridge.main.view.ShowBridge$BarView
+com/matheusmarkies/spaghettibridge/popup/CreateMeasureController.java
+ com.matheusmarkies.spaghettibridge.popup.CreateMeasureController
+com/matheusmarkies/spaghettibridge/main/calculator/Deformation.java
+ com.matheusmarkies.spaghettibridge.main.calculator.Deformation
+com/matheusmarkies/spaghettibridge/objects/node/Node.java
+ com.matheusmarkies.spaghettibridge.objects.node.Node

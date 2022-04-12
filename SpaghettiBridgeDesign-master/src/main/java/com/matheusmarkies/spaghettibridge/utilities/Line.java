@@ -84,9 +84,7 @@ public class Line {
             return false;
         if (Double.doubleToLongBits(this.b) != Double.doubleToLongBits(other.b))
             return false;
-        if (Double.doubleToLongBits(this.c) != Double.doubleToLongBits(other.c))
-            return false;
-        return true;
+        return Double.doubleToLongBits(this.c) == Double.doubleToLongBits(other.c);
     }
 
     @Override

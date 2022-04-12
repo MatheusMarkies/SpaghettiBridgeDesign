@@ -53,7 +53,7 @@ public class Angle {
         Vector2D C = Vector2D.add(Vector2D.normalize(nodeAngleTargetA.getPosition()),Vector2D.normalize(nodeAngleTargetB.getPosition()));
 
         System.out.println();
-        System.out.println(C.toString());
+        System.out.println(C);
         if(C.x() < 0 && -C.y() > 0)
         {
             //Terceiro Quadrante

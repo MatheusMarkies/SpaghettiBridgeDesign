@@ -38,33 +38,27 @@ public class Vector2D implements Serializable{
     }
 
     public static Vector2D add(Vector2D a, Vector2D b) {
-        Vector2D c = new Vector2D(a.x() + b.x(), a.y() + b.y());
-        return c;
+        return new Vector2D(a.x() + b.x(), a.y() + b.y());
     }
 
     public static Vector2D subtract(Vector2D a, Vector2D b) {
-        Vector2D c = new Vector2D(a.x() - b.x(), a.y() - b.y());
-        return c;
+        return new Vector2D(a.x() - b.x(), a.y() - b.y());
     }
 
     public static Vector2D multiply(Vector2D a, Vector2D b) {
-        Vector2D c = new Vector2D(a.x() * b.x(), a.y() * b.y());
-        return c;
+        return new Vector2D(a.x() * b.x(), a.y() * b.y());
     }
 
     public static Vector2D multiply(Vector2D a, double m) {
-        Vector2D c = new Vector2D(a.x() * m, a.y() * m);
-        return c;
+        return new Vector2D(a.x() * m, a.y() * m);
     }
 
     public static Vector2D multiply(Vector2D a, float m) {
-        Vector2D c = new Vector2D(a.x() * m, a.y() * m);
-        return c;
+        return new Vector2D(a.x() * m, a.y() * m);
     }
 
     public static Vector2D divide(Vector2D a, Vector2D b) {
-        Vector2D c = new Vector2D(a.x() / b.x(), a.y() / b.y());
-        return c;
+        return new Vector2D(a.x() / b.x(), a.y() / b.y());
     }
 
     public static double distance(Vector2D a, Vector2D b) {
@@ -72,8 +66,7 @@ public class Vector2D implements Serializable{
     }
 
     public static Vector2D getCenter(Vector2D a, Vector2D b) {
-        Vector2D vector2D = new Vector2D(b.x() + (a.x() - b.x()) / 2, b.y() + (a.y() - b.y()) / 2);
-        return vector2D;
+        return new Vector2D(b.x() + (a.x() - b.x()) / 2, b.y() + (a.y() - b.y()) / 2);
     }
 
     public static double magnetude(Vector2D a) {
@@ -81,7 +74,7 @@ public class Vector2D implements Serializable{
     }
 
     public static Vector2D normalize(Vector2D a) {
-        return new Vector2D(a.x() / a.magnetude(a), a.y() / a.magnetude(a));
+        return new Vector2D(a.x() / magnetude(a), a.y() / magnetude(a));
     }
 
     public static double scalar(Vector2D a, Vector2D b) {
@@ -102,8 +95,8 @@ public class Vector2D implements Serializable{
     }
     
     public static Vector2D clampMagnetude(Vector2D vec, double min, double max){
-      double newMagnetude = Math.max(min, Math.min(max, vec.magnetude(vec)));
-      double z = newMagnetude / vec.magnetude(vec);
+      double newMagnetude = Math.max(min, Math.min(max, magnetude(vec)));
+      double z = newMagnetude / magnetude(vec);
       return new Vector2D(z * vec.x(), z * vec.y());
     }
     

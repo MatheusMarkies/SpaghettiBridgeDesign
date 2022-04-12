@@ -23,17 +23,14 @@ public class SetLoadNodeController implements Initializable {
     @FXML
     void selectNodeButtonAction(ActionEvent event) {
         if(select_node_choice.getValue() != null){
-            for (Node node : bridgeMain.bridgeManager.getNodes())
-                if (node.getNodeName().equals(select_node_choice.getValue()))
-                    node.setIsCargoReciver(true);
-            else
-                    node.setIsCargoReciver(false);
+            for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
+                node.setIsCargoReciver(node.getNodeName().equals(select_node_choice.getValue()));
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        for (Node node : bridgeMain.bridgeManager.getNodes())
+        for (Node node : SpaghettiBridgeMain.bridgeManager.getNodes())
             select_node_choice.getItems().add(node.getNodeName());
     }
 

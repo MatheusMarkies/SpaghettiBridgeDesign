@@ -199,39 +199,39 @@ public class MainFrameController implements Initializable {
         df.setRoundingMode(RoundingMode.CEILING);
 
         consoleManager.printLog("");
-        for (ComponentTemplate componentTemplate : bridgeMain.bridgeManager.getCalculationComponents().getComponentTemplates()) {
-            consoleManager.printLog(componentTemplate.getComponentName() + ": " + df.format(bridgeMain.bridgeManager.getCalculationComponents().getMatrixs().get(2)[componentTemplate.getIndex()][0]) + "N");
+        for (ComponentTemplate componentTemplate : SpaghettiBridgeMain.bridgeManager.getCalculationComponents().getComponentTemplates()) {
+            consoleManager.printLog(componentTemplate.getComponentName() + ": " + df.format(SpaghettiBridgeMain.bridgeManager.getCalculationComponents().getMatrixs().get(2)[componentTemplate.getIndex()][0]) + "N");
         }
 
         consoleManager.printLog("");
-        for (Bar bar : bridgeMain.bridgeManager.getBars()) {
+        for (Bar bar : SpaghettiBridgeMain.bridgeManager.getBars()) {
             consoleManager.printLog(bar.getBarName() + ": " + bar.getNumberOfWires() + " Fios");
         }
     }
 
     void calculateBarForces() {
-        bridgeMain.bridgeManager.setEquations(new ArrayList<>());
+        SpaghettiBridgeMain.bridgeManager.setEquations(new ArrayList<>());
 
-        for (com.matheusmarkies.spaghettibridge.objects.node.Node entry : bridgeMain.bridgeManager.getNodes()) {
-            bridgeMain.bridgeManager.addEquation(EquationAssembler.getForcePerNodeWithAngles(entry, entry.isCargoReciver())[0]);
-            bridgeMain.bridgeManager.addEquation(EquationAssembler.getForcePerNodeWithAngles(entry, entry.isCargoReciver())[1]);
+        for (com.matheusmarkies.spaghettibridge.objects.node.Node entry : SpaghettiBridgeMain.bridgeManager.getNodes()) {
+            SpaghettiBridgeMain.bridgeManager.addEquation(EquationAssembler.getForcePerNodeWithAngles(entry, entry.isCargoReciver())[0]);
+            SpaghettiBridgeMain.bridgeManager.addEquation(EquationAssembler.getForcePerNodeWithAngles(entry, entry.isCargoReciver())[1]);
         }
 
-        String[] equations = bridgeMain.bridgeManager.getEquations().toArray(new String[bridgeMain.bridgeManager.getEquations().size()]);
+        String[] equations = SpaghettiBridgeMain.bridgeManager.getEquations().toArray(new String[0]);
         try {
-            bridgeMain.bridgeManager.setCalculationComponents(
+            SpaghettiBridgeMain.bridgeManager.setCalculationComponents(
                     com.matheusmarkies.spaghettibridge.main.calculator.WireCalculator.calculateBarsForces(
                             equations,
-                            bridgeMain.bridgeManager.getBars(),
-                            bridgeMain.bridgeManager.getReactions(),
-                            bridgeMain.bridgeManager.getMaterial(),
-                            bridgeMain.bridgeManager.getTestLoadInAction()
+                            SpaghettiBridgeMain.bridgeManager.getBars(),
+                            SpaghettiBridgeMain.bridgeManager.getReactions(),
+                            SpaghettiBridgeMain.bridgeManager.getMaterial(),
+                            SpaghettiBridgeMain.bridgeManager.getTestLoadInAction()
                     ));
         } catch (Exception e) {
             consoleManager.printLog("[Calcular fios] Impossivel calcular fios");
         }
 
-        bridgeMain.bridgeManager.updateBarsColors();
+        SpaghettiBridgeMain.bridgeManager.updateBarsColors();
         //for (Bar bar : bridgeMain.bridgeManager.getBars())
         //System.out.println("Linha elastica: " + Deformation.getElasticLineIntegral(Vector2D.distance(bar.getNodeStart().getPosition(), bar.getNodeEnd().getPosition()) / 2, bar.getBarForce(), bar));
         showBridge.showBars();
@@ -239,11 +239,11 @@ public class MainFrameController implements Initializable {
 
     @FXML
     void createBarButtonAction(ActionEvent event) {
-        if (bridgeMain.bridgeManager.getNodes().size() > 1) {
+        if (SpaghettiBridgeMain.bridgeManager.getNodes().size() > 1) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                         "/com/matheusmarkies/spaghettibridge/CreateBar.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
+                Parent root = fxmlLoader.load();
 
                 com.matheusmarkies.spaghettibridge.popup.CreateBarController createBarController = fxmlLoader.getController();
 
@@ -255,7 +255,7 @@ public class MainFrameController implements Initializable {
                 stage.setScene(new Scene(root));
 
                 stage.show();
-            } catch (IOException ex) {
+            } catch (IOException ignored) {
 
             }
         }
@@ -266,9 +266,9 @@ public class MainFrameController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                     "/com/matheusmarkies/spaghettibridge/CreateNode.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+            Parent root = fxmlLoader.load();
 
-            bridgeMain.bridgeManager.setTranslateVector(new Vector2D(0,0));
+            SpaghettiBridgeMain.bridgeManager.setTranslateVector(new Vector2D(0,0));
             updateBridge();
 
             CreateNodeController createNodeController = fxmlLoader.getController();
@@ -287,29 +287,29 @@ public class MainFrameController implements Initializable {
                 }
             });
             stage.show();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
 
         }
     }
 
     @FXML
     void assembleEquationsButtonAction(ActionEvent event) {
-        bridgeMain.bridgeManager.setEquations(new ArrayList<>());
+        SpaghettiBridgeMain.bridgeManager.setEquations(new ArrayList<>());
 
-        for (com.matheusmarkies.spaghettibridge.objects.node.Node entry : bridgeMain.bridgeManager.getNodes()) {
+        for (com.matheusmarkies.spaghettibridge.objects.node.Node entry : SpaghettiBridgeMain.bridgeManager.getNodes()) {
             consoleManager.printLog(EquationAssembler.getForcePerNode(entry, entry.isCargoReciver())[0]);
             consoleManager.printLog(EquationAssembler.getForcePerNode(entry, entry.isCargoReciver())[1]);
 
-            bridgeMain.bridgeManager.addEquation(EquationAssembler.getForcePerNode(entry, entry.isCargoReciver())[0]);
-            bridgeMain.bridgeManager.addEquation(EquationAssembler.getForcePerNode(entry, entry.isCargoReciver())[1]);
+            SpaghettiBridgeMain.bridgeManager.addEquation(EquationAssembler.getForcePerNode(entry, entry.isCargoReciver())[0]);
+            SpaghettiBridgeMain.bridgeManager.addEquation(EquationAssembler.getForcePerNode(entry, entry.isCargoReciver())[1]);
         }
     }
 
     @FXML
     void deformationButtonAction(ActionEvent event) {
         consoleManager.clear();
-        for (Bar bar : bridgeMain.bridgeManager.getBars())
-            consoleManager.printLog(bar.getBarName() + ": " + (Math.round(com.matheusmarkies.spaghettibridge.main.calculator.Deformation.getBarDeformation(bridgeMain.bridgeManager.getMaterial(), bar) * 1000) / 1000) + "cm");
+        for (Bar bar : SpaghettiBridgeMain.bridgeManager.getBars())
+            consoleManager.printLog(bar.getBarName() + ": " + (Math.round(com.matheusmarkies.spaghettibridge.main.calculator.Deformation.getBarDeformation(SpaghettiBridgeMain.bridgeManager.getMaterial(), bar) * 1000) / 1000) + "cm");
     }
 
     @FXML
@@ -337,16 +337,16 @@ public class MainFrameController implements Initializable {
 
     @FXML
     void onClickedZoomAddButton(ActionEvent event) {
-        bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient() + 0.2d);
-        down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+        SpaghettiBridgeMain.bridgeManager.setZoomCoefficient(SpaghettiBridgeMain.bridgeManager.getZoomCoefficient() + 0.2d);
+        down_status.setText("Zoom: "+Math.floor(SpaghettiBridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
 
         updateBridge();
     }
 
     @FXML
     void onClickedZoomDecreaseButton(ActionEvent event) {
-        bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient()-0.2d);
-        down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+        SpaghettiBridgeMain.bridgeManager.setZoomCoefficient(SpaghettiBridgeMain.bridgeManager.getZoomCoefficient()-0.2d);
+        down_status.setText("Zoom: "+Math.floor(SpaghettiBridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
 
         updateBridge();
     }
@@ -354,18 +354,18 @@ public class MainFrameController implements Initializable {
     boolean notChangeValue = false;
     @FXML
     void onMouseScrollEvent(ScrollEvent event) {
-        bridgeMain.bridgeManager.setZoomCoefficient(bridgeMain.bridgeManager.getZoomCoefficient()+event.getDeltaY()/100);
-        down_status.setText("Zoom: "+Math.floor(bridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
+        SpaghettiBridgeMain.bridgeManager.setZoomCoefficient(SpaghettiBridgeMain.bridgeManager.getZoomCoefficient()+event.getDeltaY()/100);
+        down_status.setText("Zoom: "+Math.floor(SpaghettiBridgeMain.bridgeManager.getZoomCoefficient()*10)/10+"x");
 
         notChangeValue = true;
-        menu_zoom_slider.setValue((100) * bridgeMain.bridgeManager.getZoomCoefficient() / 20);
+        menu_zoom_slider.setValue((100) * SpaghettiBridgeMain.bridgeManager.getZoomCoefficient() / 20);
 
         updateBridge();
     }
 
     @FXML
     void closeBridgeButtonAction(ActionEvent event) {
-        bridgeMain.bridgeManager.reset();
+        SpaghettiBridgeMain.bridgeManager.reset();
         updateBridge();
     }
 
@@ -377,10 +377,10 @@ public class MainFrameController implements Initializable {
         ));
         down_status.setText("Pan: x: "+panVector.x()+" y: "+panVector.y());
 
-        bridgeMain.bridgeManager.setTranslateVector(panVector);
+        SpaghettiBridgeMain.bridgeManager.setTranslateVector(panVector);
 
         ArrayList<Bar> selectedBars = new ArrayList<>();
-        bridgeMain.bridgeManager.setSelectedBar(selectedBars);
+        SpaghettiBridgeMain.bridgeManager.setSelectedBar(selectedBars);
 
         updateBridge();
     }
@@ -397,23 +397,23 @@ public class MainFrameController implements Initializable {
         showBridge.showMeasure();
 
         int showZoomDimension = 10;
-        if (bridgeMain.bridgeManager.getZoomCoefficient() < 1f)
+        if (SpaghettiBridgeMain.bridgeManager.getZoomCoefficient() < 1f)
             showZoomDimension = 100;
 
         menu_zoom_label.setText(
-                Math.floor(bridgeMain.bridgeManager.getZoomCoefficient() * showZoomDimension) / showZoomDimension
+                Math.floor(SpaghettiBridgeMain.bridgeManager.getZoomCoefficient() * showZoomDimension) / showZoomDimension
                         + "x");
     }
 
     @FXML
     void setTestLoadNodeButtonAction(ActionEvent event) {
-        if(bridgeMain.bridgeManager.getNodes().size() > 0) {
+        if(SpaghettiBridgeMain.bridgeManager.getNodes().size() > 0) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                         "/com/matheusmarkies/spaghettibridge/SetLoadNode.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
+                Parent root = fxmlLoader.load();
 
-                bridgeMain.bridgeManager.setTranslateVector(new Vector2D(0, 0));
+                SpaghettiBridgeMain.bridgeManager.setTranslateVector(new Vector2D(0, 0));
                 updateBridge();
 
                 SetLoadNodeController setLoadNodeController = fxmlLoader.getController();
@@ -426,7 +426,7 @@ public class MainFrameController implements Initializable {
                 stage.setScene(new Scene(root));
 
                 stage.show();
-            } catch (IOException ex) {
+            } catch (IOException ignored) {
 
             }
         }
@@ -446,10 +446,8 @@ public class MainFrameController implements Initializable {
         File materialFolder = new File(BridgeManager.getMaterialDataFolder());
         if (materialFolder.exists()) {
             try {
-                bridgeMain.bridgeManager.setMaterial(Save.openMaterial(materialFolder));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+                SpaghettiBridgeMain.bridgeManager.setMaterial(Save.openMaterial(materialFolder));
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
@@ -481,11 +479,11 @@ public class MainFrameController implements Initializable {
 
                     ArrayList<Bar> selectedBars = new ArrayList<>();
 
-                    for (Bar bar : bridgeMain.bridgeManager.getBars())
+                    for (Bar bar : SpaghettiBridgeMain.bridgeManager.getBars())
                         if (bar.getBarName().equals(row.getItem().getName()))
                             selectedBars.add(bar);
 
-                    bridgeMain.bridgeManager.setSelectedBar(selectedBars);
+                    SpaghettiBridgeMain.bridgeManager.setSelectedBar(selectedBars);
                     updateBridge();
                 }
             });
@@ -501,7 +499,7 @@ public class MainFrameController implements Initializable {
                     Bar firstBar = new Bar();
                     Bar secondBar = new Bar();
 
-                        for (Bar bar : bridgeMain.bridgeManager.getBars()
+                        for (Bar bar : SpaghettiBridgeMain.bridgeManager.getBars()
                         ) {
                             if (bar.getBarName().equals(row.getItem().getFirstBar()) || bar.getBarName().equals(StringFeatures.invert(row.getItem().getFirstBar())))
                                 firstBar = bar;
@@ -514,7 +512,7 @@ public class MainFrameController implements Initializable {
                     selectedBars.add(firstBar);
                     selectedBars.add(secondBar);
 
-                    bridgeMain.bridgeManager.setSelectedBar(selectedBars);
+                    SpaghettiBridgeMain.bridgeManager.setSelectedBar(selectedBars);
 
                     showBridge.showBars();
                     }
@@ -522,47 +520,46 @@ public class MainFrameController implements Initializable {
             return row;
         });
 
-        menu_zoom_slider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(
-                    ObservableValue<? extends Number> observableValue,
-                    Number oldValue,
-                    Number newValue) {
+        menu_zoom_slider.valueProperty().addListener((observableValue, oldValue, newValue) -> {
 
-                if(!notChangeValue) {
-                    if (newValue.floatValue() <= 50) {
-                        bridgeMain.bridgeManager.setZoomCoefficient(
-                                0.125f + ((1 - 0.125f) * (newValue.floatValue() / 50))
-                        );
-                    } else {
-                        bridgeMain.bridgeManager.setZoomCoefficient(
-                                1f + ((20f - 1f) * ((newValue.floatValue() - 50) / 50))
-                        );
-                    }
+            if(!notChangeValue) {
+                if (newValue.floatValue() <= 50) {
+                    SpaghettiBridgeMain.bridgeManager.setZoomCoefficient(
+                            0.125f + ((1 - 0.125f) * (newValue.floatValue() / 50))
+                    );
+                } else {
+                    SpaghettiBridgeMain.bridgeManager.setZoomCoefficient(
+                            1f + ((20f - 1f) * ((newValue.floatValue() - 50) / 50))
+                    );
                 }
-                notChangeValue = false;
-                updateBridge();
             }
+            notChangeValue = false;
+            updateBridge();
         });
 
         URL resource = MainFrameController.class
                 .getResource("/com/matheusmarkies/spaghettibridge/resources/bridge-nodes.png");
+        assert resource != null;
         changeButtonImage(create_node_button, resource);
 
         resource = MainFrameController.class
                 .getResource("/com/matheusmarkies/spaghettibridge/resources/bridge-bars.png");
+        assert resource != null;
         changeButtonImage(create_bar_button, resource);
 
         resource = MainFrameController.class
                 .getResource("/com/matheusmarkies/spaghettibridge/resources/calculate-wires.png");
+        assert resource != null;
         changeButtonImage(calculate_wires, resource);
 
         resource = MainFrameController.class
                 .getResource("/com/matheusmarkies/spaghettibridge/resources/assembler-equations.png");
+        assert resource != null;
         changeButtonImage(assembler_equations, resource);
 
         resource = MainFrameController.class
                 .getResource("/com/matheusmarkies/spaghettibridge/resources/set-measure.png");
+        assert resource != null;
         changeButtonImage(set_measure, resource);
     }
 
@@ -578,7 +575,7 @@ public class MainFrameController implements Initializable {
     @FXML
     void onMouseClickedEvent(MouseEvent event) {
         ArrayList<Bar> selectedBars = new ArrayList<>();
-        bridgeMain.bridgeManager.setSelectedBar(selectedBars);
+        SpaghettiBridgeMain.bridgeManager.setSelectedBar(selectedBars);
         updateBridge();
     }
 
@@ -587,7 +584,7 @@ public class MainFrameController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                     "/com/matheusmarkies/spaghettibridge/CreateMeasure.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+            Parent root = fxmlLoader.load();
 
             CreateMeasureController createMeasureController = fxmlLoader.getController();
 
@@ -605,12 +602,10 @@ public class MainFrameController implements Initializable {
             //);
             //stage.getIcons().add(stageImage);
 
-            stage.setOnCloseRequest(ev -> {
-                removeObjectToCanvas(createMeasureController.getPreview());
-            });
+            stage.setOnCloseRequest(ev -> removeObjectToCanvas(createMeasureController.getPreview()));
 
             stage.show();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
 
         }
     }
@@ -620,7 +615,7 @@ public class MainFrameController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                     "/com/matheusmarkies/spaghettibridge/ConfigMaterial.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+            Parent root = fxmlLoader.load();
 
             ConfigMaterialController configMaterialController = fxmlLoader.getController();
 
@@ -632,7 +627,7 @@ public class MainFrameController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
 
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
 
         }
     }
@@ -642,7 +637,7 @@ public class MainFrameController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                     "/com/matheusmarkies/spaghettibridge/SetTestLoad.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+            Parent root = fxmlLoader.load();
 
             SetTestLoadController loadController = fxmlLoader.getController();
 
@@ -653,14 +648,14 @@ public class MainFrameController implements Initializable {
             stage.setTitle("Editar Carga de Teste");
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
 
         }
     }
 
     @FXML
     void menuOpitionOpenAction(ActionEvent event) {
-        bridgeMain.bridgeManager.reset();
+        SpaghettiBridgeMain.bridgeManager.reset();
 
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         FileFilter bridgeFilter = new FileTypeFilter(".bridge", "Spaghetti Bridge Design Documents");
@@ -671,19 +666,19 @@ public class MainFrameController implements Initializable {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = jfc.getSelectedFile();
 
-            Bridge bridge = null;
+            Bridge bridge;
             try {
                 bridge = Save.openBridge(selectedFile);
 
                 for (BarSerializable bar : bridge.getBars()) {
-                    bridgeMain.bridgeManager.addBar(Bar.barSerializableToBar(bar));
+                    SpaghettiBridgeMain.bridgeManager.addBar(Bar.barSerializableToBar(bar));
                 }
                 for (NodeSerializable node : bridge.getNodes()) {
-                    bridgeMain.bridgeManager.addNode(node.nodeSerializableToNode(bridgeMain.bridgeManager.getBars()));
+                    SpaghettiBridgeMain.bridgeManager.addNode(node.nodeSerializableToNode(SpaghettiBridgeMain.bridgeManager.getBars()));
                 }
 
-                for (Bar bar : bridgeMain.bridgeManager.getBars())
-                    for (com.matheusmarkies.spaghettibridge.objects.node.Node node : bridgeMain.bridgeManager.getNodes()) {
+                for (Bar bar : SpaghettiBridgeMain.bridgeManager.getBars())
+                    for (com.matheusmarkies.spaghettibridge.objects.node.Node node : SpaghettiBridgeMain.bridgeManager.getNodes()) {
                         if (bar.getNodeStart().getNodeName().equals(node.getNodeName()))
                             bar.setNodeStart(node);
 
@@ -692,14 +687,12 @@ public class MainFrameController implements Initializable {
                     }
 
                 Material material = Save.openMaterial(new File(BridgeManager.getMaterialDataFolder()));
-                bridgeMain.bridgeManager.setMaterial(material);
+                SpaghettiBridgeMain.bridgeManager.setMaterial(material);
 
                 showBridge.showNodes();
                 showBridge.showBars();
                 showBridge.showReactions();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
@@ -708,11 +701,11 @@ public class MainFrameController implements Initializable {
     @FXML
     void menuOpitionSaveAction(ActionEvent event) {
         ArrayList<BarSerializable> barSerializables = new ArrayList<>();
-        for (Bar bar : bridgeMain.bridgeManager.getBars()) {
+        for (Bar bar : SpaghettiBridgeMain.bridgeManager.getBars()) {
             barSerializables.add(new BarSerializable(bar.getNodeStart().getNodeName(), bar.getNodeEnd().getNodeName(), bar.getBarName()));
         }
         ArrayList<NodeSerializable> nodeSerializables = new ArrayList<>();
-        for (com.matheusmarkies.spaghettibridge.objects.node.Node node : bridgeMain.bridgeManager.getNodes()) {
+        for (com.matheusmarkies.spaghettibridge.objects.node.Node node : SpaghettiBridgeMain.bridgeManager.getNodes()) {
             NodeSerializable nodeSerializable = new NodeSerializable();
             nodeSerializable.nodeToNodeSerializable(node);
             nodeSerializables.add(nodeSerializable);
@@ -721,7 +714,7 @@ public class MainFrameController implements Initializable {
             Save.saveBridge(
                     new Bridge(barSerializables, nodeSerializables)
             );
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
 
         }
     }

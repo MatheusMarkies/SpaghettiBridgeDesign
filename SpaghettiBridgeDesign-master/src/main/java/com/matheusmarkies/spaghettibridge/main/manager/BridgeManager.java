@@ -21,9 +21,9 @@ import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
  */
 public class BridgeManager {
 
-    ArrayList<Node> nodes = new ArrayList<Node>();
-    ArrayList<Bar> bars = new ArrayList<Bar>();
-    ArrayList<ReactionForces> reactions = new ArrayList<ReactionForces>();
+    ArrayList<Node> nodes = new ArrayList<>();
+    ArrayList<Bar> bars = new ArrayList<>();
+    ArrayList<ReactionForces> reactions = new ArrayList<>();
 
     ArrayList<String> equations = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class BridgeManager {
     
     CalculationComponents calculationComponents;
 
-    ArrayList<Bar> selectedBar = new ArrayList<Bar>();
+    ArrayList<Bar> selectedBar = new ArrayList<>();
 
     Material material = new Material();
     double testLoadForce = 100;
@@ -44,9 +44,9 @@ public class BridgeManager {
     static String appdataDir = System.getenv("APPDATA")+"\\Spaghetti Bridge Design";
 
     public void reset(){
-        nodes = new ArrayList<Node>();
-        bars = new ArrayList<Bar>();
-        reactions = new ArrayList<ReactionForces>();
+        nodes = new ArrayList<>();
+        bars = new ArrayList<>();
+        reactions = new ArrayList<>();
 
         equations = new ArrayList<>();
 
@@ -108,12 +108,9 @@ public class BridgeManager {
         Node cargoNode = getMiddleNode();
 
         for (Node node : nodes) {
-            node.setExternalForces(new ArrayList<ReactionForces>());
+            node.setExternalForces(new ArrayList<>());
 
-            if (cargoNode.equals(node))
-                node.setIsCargoReciver(true);
-            else
-                node.setIsCargoReciver(false);
+            node.setIsCargoReciver(cargoNode.equals(node));
         }
 
         reactions = calculateResultPoints();

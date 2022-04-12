@@ -31,7 +31,7 @@ public class SetTestLoadController implements Initializable {
     @FXML
     void saveLoadButtonAction(ActionEvent event) {
         if (!testload_inputfield.getText().equals(""))
-            bridgeMain.bridgeManager.setTestLoadForce(Double.parseDouble(testload_inputfield.getText()));
+            SpaghettiBridgeMain.bridgeManager.setTestLoadForce(Double.parseDouble(testload_inputfield.getText()));
     }
     
     com.matheusmarkies.spaghettibridge.main.SpaghettiBridgeMain bridgeMain;
@@ -42,7 +42,7 @@ public class SetTestLoadController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        testload_inputfield.setText(bridgeMain.bridgeManager.getTestLoadForce() + "");
+        testload_inputfield.setText(SpaghettiBridgeMain.bridgeManager.getTestLoadForce() + "");
     }
     
     public SpaghettiBridgeMain getBridgeMain() {
