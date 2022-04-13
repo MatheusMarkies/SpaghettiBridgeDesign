@@ -857,9 +857,9 @@ float arraowSize = Math.min(20f
 
         double angle = Math.toDegrees(Math.acos(Vector2D.dot(start, end)));
 
-        if(start.y() > end.y())
-            angle = Math.max(Math.toDegrees(Math.acos(Vector2D.dot(start, end))),
-                    Math.toDegrees(Math.acos(Vector2D.dot(end, start))));
+        //if(start.y() > end.y())
+            //angle = Math.max(Math.toDegrees(Math.acos(Vector2D.dot(start, end))),
+                    //Math.toDegrees(Math.acos(Vector2D.dot(end, start))));
 
         Text label = new Text();
 
@@ -868,6 +868,17 @@ float arraowSize = Math.min(20f
         Vector2D center = Vector2D.getCenter(start, end);
 
         //label.setRotate(-angle);
+
+        double sin = Math.floor(
+                Math.sqrt(1- Vector2D.dot(start, end)*Vector2D.dot(start, end))*10)/10;
+
+        Vector2D offset;
+        if(center.x() < 0)
+            offset = new Vector2D(60 * sin,30 * Vector2D.dot(start, end));
+        else
+            offset = new Vector2D(-60 * sin,30 * Vector2D.dot(start, end));
+
+        //center = Vector2D.add(center,offset);
 
         label.setX(center.x());
         label.setY(center.y());

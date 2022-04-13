@@ -132,7 +132,6 @@ public class Matrix {
         int n = index.length;
         double[] c = new double[n];
 
-        // Initialize the index
         for (int i = 0; i < n; ++i) {
             index[i] = i;
         }
