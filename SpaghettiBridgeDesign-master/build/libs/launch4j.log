@@ -1,0 +1,36 @@
+
+
+Version:	3.14
+CmdLine:	D:\Matheus Markies\Downloads\SpaghettiBridgeDesign-master\SpaghettiBridgeDesign-master\build\libs\SpaghettiBridgeDesign.exe --l4j-debug
+WOW64:		yes
+Working dir:	D:\Matheus Markies\Downloads\SpaghettiBridgeDesign-master\SpaghettiBridgeDesign-master\build\libs\.
+Java min ver:	1.008.000
+Java max ver:	
+Bundled JRE(s):	java-runtime
+Check launcher:	D:\Matheus Markies\Downloads\SpaghettiBridgeDesign-master\SpaghettiBridgeDesign-master\build\libs\java-runtime\bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files\Java\jre1.8.0_311\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_311
+Check launcher:	C:\Program Files\Java\jre1.8.0_311\bin\javaw.exe (OK)
+Match:		1.008.000_311
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_111
+Ignore:		1.008.000_111
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_311
+Ignore:		1.008.000_311
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\11.0.13
+Check launcher:	C:\Program Files\Java\jdk-11.0.13\bin\javaw.exe (OK)
+Match:		1.011.000_013
+Check:		SOFTWARE\JavaSoft\JDK\9.0.4
+Ignore:		1.009.000_004
+Runtime used:	1.011.000_013 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-11.0.13\bin\javaw.exe
+Launcher args:	-jar "D:\Matheus Markies\Downloads\SpaghettiBridgeDesign-master\SpaghettiBridgeDesign-master\build\libs\SpaghettiBridgeDesign.exe"
+Args length:	130/32768 chars
+Exit code:	0
