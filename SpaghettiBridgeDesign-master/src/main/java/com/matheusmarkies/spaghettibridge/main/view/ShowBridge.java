@@ -447,6 +447,10 @@ public class ShowBridge{
 
             float mag = 0.5f;
 
+            barsLabelsInPlane.add(setTextOrthogonal(nodeStartPosition,
+                    nodeEndPosition,
+                    (int) entry.getBarForce() + "N"));
+
             arrowA.setArrowInPlane(canvas_plane);
             arrowB.setArrowInPlane(canvas_plane);
 
