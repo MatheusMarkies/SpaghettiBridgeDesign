@@ -5,6 +5,7 @@
  */
 package com.matheusmarkies.spaghettibridge.main.view;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import com.matheusmarkies.spaghettibridge.main.tables.AngleTable;
@@ -498,14 +499,20 @@ public class ShowBridge{
                             Vector2D.multiply(lineVector, -lineSize * 0.35f
                             )), entry , true);
 
+            String tensionText = entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Tração";
+            String compressionText = entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Compressão";
+
             if(entry.getBarForce() > 0)
             barsLabelsInPlane.add(setTextOrthogonal(nodeStartPositionCanvas,
-                    nodeEndPositionCanvas,
-                    entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Tensao"));
+                    nodeEndPositionCanvas,new String(
+                            tensionText.getBytes(), StandardCharsets.UTF_8)
+            ));
             else
                 barsLabelsInPlane.add(setTextOrthogonal(nodeStartPositionCanvas,
                     nodeEndPositionCanvas,
-                    entry.getBarName() + " " + (int) entry.getBarForce() + "N" + " Compressao"));
+                        new String(
+                                compressionText.getBytes(), StandardCharsets.UTF_8)
+                    ));
 
             barsInPlane.add(line);
 
