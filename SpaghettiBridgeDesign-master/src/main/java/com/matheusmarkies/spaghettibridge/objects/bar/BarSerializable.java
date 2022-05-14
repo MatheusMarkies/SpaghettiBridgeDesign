@@ -6,8 +6,6 @@
 package com.matheusmarkies.spaghettibridge.objects.bar;
 
 import java.io.Serializable;
-import com.matheusmarkies.spaghettibridge.objects.node.Node;
-import com.matheusmarkies.spaghettibridge.objects.node.NodeSerializable;
 
 /**
  *

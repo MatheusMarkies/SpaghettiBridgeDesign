@@ -6,7 +6,7 @@
 package com.matheusmarkies.spaghettibridge.objects.node;
 
 import java.io.Serializable;
-import java.util.Objects;
+
 import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
 
 /**

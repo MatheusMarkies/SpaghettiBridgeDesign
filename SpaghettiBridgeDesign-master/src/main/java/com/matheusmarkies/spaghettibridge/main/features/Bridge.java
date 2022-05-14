@@ -7,9 +7,8 @@ package com.matheusmarkies.spaghettibridge.main.features;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import com.matheusmarkies.spaghettibridge.objects.bar.Bar;
+
 import com.matheusmarkies.spaghettibridge.objects.bar.BarSerializable;
-import com.matheusmarkies.spaghettibridge.objects.node.Node;
 import com.matheusmarkies.spaghettibridge.objects.node.NodeSerializable;
 
 /**

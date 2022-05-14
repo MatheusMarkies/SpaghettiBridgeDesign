@@ -5,11 +5,8 @@
  */
 package com.matheusmarkies.spaghettibridge.objects.bar;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import com.matheusmarkies.spaghettibridge.objects.node.Node;
-import com.matheusmarkies.spaghettibridge.objects.node.NodeSerializable;
 
 /**
  *

@@ -6,10 +6,9 @@
 package com.matheusmarkies.spaghettibridge.main.calculator;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import com.matheusmarkies.spaghettibridge.material.Material;
 import com.matheusmarkies.spaghettibridge.objects.bar.Bar;
-import com.matheusmarkies.spaghettibridge.objects.node.Node;
 import com.matheusmarkies.spaghettibridge.utilities.Matrix;
 import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
 

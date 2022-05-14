@@ -35,7 +35,7 @@ public class Deformation {
         System.out.println("x: "+x);
         System.out.println("L: "+ barLength);
         System.out.println("F: "+ force);
-        double elasticLine = (1 / 24) * (2 *50* barLength * x*x*x - 50 * x*x*x*x - 50 * barLength*barLength*barLength);
+        double elasticLine = (1 / 24) * (2 *force* barLength * x*x*x - force * x*x*x*x - force * barLength*barLength*barLength);
         //                    1/24(2PLx^3 - Px^4 - PL^3)
         return elasticLine;
     }
