@@ -12,8 +12,7 @@ import com.matheusmarkies.spaghettibridge.utilities.Vector2D;
 /**
  *
  * @author Matheus Markies
- */
-/**
+
  * Classe responsável por realizar os cálculos de deformação de barras em uma estrutura treliçada.
  * Utiliza propriedades do material, geometria das barras e forças atuantes para estimar deformações
  * segundo a Teoria da Elasticidade (Lei de Hooke).
